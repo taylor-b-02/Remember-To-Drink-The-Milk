@@ -15,7 +15,8 @@ module.exports = {
       },
       userName: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50),
+        unique: true
       },
       dateOfBirth: {
         allowNull: false,
