@@ -26,9 +26,9 @@ const loginValidator = [
 const userValidators = [
 	check("username")
 		.exists({ checkFalsy: true })
-		.withMessage("Please provide a value for Last Name")
+		.withMessage("Please provide a value for User Name")
 		.isLength({ max: 50 })
-		.withMessage("Last Name must not be more than 50 characters long"),
+		.withMessage("User Name must not be more than 50 characters long"),
 	check("email")
 		.exists({ checkFalsy: true })
 		.withMessage("Please provide a value for Email Address")
@@ -37,7 +37,7 @@ const userValidators = [
 		.isEmail()
 		.withMessage("Email Address is not a valid email")
 		.custom((value) => {
-			return db.User.findOne({ where: { emailAddress: value } }).then(
+			return db.User.findOne({ where: { email: value } }).then(
 				(user) => {
 					if (user) {
 						return Promise.reject(
@@ -94,7 +94,7 @@ router.get(
 	"/register",
 	csrfProtection,
 	asyncHandler(async (req, res) => {
-		res.render("user-register", { title: "Register" });
+		res.render("user-register", { title: "Register", csrfToken: req.csrfToken() });
 	})
 );
 
@@ -173,22 +173,26 @@ router.get(
 
 //POST new users (register)
 router.post(
-	"/",
+	"/register",
 	csrfProtection,
 	userValidators,
 	handleValidationErrors,
-	asyncHandler(async (req, res) => {
+	asyncHandler(async (req, res, next) => {
 		const { username, email, password, dateOfBirth } = req.body;
-
+		console.log(username);
+		console.log(email);
+		console.log(password);
+		console.log(dateOfBirth);
+		
 		const hashedPassword = await bcrypt.hash(password, 10);
 
 		await User.create({
-			username: username,
+			userName: username,
 			email: email,
 			hashedPassword: hashedPassword,
 			dateOfBirth: dateOfBirth,
 		});
-		res.redirect("/:id(\\d+)"); //could be /:id(\\d+)
+		res.redirect("/"); //could be /:id(\\d+)
 	})
 );
 
