@@ -1,4 +1,7 @@
 extends layout.pug
 
-block content 
-    h1 We made it! 
+block content
+    h3= `Hello ${user.userName}`
+    div(id="lists")
+    div(id="current-list")
+    div(id="summary")

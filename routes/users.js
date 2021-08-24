@@ -2,13 +2,20 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/models");
 const bcrypt = require("bcryptjs");
-const {loginUser, logoutUser, restoreUser, requireAuth} = require('../auth');
+const path = require("path");
+const { loginUser, logoutUser, restoreUser, requireAuth } = require("../auth");
 
-const {csrfProtection,asyncHandler,handleValidationErrors,} = require("../utils");
+const {
+	csrfProtection,
+	asyncHandler,
+	handleValidationErrors,
+} = require("../utils");
 
 const { check } = require("express-validator");
 
 const { User } = db;
+
+router.use(express.static("public"));
 
 const loginValidator = [
 	check("loginIdentifier")
@@ -35,15 +42,13 @@ const userValidators = [
 		.isEmail()
 		.withMessage("Email Address is not a valid email")
 		.custom((value) => {
-			return db.User.findOne({ where: { email: value } }).then(
-				(user) => {
-					if (user) {
-						return Promise.reject(
-							"The provided Email Address is already in use by another account"
-						);
-					}
+			return db.User.findOne({ where: { email: value } }).then((user) => {
+				if (user) {
+					return Promise.reject(
+						"The provided Email Address is already in use by another account"
+					);
 				}
-			);
+			});
 		}),
 	check("password")
 		.exists({ checkFalsy: true })
@@ -69,8 +74,8 @@ const userValidators = [
 /* GET users listing. */
 //GET user profile
 router.get(
-	"/:id(\\d+)/edit",// add /profile?edit?
-  requireAuth, 
+	"/:id(\\d+)/edit", // add /profile?edit?
+	requireAuth,
 	asyncHandler(async (req, res, next) => {
 		const userId = parseInt(req.params.id, 10);
 		const user = await db.User.findByPk(userId);
@@ -80,21 +85,24 @@ router.get(
 
 //GET user main page
 router.get(
-    "/:id(\\d+)",
-    requireAuth,
-    asyncHandler(async(req, res, next) => {
-        const userId = parseInt(req.params.id, 10);
+	"/:id(\\d+)",
+	requireAuth,
+	asyncHandler(async (req, res, next) => {
+		const userId = parseInt(req.params.id, 10);
 		const user = await db.User.findByPk(userId);
-        res.render("user-home", { title: "Home", user } )
-    })
-)
+		res.render("user-home", { title: "Home", user });
+	})
+);
 
 //GET registration page with form
 router.get(
 	"/register",
 	csrfProtection,
 	asyncHandler(async (req, res) => {
-		res.render("user-register", { title: "Register", csrfToken: req.csrfToken() });
+		res.render("user-register", {
+			title: "Register",
+			csrfToken: req.csrfToken(),
+		});
 	})
 );
 
@@ -118,36 +126,35 @@ router.post(
 	handleValidationErrors,
 	asyncHandler(async (req, res, next) => {
 		const { loginIdentifier, password } = req.body;
-    let user;
-			if (loginIdentifier.includes("@")) {
-				 user = await User.findOne({
-					where: {
-						email: loginIdentifier,
-					},
-				});
-			} else {
-			   user = await user.findOne({
-					where: {
-						username: loginIdentifier,
-					},
-				});
-			}
+		let user;
+		if (loginIdentifier.includes("@")) {
+			user = await User.findOne({
+				where: {
+					email: loginIdentifier,
+				},
+			});
+		} else {
+			user = await user.findOne({
+				where: {
+					username: loginIdentifier,
+				},
+			});
+		}
 
-				// const match = await bcrypt.compare(password, user.hashedPassword);
-				const passwordMatch = await bcrypt.compare(
-					password,
-					user.hashedPassword.toString()
-				);
+		// const match = await bcrypt.compare(password, user.hashedPassword);
+		const passwordMatch = await bcrypt.compare(
+			password,
+			user.hashedPassword.toString()
+		);
 
-				if (passwordMatch) {
-					loginUser(req, res, user);
-					return res.redirect(`/users/${user.id}`); //:id(\\d+
-				}
-				// errors(
-				// 	"Login failed for the provided email address/username and password"
-				// );
-        // next()
-		
+		if (passwordMatch) {
+			loginUser(req, res, user);
+			return res.redirect(`/users/${user.id}`); //:id(\\d+
+		}
+		// errors(
+		// 	"Login failed for the provided email address/username and password"
+		// );
+		// next()
 
 		res.render("user-login", {
 			title: "Login",
@@ -159,13 +166,10 @@ router.post(
 );
 
 //POST logout page with form
-router.post(
-	"/logout",
-	(req, res) => {
-    logoutUser(req, res);
-    res.redirect('/')
-  });
-
+router.post("/logout", (req, res) => {
+	logoutUser(req, res);
+	res.redirect("/");
+});
 
 //POST new users (register)
 router.post(
@@ -179,7 +183,7 @@ router.post(
 		console.log(email);
 		console.log(password);
 		console.log(dateOfBirth);
-		
+
 		const hashedPassword = await bcrypt.hash(password, 10);
 
 		const newUser = await User.create({
