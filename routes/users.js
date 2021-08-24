@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/models");
 const bcrypt = require("bcryptjs");
+const {loginUser, logoutUser, restoreUser, requireAuth} = require('../auth');
 const {
 	csrfProtection,
 	asyncHandler,
@@ -13,7 +14,7 @@ const { check } = require("express-validator");
 const { User } = db;
 
 const loginValidator = [
-	check("login-identifier")
+	check("loginIdentifier")
 		.exists({ checkFalsy: true })
 		.withMessage(
 			"Please provide your Username or Email Address for authentication"
@@ -116,27 +117,23 @@ router.post(
 	csrfProtection,
 	loginValidator,
 	handleValidationErrors,
-	asyncHandler(async (req, res) => {
+	asyncHandler(async (req, res, next) => {
 		const { loginIdentifier, password } = req.body;
-
-		let errors = [];
-		const validatorErrors = validationResult(req);
-		if (user) {
+    let user;
 			if (loginIdentifier.includes("@")) {
-				const user = await User.findOne({
+				 user = await User.findOne({
 					where: {
 						email: loginIdentifier,
 					},
 				});
 			} else {
-				const user = await user.findOne({
+			   user = await user.findOne({
 					where: {
 						username: loginIdentifier,
 					},
 				});
 			}
 
-			if (validatorErrors.isEmpty()) {
 				// const match = await bcrypt.compare(password, user.hashedPassword);
 				const passwordMatch = await bcrypt.compare(
 					password,
@@ -147,13 +144,11 @@ router.post(
 					loginUser(req, res, user);
 					return res.redirect("/:id(\\d+)");
 				}
-				errors.push(
-					"Login failed for the provided email address/username and password"
-				);
-			} else {
-				errors = validatorErrors.array().map((error) => error.msg);
-			}
-		}
+				// errors(
+				// 	"Login failed for the provided email address/username and password"
+				// );
+        // next()
+		
 
 		res.render("user-login", {
 			title: "Login",
