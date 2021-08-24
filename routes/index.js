@@ -1,5 +1,4 @@
 var express = require('express');
-const { INTEGER } = require('sequelize/types');
 var router = express.Router();
 
 /* GET home page. */
