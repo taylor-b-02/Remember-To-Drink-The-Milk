@@ -28,7 +28,8 @@ ul {
 
 a {
 	/* display: inline-flex; */
-	margin: 20px;
+	margin: 10px;
+	margin-left: 0px;
 	font-size: 20px;
 	text-decoration: none;
 	border: white solid;
@@ -54,4 +55,5 @@ button {
 	padding: 4px;
 	color: white;
 	margin-right: 20px;
+	margin-left: 0px;
 }
