@@ -5,4 +5,9 @@ html
         title="Express Starter App"
         link(rel='stylesheet' href='/stylesheets/reset.css')
   body
+    nav
+      ul
+        li: a(href="/users/login") Login
+        li 
+          form(action="/users/logout" method= "post"): button(type="submit") Logout
     block content

@@ -3,11 +3,8 @@ const router = express.Router();
 const db = require("../db/models");
 const bcrypt = require("bcryptjs");
 const {loginUser, logoutUser, restoreUser, requireAuth} = require('../auth');
-const {
-	csrfProtection,
-	asyncHandler,
-	handleValidationErrors,
-} = require("../utils");
+
+const {csrfProtection,asyncHandler,handleValidationErrors,} = require("../utils");
 
 const { check } = require("express-validator");
 
@@ -72,7 +69,8 @@ const userValidators = [
 /* GET users listing. */
 //GET user profile
 router.get(
-	"/:id(\\d+)/edit", // add /profile?edit?
+	"/:id(\\d+)/edit",// add /profile?edit?
+  requireAuth, 
 	asyncHandler(async (req, res, next) => {
 		const userId = parseInt(req.params.id, 10);
 		const user = await db.User.findByPk(userId);
@@ -83,6 +81,7 @@ router.get(
 //GET user main page
 router.get(
     "/:id(\\d+)",
+    requireAuth,
     asyncHandler(async(req, res, next) => {
         const userId = parseInt(req.params.id, 10);
 		const user = await db.User.findByPk(userId);
@@ -142,7 +141,7 @@ router.post(
 
 				if (passwordMatch) {
 					loginUser(req, res, user);
-					return res.redirect("/:id(\\d+)");
+					return res.redirect(`/users/${user.id}`); //:id(\\d+
 				}
 				// errors(
 				// 	"Login failed for the provided email address/username and password"
@@ -159,12 +158,14 @@ router.post(
 	})
 );
 
-//GET login page with form
-router.get(
+//POST logout page with form
+router.post(
 	"/logout",
-	csrfProtection,
-	asyncHandler(async (req, res) => {})
-);
+	(req, res) => {
+    logoutUser(req, res);
+    res.redirect('/')
+  });
+
 
 //POST new users (register)
 router.post(
@@ -181,13 +182,13 @@ router.post(
 		
 		const hashedPassword = await bcrypt.hash(password, 10);
 
-		await User.create({
+		const newUser = await User.create({
 			userName: username,
 			email: email,
 			hashedPassword: hashedPassword,
 			dateOfBirth: dateOfBirth,
 		});
-		res.redirect("/"); //could be /:id(\\d+)
+		res.redirect(`/users/${newUser.id}`); //could be /:id(\\d+)
 	})
 );
 
