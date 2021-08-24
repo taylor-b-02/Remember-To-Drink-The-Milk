@@ -19,14 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   ExtraOwners.associate = function(models) {
-    ExtraOwners.belongsTo(models.User, {
-        as: 'extraOwner',
-        foreignKey: 'extraOwnerId'
-    }),
-    ExtraOwners.belongsTo(models.List, {
-        as: 'list',
-        foreignKey: 'listId'
-    })
+    ExtraOwners.belongsTo(models.User, { foreignKey: 'extraOwnerId' }),
+    ExtraOwners.belongsTo(models.Lists, { foreignKey: 'listId' })
   };
   return ExtraOwners;
 };
