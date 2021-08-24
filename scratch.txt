@@ -1,0 +1,1 @@
+npx sequelize-cli model:generate --name Fee --attributes description:string,amount:numeric,invoiceId:integer
