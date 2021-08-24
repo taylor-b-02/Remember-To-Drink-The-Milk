@@ -71,13 +71,23 @@ const userValidators = [
 /* GET users listing. */
 //GET user profile
 router.get(
-	"/:id(\\d+)",
+	"/:id(\\d+)/edit", // add /profile?edit?
 	asyncHandler(async (req, res, next) => {
 		const userId = parseInt(req.params.id, 10);
 		const user = await db.User.findByPk(userId);
 		res.render("user-profile", { title: "User", user });
 	})
 );
+
+//GET user main page
+router.get(
+    "/:id(\\d+)",
+    asyncHandler(async(req, res, next) => {
+        const userId = parseInt(req.params.id, 10);
+		const user = await db.User.findByPk(userId);
+        res.render("user-home", { title: "Home", user } )
+    })
+)
 
 //GET registration page with form
 router.get(
@@ -135,7 +145,7 @@ router.post(
 
 				if (passwordMatch) {
 					loginUser(req, res, user);
-					return res.redirect("/lists");
+					return res.redirect("/:id(\\d+)");
 				}
 				errors.push(
 					"Login failed for the provided email address/username and password"
@@ -178,7 +188,7 @@ router.post(
 			hashedPassword: hashedPassword,
 			dateOfBirth: dateOfBirth,
 		});
-		res.redirect("/lists");
+		res.redirect("/:id(\\d+)"); //could be /:id(\\d+)
 	})
 );
 
