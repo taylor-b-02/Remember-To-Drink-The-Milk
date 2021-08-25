@@ -114,3 +114,62 @@ input:hover{
     display: flex;
 
 }
+.grid-element{
+    width: 100%;
+    min-height: 100vh;
+    /* FLEX */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+.product{
+    max-width: 375px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.quote-block {
+    border: none;
+    color: #fff;
+    opacity: .9;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.2;
+    padding: 0 0 0 3px;
+    max-width: 500px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.footer{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: #fff;
+    opacity: .75;
+    padding-left: 4px;
+}
+.login-curator-avatar{
+    background-image: url(../images/bobTmonkey.png);
+    background-repeat: no-repeat;
+    background-size: 60px auto;
+    float: left;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    margin-right: 11px;
+}
+
+.login-curator-text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff;
+    opacity: .6;
+    padding: 15px 0 0 0;
+    max-width: 360px;
+    line-height: 1.3333333;
+}
