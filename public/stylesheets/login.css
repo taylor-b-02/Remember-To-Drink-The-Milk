@@ -114,3 +114,36 @@ input:hover{
     display: flex;
 
 }
+.grid-element{
+    width: 100%;
+    min-height: 100vh;
+    /* FLEX */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+.product{
+    /* display: flex;
+    margin: 0;
+    align-content: center;
+    justify-content: center; */
+    max-width: 250px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.grid-element p {
+    border: none;
+    color: #fff;
+    opacity: .9;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.2;
+    padding: 0 0 0 3px;
+    max-width: 400px;
+    font-family: Arial, Helvetica, sans-serif;
+}
