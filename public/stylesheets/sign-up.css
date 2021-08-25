@@ -6,12 +6,15 @@
     .grid-wrapper {
         display:grid;
         max-width: 100vw;
-        grid-template-columns: 50% auto;
+        grid-template-columns: 50% 50%;
     }
 
     #left-side {
         background-color: #0060BF;
-        background-image: url("../images/background-img.png");
+        background-image: url("../images/sign-up-img.png");
+        background-repeat: no-repeat;
+        background-attachment: cover;
+        background-position: center;
     }
 
     .logo-wrapper {
