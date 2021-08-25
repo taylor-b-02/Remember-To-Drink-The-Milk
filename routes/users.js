@@ -212,6 +212,7 @@ router.post(
 			hashedPassword: hashedPassword,
 			dateOfBirth: dateOfBirth,
 		});
+        loginUser(req, res, newUser);
 		res.redirect(`/users/${newUser.id}`); //could be /:id(\\d+)
 	})
 );
@@ -264,7 +265,7 @@ router.post('/:id(\\d+)/edit-password', requireAuth, passwordValidator, csrfProt
     }
 
     await userToUpdate.update(user);
-    res.redirect(`/users/${userId}/profile`);
+	return res.redirect(`/users/${user.id}`);
 
 }));
 

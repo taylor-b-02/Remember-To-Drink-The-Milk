@@ -1,16 +1,24 @@
-extends layout
-
-block content
+link(rel="stylesheet" href="/stylesheets/profile.css")
+//- h3= `Hello ${user.userName}`
+div(id="container")
+    div(id="nav")
+        a(href="" id="menu-img"): img(src="/icons/menu.png", alt="Menu" class="icon")
+        div(id="nav-search")
+            img(src="/icons/search.png", alt="Search" id="nav-search-img" class="icon")
+            input(type="text" id="nav-search-input")
+        a(href="" id="settings-img"): img(src="/icons/settings.png", alt="Settings" class="icon")
     div(id= "profile-container")
-        a(class="btn btn-edit" href=`/users/${user.id}/profile/edit` role="button") Edit Profile
-            table(class='table table-striped table-hover')
-                thead(class='thead-dark')
-                    tr
-                        th(scope='col') Username
-                        th(scope='col') Email
-                        th(scope='col') Birthday
-                    tbody
-                        tr
-                            td= user.userName
-                            td= user.email
-                            td= user.dateOfBirth
+        table(class='table table-striped table-hover')
+            thead(class='thead-dark')
+                tr
+                    th(scope='row') Username
+                    td= user.userName
+                tr
+                    th(scope='row') Email
+                    td= user.email
+                tr
+                    th(scope='row') Birthday
+                    td= user.dateOfBirth
+                tbody
+    div(id= "edit-btn-container")
+        a(id="edit-profile-button" class="btn-edit" href=`/users/${user.id}/profile/edit` role="button") Edit Profile
