@@ -1,7 +1,10 @@
-extends layout.pug
+//- extends layout.pug
 
 block content
-    h3= `Hello ${user.userName}`
-    div(id="lists")
-    div(id="current-list")
-    div(id="summary")
+    link(rel='stylesheet' href='/stylesheets/user-home.css')
+    //- h3= `Hello ${user.userName}`
+    div(id="container")
+        div(id="nav")
+        div(id="lists" class="main-body-div")
+        div(id="current-list" class="main-body-div")
+        div(id="summary" class="main-body-div")
