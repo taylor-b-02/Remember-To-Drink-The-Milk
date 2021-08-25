@@ -1,15 +1,15 @@
 extends layout
 
 block content
-
+    link(rel="stylesheet" href="/stylesheets/profile.css")
     div(id="edit-profile-container")
         div(class="errors-container")
-            h3 Edit Profile
-            form(class="edit-profile-form" action=`/users/${user.id}/profile/edit` method="post")
-                input(type="hidden" name="_csrf" value=csrfToken)
-                label(for="email") Email
-                input(type="email" name="email" value=user.email)
-                label(for="username") Username
-                input(type="text" name="username" value=user.userName)
-                button(type="submit" name="editProfileButton") Submit
-            a(class='btn btn-success' href=`/users/${user.id}/edit-password` role='button') Edit Password
+        h3  Edit Profile
+        form(class="edit-profile-form" action=`/users/${user.id}/profile/edit` method="post")
+            input(type="hidden" name="_csrf" value=csrfToken)
+            label(for="email") Email
+            input(type="email" name="email" value=user.email)
+            label(for="username") Username
+            input(type="text" name="username" value=user.userName)
+            button(type="submit" name="editProfileButton") Submit
+        a(class='btn btn-success' href=`/users/${user.id}/edit-password` role='button') Change Password

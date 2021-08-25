@@ -3,11 +3,14 @@ extends layout
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/index.css")
-  link(rel="stylesheet" type="text/css" href="/stylesheets/profile.css")
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
 
+<<<<<<< HEAD
   body
+=======
+block content
+>>>>>>> main
     nav.navbar
         a(href="/" id="home-btn")
             img(src='images/homeCow.png' width='175')
@@ -17,6 +20,11 @@ append head
             li: a(href="/users/register") Register
             li
                 form(action="/users/logout" method= "post"): button(type="submit") Logout
+<<<<<<< HEAD
     block content
       //- h1= title
       //- p Welcome to your Project Skeleton
+=======
+    h1= title
+    p Welcome to your Project Skeleton
+>>>>>>> main
