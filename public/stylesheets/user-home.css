@@ -1,24 +1,99 @@
-h3 {
-	color: red;
+* {
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .main-body-div {
 	margin-top: 9px;
 }
 
+body {
+	margin: 0px;
+}
+
+.icon {
+	width: 15px;
+	height: 15px;
+}
+
 #container {
 	display: grid;
 	grid-template-rows: 40px 1fr;
-	grid-template-columns: 1fr 4fr 2fr;
+	grid-template-columns: 180px 4fr 2fr;
 	background-color: #d7e7f5;
 }
 
 #nav {
 	height: 40px;
 	width: 100%;
-	background-color: #3292f2;
+	background-color: #0060bf;
 	grid-row-start: 1;
 	grid-column: 1 / span 3;
+	display: grid;
+	grid-template-rows: 40px;
+	grid-template-columns: 180px 4fr 2fr;
+	align-items: center;
+}
+
+#menu-img {
+	grid-column-start: 1;
+	justify-self: center;
+	margin-right: 65%;
+}
+
+#menu-img > img {
+	width: 18px;
+}
+
+#nav-search {
+	grid-column-start: 2;
+	width: 295px;
+	height: 30px;
+	background-color: #2678c9;
+	border-radius: 3px;
+	border: 0px solid black;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+#nav-search:focus {
+	background-color: #ffffff;
+}
+
+#nav-search-img {
+	padding: 3px;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+#nav-search-img:focus {
+	background-color: #ffffff;
+}
+
+#nav-search-input {
+	width: 100%;
+	background-color: #2678c9;
+	border: 0px solid black;
+	border-radius: 3px;
+	height: 30px;
+}
+
+#nav-search-input:focus {
+	background-color: #ffffff;
+	outline: none;
+}
+
+/* Non-functioning for now */
+#nav-search-input::before {
+	/* content: url("search.png"); */
+	background: url("public/icons/search.png");
+}
+
+#settings-img {
+	grid-column-start: 3;
+	align-self: center;
+	justify-self: right;
+	margin-right: 5%;
 }
 
 #lists {
@@ -45,4 +120,42 @@ h3 {
 	width: 100%;
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
+}
+
+#cow-img {
+	width: 140;
+}
+
+#list-title {
+	font-size: 18px;
+	margin-top: 40px;
+	margin-left: 20px;
+}
+
+#task-summary-container {
+	display: flex;
+	flex-direction: row;
+}
+
+.inner-summary-container {
+	background-color: #dbe8f6;
+	border-radius: 5px;
+	height: 53px;
+	margin-left: 20px;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+.inner-summary-container > p {
+	margin: 0;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.task-num {
+	margin: 0;
+	margin-bottom: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
