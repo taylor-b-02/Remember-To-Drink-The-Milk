@@ -1,14 +1,17 @@
+* {
+    box-sizing: border-box;
+}
+
 .sign-up-container {
     margin: 0;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
 }
 
 .sign-up-form {
-    width: 500px;
+    width: 100%;
     max-width: 500px;
     display: flex;
     flex-direction: column;
@@ -20,8 +23,18 @@ input,
 #signUpButton {
     border-radius: 4px;
     height: 48px;
-    font-size: 20px;
-    width: 400px;
+    font-size: 18px;
+    max-width: 400px;
+    padding: 10px 12px;
+}
+
+#signUpButton {
+    margin-top: 20px;
+    transition-duration: 0.2s;
+}
+
+#signUpButton:hover {
+    background-color: rgb(28, 98, 215);
 }
 
 h3 {
@@ -36,7 +49,17 @@ h3 {
 input {
     color: #555555;
     border: 1px solid #ccc;
-    box-shadow: 1px 1px rgb(0 0 0 .8);
-    margin-top: 15px;
+    box-shadow: 1px 1px rgb(0,0,0,.3);
+    margin-bottom: 15px;
+    transition-duration: 0.3s;
+    outline: none;
 }
 
+input:focus {
+    border: 1.5px solid rgb(0, 183, 255,.8);
+    box-shadow: 0 0 5px rgb(0,183,255,.3);
+}
+
+input:hover {
+    font-size: larger;
+}
