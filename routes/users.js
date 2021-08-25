@@ -12,6 +12,7 @@ const {
 } = require("../utils");
 
 const { check } = require("express-validator");
+const { profile } = require("console");
 
 const { User } = db;
 
@@ -74,7 +75,7 @@ const userValidators = [
 /* GET users listing. */
 //GET user profile
 router.get(
-	"/:id(\\d+)/edit", // add /profile?edit?
+	"/:id(\\d+)/profile", // add /profile?edit?
 	requireAuth,
 	asyncHandler(async (req, res, next) => {
 		const userId = parseInt(req.params.id, 10);
@@ -195,5 +196,10 @@ router.post(
 		res.redirect(`/users/${newUser.id}`); //could be /:id(\\d+)
 	})
 );
+
+//GET profile page
+router.post('/:id(\\d+)/profile', requireAuth, asyncHandler(async(req, res, next) => {
+    
+}))
 
 module.exports = router;
