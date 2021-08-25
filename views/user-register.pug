@@ -5,15 +5,17 @@ append head
   link(rel="stylesheet" href="/stylesheets/sign-up.css")
 
 block content
-    div(class="sign-up-container")
-        div(class="errors-container")
-        form(class="sign-up-form" action="/users/register" method="post")
-          h3 Sign up for free.
-          input(type="hidden" name="_csrf" value=csrfToken)
-          input(type="email" name="email" autofocus placeholder="Email")
-          input(type="text" name="username"  autofocus placeholder="Username")
-          input(type="password" name="password" autofocus placeholder="Password")
-          input(type="password" name="confirmPassword" autofocus placeholder="Confirm Password")
-          label(for="dateOfBirth") Date of Birth
-          input(type="date" name="dateOfBirth" autofocus placeholder="Date of Birth" id="dateOfBirth")
-          button(type="submit" name="signUpButton" id="signUpButton") Sign up!
+    div(class="grid-wrapper")
+      div(class="grid-element" id="left-side")
+      div(class="grid-element" id="sign-up-container")
+          div(class="errors-container")
+          form(class="sign-up-form" action="/users/register" method="post")
+            h3 Sign up for free.
+            input(type="hidden" name="_csrf" value=csrfToken)
+            input(type="email" name="email" autofocus placeholder="Email")
+            input(type="text" name="username"  autofocus placeholder="Username")
+            input(type="password" name="password" autofocus placeholder="Password")
+            input(type="password" name="confirmPassword" autofocus placeholder="Confirm Password")
+            label(for="dateOfBirth") Date of Birth
+            input(type="date" name="dateOfBirth" autofocus placeholder="Date of Birth" id="dateOfBirth")
+            button(type="submit" name="signUpButton" id="signUpButton") Sign up!

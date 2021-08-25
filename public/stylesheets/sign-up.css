@@ -2,7 +2,17 @@
     box-sizing: border-box;
 }
 
-.sign-up-container {
+.grid-wrapper {
+    display:grid;
+    max-width: 100vw;
+    grid-template-columns: 50% auto;
+}
+
+#left-side {
+    background-color: #0060BF;
+}
+
+#sign-up-container {
     margin: 0;
     height: 100vh;
     display: flex;
