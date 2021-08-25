@@ -29,6 +29,25 @@ const loginValidator = [
 		.withMessage("Please provide a value for Password"),
 ];
 
+const passwordValidator = [
+    check("password")
+		.exists({ checkFalsy: true })
+		.withMessage("Please provide a value for Password")
+		.isLength({ max: 50 })
+		.withMessage("Password must not be more than 50 characters long")
+		.matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, "g")
+		.withMessage(
+			'Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")'
+		),
+	check("confirmPassword")
+		.exists({ checkFalsy: true })
+		.withMessage("Please provide a value for Confirm Password")
+		.isLength({ max: 50 })
+		.withMessage(
+			"Confirm Password must not be more than 50 characters long"
+		)
+]
+
 const userValidators = [
 	check("username")
 		.exists({ checkFalsy: true })
@@ -205,33 +224,48 @@ router.get('/:id(\\d+)/profile/edit', requireAuth, csrfProtection, asyncHandler(
 }));
 
 //PATCH edit to profile
-router.post('/:id(\\d+)/profile/edit', requireAuth, csrfProtection, userValidators,
-handleValidationErrors, asyncHandler(async(req, res, next) => {
+router.post('/:id(\\d+)/profile/edit', requireAuth, csrfProtection, asyncHandler(async(req, res, next) => {
     const userId = parseInt(req.params.id, 10);
     const userToUpdate = await db.User.findByPk(userId);
 
     const {
         userName,
-        email,
-        dateOfBirth
+        email
     } = req.body;
 
     const user = {
         userName,
-        email,
-        dateOfBirth
+        email
     }
-    if (validatorErrors.isEmpty()) {
-        await userToUpdate.update(user);
-        res.redirect('/:id(\\d+)/profile');
-      } else {
-        const errors = validatorErrors.array().map((error) => error.msg);
-        res.render('user-edit-profile', {
-          title: 'Edit Profile',
-          user: { ...user, userId },
-          errors
-        });
-      }
+
+    await userToUpdate.update(user);
+    res.redirect(`/${userId}/profile`);
+
+}));
+
+router.get('/:id(\\d+)/edit-password', requireAuth, csrfProtection, asyncHandler(async(req, res, next) => {
+    const userId = parseInt(req.params.id, 10);
+	const user = await db.User.findByPk(userId);
+    res.render('user-edit-password', { title: "edit-password", user, csrfToken: req.csrfToken()})
+}));
+
+router.post('/:id(\\d+)/edit-profile', requireAuth, passwordValidator, csrfProtection, asyncHandler(async(req, res, next) => {
+    const userId = parseInt(req.params.id, 10);
+    const userToUpdate = await db.User.findByPk(userId);
+
+    const {
+        newPassword
+    } = req.body;
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    const user = {
+        hashedPassword
+    }
+
+    await userToUpdate.update(user);
+    res.redirect(`/${userId}/profile`);
+
 }));
 
 module.exports = router;
