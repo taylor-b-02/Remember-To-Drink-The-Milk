@@ -2,10 +2,17 @@ const express = require("express");
 const { asyncHandler } = require("../utils");
 const db = require("../db/models");
 const { Lists, Task } = db;
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 const router = express.Router();
 
-router.get("/all", (req, res) => {});
+router.get(
+	"/all",
+	asyncHandler(async (req, res) => {
+		const id = parseInt(req.params.id, 10);
+	})
+);
 
 router.get(
 	"/:id/",
@@ -22,13 +29,15 @@ router.get(
 	"/:id/tasks",
 	asyncHandler(async (req, res) => {
 		const id = parseInt(req.params.id, 10);
-		const tasks = Task.findAll({
+		const tasks = await Task.findAll({
 			where: {
 				listId: {
 					[Op.eq]: id,
 				},
 			},
 		});
+		console.log("TASKS:", tasks);
+		res.json(tasks);
 	})
 );
 
