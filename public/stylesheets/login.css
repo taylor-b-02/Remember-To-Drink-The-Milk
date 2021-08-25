@@ -125,18 +125,14 @@ input:hover{
     align-content: center;
 }
 .product{
-    /* display: flex;
-    margin: 0;
-    align-content: center;
-    justify-content: center; */
-    max-width: 250px;
+    max-width: 375px;
     padding: 10px;
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
 
-.grid-element p {
+.quote-block {
     border: none;
     color: #fff;
     opacity: .9;
@@ -144,6 +140,36 @@ input:hover{
     font-weight: 500;
     line-height: 1.2;
     padding: 0 0 0 3px;
-    max-width: 400px;
+    max-width: 500px;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.footer{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: #fff;
+    opacity: .75;
+    padding-left: 4px;
+}
+.login-curator-avatar{
+    background-image: url(../images/homeCow.png);
+    background-repeat: no-repeat;
+    background-size: 60px auto;
+    float: left;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    margin-right: 11px;
+}
+
+.login-curator-text {
+    font-family: MuseoSansRounded, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff;
+    opacity: .6;
+    padding: 15px 0 0 0;
+    max-width: 360px;
+    line-height: 1.3333333;
 }
