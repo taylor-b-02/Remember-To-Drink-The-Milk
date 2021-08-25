@@ -1,19 +1,19 @@
 extends layout
 
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/sign-up.css")
+
 block content
     div(class="sign-up-container")
         div(class="errors-container")
-        h3 Sign up for free.
         form(class="sign-up-form" action="/users/register" method="post")
-            input(type="hidden" name="_csrf" value=csrfToken)
-            label(for="email") Email
-            input(type="email" name="email")
-            label(for="username") Username
-            input(type="text" name="username")
-            label(for="dateOfBirth") Date of Birth
-            input(type="date" name="dateOfBirth")
-            label(for="password") Password
-            input(type="password" name="password")
-            label(for="confirmPassword") Confirm Password
-            input(type="password" name="confirmPassword")
-            button(type="submit" name="signUpButton") Sign up!
+          h3 Sign up for free.
+          input(type="hidden" name="_csrf" value=csrfToken)
+          input(type="email" name="email" autofocus placeholder="Email")
+          input(type="text" name="username"  autofocus placeholder="Username")
+          input(type="password" name="password" autofocus placeholder="Password")
+          input(type="password" name="confirmPassword" autofocus placeholder="Confirm Password")
+          label(for="dateOfBirth") Date of Birth
+          input(type="date" name="dateOfBirth" autofocus placeholder="Date of Birth" id="dateOfBirth")
+          button(type="submit" name="signUpButton" id="signUpButton") Sign up!
