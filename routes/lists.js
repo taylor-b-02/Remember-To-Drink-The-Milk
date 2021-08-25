@@ -36,7 +36,6 @@ router.get(
 				},
 			},
 		});
-		console.log("TASKS:", tasks);
 		res.json(tasks);
 	})
 );
