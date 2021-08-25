@@ -1,4 +1,4 @@
-extends layout.pug
+//- extends layout.pug
 
 block content
     div(id="welcome")
@@ -7,3 +7,27 @@ block content
     div(id="lists")
     div(id="current-list")
     div(id="summary")
+    link(rel='stylesheet' href='/stylesheets/user-home.css')
+    //- h3= `Hello ${user.userName}`
+    div(id="container")
+        div(id="nav")
+            a(href="" id="menu-img"): img(src="/icons/menu.png", alt="Menu" class="icon")
+            div(id="nav-search")
+                img(src="/icons/search.png", alt="Search" id="nav-search-img" class="icon")
+                input(type="text" id="nav-search-input")
+            a(href="" id="settings-img"): img(src="/icons/settings.png", alt="Settings" class="icon")
+        div(id="lists" class="main-body-div")
+            a(href="" id="home-img"): img(src="/images/homeCow.png", alt="Home" id="cow-img")
+            ul
+                li All Tasks
+                li Lists (Will be dropdown)
+        div(id="current-list" class="main-body-div")
+        div(id="summary" class="main-body-div")
+            div(id="list-title") $LIST_NAME_HERE
+            div(id="task-summary-container")
+                div(class="inner-summary-container")
+                    p(class="task-num") 0
+                    p tasks
+                div(class="inner-summary-container")
+                    p(class="task-num") 0
+                    p completed
