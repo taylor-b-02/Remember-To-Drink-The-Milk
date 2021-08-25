@@ -128,19 +128,19 @@ router.post(
 	asyncHandler(async (req, res, next) => {
 		const { loginIdentifier, password } = req.body;
 		let user;
-		if (loginIdentifier.includes("@")) {
-			user = await User.findOne({
-				where: {
-					email: loginIdentifier,
-				},
-			});
-		} else {
-			user = await user.findOne({
-				where: {
-					username: loginIdentifier,
-				},
-			});
-		}
+            if (loginIdentifier.includes("@")) {
+                user = await User.findOne({
+                    where: {
+                        email: loginIdentifier,
+                    },
+                });
+            } else {
+                user = await user.findOne({
+                    where: {
+                        username: loginIdentifier,
+                    },
+                });
+            }
 
 		// const match = await bcrypt.compare(password, user.hashedPassword);
 		const passwordMatch = await bcrypt.compare(
@@ -151,7 +151,7 @@ router.post(
 		if (passwordMatch) {
 			loginUser(req, res, user);
 			return res.redirect(`/users/${user.id}`); //:id(\\d+
-		}
+        }
 		// errors(
 		// 	"Login failed for the provided email address/username and password"
 		// );
@@ -197,9 +197,41 @@ router.post(
 	})
 );
 
-//GET profile page
-router.post('/:id(\\d+)/profile', requireAuth, asyncHandler(async(req, res, next) => {
-    
-}))
+//GET profile edit page
+router.get('/:id(\\d+)/profile/edit', requireAuth, csrfProtection, asyncHandler(async(req, res, next) => {
+    const userId = parseInt(req.params.id, 10);
+	const user = await db.User.findByPk(userId);
+    res.render('user-edit-profile', { title: "edit-profile", user, csrfToken: req.csrfToken()})
+}));
+
+//PATCH edit to profile
+router.post('/:id(\\d+)/profile/edit', requireAuth, csrfProtection, userValidators,
+handleValidationErrors, asyncHandler(async(req, res, next) => {
+    const userId = parseInt(req.params.id, 10);
+    const userToUpdate = await db.User.findByPk(userId);
+
+    const {
+        userName,
+        email,
+        dateOfBirth
+    } = req.body;
+
+    const user = {
+        userName,
+        email,
+        dateOfBirth
+    }
+    if (validatorErrors.isEmpty()) {
+        await userToUpdate.update(user);
+        res.redirect('/:id(\\d+)/profile');
+      } else {
+        const errors = validatorErrors.array().map((error) => error.msg);
+        res.render('user-edit-profile', {
+          title: 'Edit Profile',
+          user: { ...user, userId },
+          errors
+        });
+      }
+}));
 
 module.exports = router;

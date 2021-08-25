@@ -1,6 +1,8 @@
 extends layout.pug
 
 block content
+    div(id="welcome")
+        a(class="btn btn-profile" href=`/users/${user.id}/profile` role="button") View Profile
     h3= `Hello ${user.userName}`
     div(id="lists")
     div(id="current-list")
