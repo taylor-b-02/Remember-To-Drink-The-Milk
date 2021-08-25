@@ -1,4 +1,16 @@
 extends layout
 
 block content
-    
+    div(id= "profile-container")
+        a(class="btn btn-edit" href=`/users/${user.id}/profile/edit` role="button") Edit Profile
+            table(class='table table-striped table-hover')
+                thead(class='thead-dark')
+                    tr
+                        th(scope='col') Username
+                        th(scope='col') Email
+                        th(scope='col') Birthday
+                    tbody
+                        tr
+                            td= user.userName
+                            td= user.email
+                            td= user.dateOfBirth
