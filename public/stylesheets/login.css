@@ -30,7 +30,7 @@
 
 .username,
 .password,
-#loginButton {
+#login-button {
     font-size: 18px;
     width: 400px;
     border-radius: 4px;
@@ -39,7 +39,7 @@
     padding: 10px, 12px;
 }
 
-#loginButton {
+#login-button {
     margin-top: 15px;
     border-radius: 4px;
 }
@@ -104,6 +104,10 @@ input:focus {
 
 input:hover{
     font-size: larger;
+}
+
+#login-button:hover{
+    background-color: rgb(28,98,215);
 }
 
 .orword {
