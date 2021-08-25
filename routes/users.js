@@ -249,7 +249,7 @@ router.get('/:id(\\d+)/edit-password', requireAuth, csrfProtection, asyncHandler
     res.render('user-edit-password', { title: "edit-password", user, csrfToken: req.csrfToken()})
 }));
 
-router.post('/:id(\\d+)/edit-profile', requireAuth, passwordValidator, csrfProtection, asyncHandler(async(req, res, next) => {
+router.post('/:id(\\d+)/edit-password', requireAuth, passwordValidator, csrfProtection, asyncHandler(async(req, res, next) => {
     const userId = parseInt(req.params.id, 10);
     const userToUpdate = await db.User.findByPk(userId);
 
@@ -264,7 +264,7 @@ router.post('/:id(\\d+)/edit-profile', requireAuth, passwordValidator, csrfProte
     }
 
     await userToUpdate.update(user);
-    res.redirect(`/${userId}/profile`);
+    res.redirect(`/users/${userId}/profile`);
 
 }));
 
