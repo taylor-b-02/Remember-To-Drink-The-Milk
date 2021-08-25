@@ -10,8 +10,17 @@
     }
 
     #left-side {
+        background-image: url("../images/background-img.png");
+        background-size: contain;
+        background-repeat: no-repeat;
         background-color: #0060BF;
     }
+
+    .logo-wrapper {
+        margin: 0;
+        display:flex;
+    }
+
 }
 
 #login {

@@ -7,8 +7,9 @@ append head
 block content
     div(class="grid-wrapper")
       div(class="grid-element" id="left-side")
-        a(href="/" id="home-page")
-          img(src='images/homeCow.png' width='100')
+        div(class="logo-wrapper")
+          a(href="/")
+            img(src='images/homeCow.png' width='100' id="cow-logo")
       div(class="grid-element" id="sign-up-container")
           div(class="errors-container")
           a(href="/users/login" id="login") Log in
