@@ -1,5 +1,5 @@
 const {
-	db: { username, password, database, host, db_url },
+	db: { username, password, database, host },
 } = require("./index");
 
 module.exports = {
