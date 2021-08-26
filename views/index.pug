@@ -8,17 +8,21 @@ append head
 
   body
 block content
-  div(class="grid-wrapper")
-    div(class="grid-element" id="body-background")
-        nav.navbar
-            a(href="/" id="home-btn")
-                img(src='images/homeCow.png' width='175')
-            div(id="nav-button")
-            ul
-                li: a(href="/users/demouser") Demo User
-                li: a(href="/users/login") Login
-                li: a(href="/users/register") Register
-                li
-                    form(action="/users/login" method= "post"): button(type="submit") Login
+  div(class="main")
+    div(class="container")
+      h1 The smart to-do app for busy people.
+        div(class="whole-page" id="body-background" style="overflow-y: scroll")
+            nav.navbar
+                a(href="/" id="top-nav-logo")
+                    //- img(src='images/homeCow.png' width='175')
+                div(id="nav-button")
+                ul
+                    li: a(href="/users/demouser") Demo User
+                    li: a(href="/users/login") Login
+                    li: a(href="/users/register") Register
+                    li
+                        form(action="/users/login" method= "post"): button(type="submit") Login
       
       
+          
+
