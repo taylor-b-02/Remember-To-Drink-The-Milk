@@ -1,5 +1,5 @@
 * {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1 {
@@ -20,10 +20,8 @@ ul {
 	flex-direction: row;
 	justify-content: flex-end;
 	align-items: center;
-	color: white;
 	list-style-type: none;
 	height: 114px;
-	width: 2fr;
 }
 
 a {
@@ -32,7 +30,6 @@ a {
 	margin-left: 0px;
 	font-size: 20px;
 	text-decoration: none;
-	border: white solid;
 	border-radius: 3px;
 	padding: 4px;
 }
@@ -56,4 +53,19 @@ button {
 	color: white;
 	margin-right: 20px;
 	margin-left: 0px;
+}
+
+
+#login-link, #register-link {
+    padding: 5px;
+    font-weight: bold;
+    color: #d7e7f5;
+}
+
+#register-link{
+    border: 2px solid #d7e7f5;
+    border-radius: 5px;
+}
+li {
+    width: fit-content;
 }
