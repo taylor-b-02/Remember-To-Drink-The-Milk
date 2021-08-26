@@ -6,7 +6,6 @@
     gap: 10px;
 }
 
-
 #profile-container {
     display: flex;
     flex-direction: column;
@@ -166,3 +165,14 @@ th {
      font-size: larger;
      align-items: left;
  }
+
+
+ #home-img {
+    position: absolute;
+    left: 0px;
+    top: 50px;
+}
+
+#cow-image {
+    width: 25%;
+}

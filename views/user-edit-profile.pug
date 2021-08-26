@@ -2,6 +2,7 @@ extends layout
 
 block content
     link(rel="stylesheet" href="/stylesheets/profile.css")
+    a(href=`/users/${user.id}` id="home-img"): img(src="/images/homeCow.png" id="cow-image")
     div(class="edit-container")
         div(class="errors-container")
         h3(class="edit-head")  Edit Profile
@@ -11,4 +12,5 @@ block content
             input(type="email" name="email" value=user.email)
             label(for="username") Username
             input(type="text" name="username" value=user.userName)
-            button(class="edit-button" type="submit" name="editProfileButton") Submit
+            button(class="edit-button" type="submit" name="editProfileButton" formmethod="post") Submit
+            a(class='edit-button' href=`/users/${user.id}/profile` role='button') Cancel
