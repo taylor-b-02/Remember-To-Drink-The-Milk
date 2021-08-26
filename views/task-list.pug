@@ -1,0 +1,6 @@
+ul(id="task-list-ul")
+    each task in tasks
+        li
+            div(class="task-box")
+                input(type="checkbox", name="isComplete" value=task.isComplete)
+                label(for="isComplete")= task.description

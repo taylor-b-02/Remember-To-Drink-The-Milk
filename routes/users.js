@@ -14,7 +14,7 @@ const {
 const { check } = require("express-validator");
 const { profile } = require("console");
 
-const { User } = db;
+const { User, Task } = db;
 
 router.use(express.static("public"));
 
@@ -30,7 +30,7 @@ const loginValidator = [
 ];
 
 const passwordValidator = [
-    check("password")
+	check("password")
 		.exists({ checkFalsy: true })
 		.withMessage("Please provide a value for Password")
 		.isLength({ max: 50 })
@@ -45,8 +45,8 @@ const passwordValidator = [
 		.isLength({ max: 50 })
 		.withMessage(
 			"Confirm Password must not be more than 50 characters long"
-		)
-]
+		),
+];
 
 const userValidators = [
 	check("username")
@@ -109,8 +109,13 @@ router.get(
 	requireAuth,
 	asyncHandler(async (req, res, next) => {
 		const userId = parseInt(req.params.id, 10);
-		const user = await db.User.findByPk(userId);
-		res.render("user-home", { title: "Home", user });
+		const user = await User.findByPk(userId);
+		const tasks = await Task.findAll({
+			where: {
+				userId: userId,
+			},
+		});
+		res.render("user-home", { title: "Home", user, tasks });
 	})
 );
 
@@ -146,43 +151,41 @@ router.post(
 	handleValidationErrors,
 	asyncHandler(async (req, res, next) => {
 		const { loginIdentifier, password } = req.body;
-        const errors = [];
+		const errors = [];
 		let user;
-            if (loginIdentifier.includes("@")) {
-                user = await db.User.findOne({
-                    where: {
-                        email: loginIdentifier,
-                    },
-                });
-            } else {
-                user = await db.User.findOne({
-                    where: {
-                        username: loginIdentifier,
-                    },
-                });
-            }
+		if (loginIdentifier.includes("@")) {
+			user = await db.User.findOne({
+				where: {
+					email: loginIdentifier,
+				},
+			});
+		} else {
+			user = await db.User.findOne({
+				where: {
+					username: loginIdentifier,
+				},
+			});
+		}
 
 		// const match = await bcrypt.compare(password, user.hashedPassword);
 		if (!user) {
-            errors.push('Username or email invalid');
+			errors.push("Username or email invalid");
+		} else {
+			const passwordMatch = await bcrypt.compare(
+				password,
+				user.hashedPassword.toString()
+			);
 
-        }else{
-
-            const passwordMatch = await bcrypt.compare(
-                password,
-                user.hashedPassword.toString()
-            );
-
-            if (passwordMatch) {
-                loginUser(req, res, user);
-                return res.redirect(`/users/${user.id}`); //:id(\\d+
-            }
-        }
+			if (passwordMatch) {
+				loginUser(req, res, user);
+				return res.redirect(`/users/${user.id}`); //:id(\\d+
+			}
+		}
 		// errors(
 		// 	"Login failed for the provided email address/username and password"
 		// );
 		// next()
-        errors.push('Password is invalid')
+		errors.push("Password is invalid");
 		res.render("user-login", {
 			title: "Login",
 			loginIdentifier,
@@ -219,61 +222,83 @@ router.post(
 			hashedPassword: hashedPassword,
 			dateOfBirth: dateOfBirth,
 		});
-        loginUser(req, res, newUser);
+		loginUser(req, res, newUser);
 		res.redirect(`/users/${newUser.id}`); //could be /:id(\\d+)
 	})
 );
 
 //GET profile edit page
-router.get('/:id(\\d+)/profile/edit', requireAuth, csrfProtection, asyncHandler(async(req, res, next) => {
-    const userId = parseInt(req.params.id, 10);
-	const user = await db.User.findByPk(userId);
-    res.render('user-edit-profile', { title: "edit-profile", user, csrfToken: req.csrfToken()})
-}));
+router.get(
+	"/:id(\\d+)/profile/edit",
+	requireAuth,
+	csrfProtection,
+	asyncHandler(async (req, res, next) => {
+		const userId = parseInt(req.params.id, 10);
+		const user = await db.User.findByPk(userId);
+		res.render("user-edit-profile", {
+			title: "edit-profile",
+			user,
+			csrfToken: req.csrfToken(),
+		});
+	})
+);
 
 //PATCH edit to profile
-router.post('/:id(\\d+)/profile/edit', requireAuth, csrfProtection, asyncHandler(async(req, res, next) => {
-    const userId = parseInt(req.params.id, 10);
-    const userToUpdate = await db.User.findByPk(userId);
+router.post(
+	"/:id(\\d+)/profile/edit",
+	requireAuth,
+	csrfProtection,
+	asyncHandler(async (req, res, next) => {
+		const userId = parseInt(req.params.id, 10);
+		const userToUpdate = await db.User.findByPk(userId);
 
-    const {
-        userName,
-        email
-    } = req.body;
+		const { userName, email } = req.body;
 
-    const user = {
-        userName,
-        email
-    }
+		const user = {
+			userName,
+			email,
+		};
 
-    await userToUpdate.update(user);
-    res.redirect(`/users/${userId}/profile`);
+		await userToUpdate.update(user);
+		res.redirect(`/users/${userId}/profile`);
+	})
+);
 
-}));
+router.get(
+	"/:id(\\d+)/edit-password",
+	requireAuth,
+	csrfProtection,
+	asyncHandler(async (req, res, next) => {
+		const userId = parseInt(req.params.id, 10);
+		const user = await db.User.findByPk(userId);
+		res.render("user-edit-password", {
+			title: "edit-password",
+			user,
+			csrfToken: req.csrfToken(),
+		});
+	})
+);
 
-router.get('/:id(\\d+)/edit-password', requireAuth, csrfProtection, asyncHandler(async(req, res, next) => {
-    const userId = parseInt(req.params.id, 10);
-	const user = await db.User.findByPk(userId);
-    res.render('user-edit-password', { title: "edit-password", user, csrfToken: req.csrfToken()})
-}));
+router.post(
+	"/:id(\\d+)/edit-password",
+	requireAuth,
+	passwordValidator,
+	csrfProtection,
+	asyncHandler(async (req, res, next) => {
+		const userId = parseInt(req.params.id, 10);
+		const userToUpdate = await db.User.findByPk(userId);
 
-router.post('/:id(\\d+)/edit-password', requireAuth, passwordValidator, csrfProtection, asyncHandler(async(req, res, next) => {
-    const userId = parseInt(req.params.id, 10);
-    const userToUpdate = await db.User.findByPk(userId);
+		const { newPassword } = req.body;
 
-    const {
-        newPassword
-    } = req.body;
+		const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+		const user = {
+			hashedPassword,
+		};
 
-    const user = {
-        hashedPassword
-    }
-
-    await userToUpdate.update(user);
-	return res.redirect(`/users/${userId}/profile`);
-
-}));
+		await userToUpdate.update(user);
+		return res.redirect(`/users/${userId}/profile`);
+	})
+);
 
 module.exports = router;
