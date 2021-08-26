@@ -10,23 +10,24 @@ const router = express.Router();
 
 // Create a task
 router.post(
-	"/tasks",
+	"/",
 	asyncHandler(async (req, res, next) => {
 		const { description, listId } = req.body;
+		console.log("DESCRIPTION:", description);
 		const { userId } = req.session.auth;
 		const newTask = await Task.create({
 			isComplete: false,
 			description: description,
 			userId: userId,
-			listId: listId,
+			listId: 1,
 		});
-		res.json(newTask);
+		res.redirect(`/users/${userId}`);
 	})
 );
 
 // Delete a task
 router.delete(
-	"/tasks/:id",
+	"/:id",
 	asyncHandler(async (req, res, next) => {
 		const taskId = req.params.id;
 		const task = await Task.findByPk(taskId);
@@ -37,7 +38,7 @@ router.delete(
 
 // Edit a task
 router.patch(
-	"/tasks/:id",
+	"/:id",
 	asyncHandler(async (req, res, next) => {
 		const taskId = req.params.id;
 		const { description } = req.body;
@@ -51,7 +52,7 @@ router.patch(
 
 // Is Complete toggle route
 router.patch(
-	"/tasks/:id",
+	"/:id",
 	asyncHandler(async (req, res, next) => {
 		const taskId = req.params.id;
 		const task = await Task.findByPk(taskId);
@@ -65,4 +66,17 @@ router.patch(
 	})
 );
 
+// Get all of a users tasks
+router.get(
+	"/",
+	asyncHandler(async (req, res, next) => {
+		const { userId } = req.session.auth;
+		const tasks = await Task.findAll({
+			where: {
+				userId: userId,
+			},
+		});
+		res.json(tasks);
+	})
+);
 module.exports = router;
