@@ -13,13 +13,13 @@ router.get(
 );
 
 // Create a list
-/* TODO Figure out how to pull userId from the session information to use in list creation
-   and task creation */
 router.post(
 	"/",
 	asyncHandler(async (req, res) => {
 		const { name } = req.body;
-		const newList = await Lists.create({ name: name, ownerId: 2 });
+		const { userId } = req.session.auth;
+		const newList = await Lists.create({ name: name, ownerId: userId });
+		res.json(newList);
 	})
 );
 
@@ -36,17 +36,18 @@ router.get(
 );
 
 // Create a new task and at it to the current list
-//TODO Change out userId for a userId pulled from the session information
 router.post(
 	"/:id/",
 	asyncHandler(async (req, res) => {
 		const listId = parseInt(req.params.id, 10);
 		const { description } = req.body;
+		const { userId } = req.session.auth;
+
 		console.log("Description:", description, "ListId:", listId);
 		const newTask = await Task.create({
 			isComplete: false,
 			description: description,
-			userId: 2,
+			userId: userId,
 			listId: listId,
 		});
 		res.json(newTask);
@@ -69,15 +70,33 @@ router.get(
 	})
 );
 
-// Delete a task from a list (and the database as whole?)
+// Delete a list
 router.delete(
-	"/:listId/tasks/:taskId",
+	"/:id",
 	asyncHandler(async (req, res) => {
-		let { listId, taskId } = req.params;
-		listId = parseInt(listId, 10);
-		taskId = parseInt(taskId, 10);
-		console.log("listId:", listId, "taskId:", taskId);
-		res.end();
+		const listId = req.params.id;
+		await Task.destroy({
+			where: {
+				listId: listId,
+			},
+		});
+		const list = await List.findByPk(listId);
+		list.destroy();
+		res.send(200);
+	})
+);
+
+// Edit a list (name)
+router.patch(
+	"/:id",
+	asyncHandler(async (req, res) => {
+		const listId = req.params.id;
+		const { name } = req.body;
+		const list = await Lists.findByPk(listId);
+		await list.update({
+			name: name,
+		});
+		res.send(200);
 	})
 );
 
