@@ -5,7 +5,7 @@ append head
   link(rel="stylesheet" href="/stylesheets/index.css")
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
-  script (src="carousel.js") 
+  script(src="carousel.js") 
 
   body
 block content
@@ -23,18 +23,24 @@ block content
             h1 The smart to-do app for busy people.
             a(href="/users/register" class="btn" id="signup-main-page") Sign Up Free
 
-    div(class="carousel-wrapper")
         div(class="carousel")
-            img(class="carousel__photo initial" src="../images/bobTmonkey.png", alt="Image1")
-        
-            img(class="carousel__photo" src="../images/cowMilk.png", alt="Image2")
-        
-            img(class="carousel__photo" src="../images/homeCow", alt="Image3")
-        
-            img(class="carousel__photo" src="../images/homeCow", alt="Image3")
-
-            div(class="carousel__button--next")
-            div(class="carousel__button--prev")
+            button(class="carousel__button carousel__button--left")
+                img(src="img/left.svg", alt="")
+            div(class="carousel__track-container")
+                ul(class="carousel__track")
+                    li(class="carousel__slide")
+                        img(class="carousel__image" src="../images/bobTmonkey.png", alt="Image1")
+                    li(class="carousel__slide")
+                        img(class="carousel__image" src="../images/homeCow.png", alt="Image2")
+                    li(class="carousel__slide")
+                        img(class="carousel__image" src="../images/sign-up-img.png", alt="Image3")
+            button(class="carousel__button" carousel__button--left)
+                img(src="img/left.svg", alt="")
+            
+            div(class="carousel__nav")
+                button(class="carousel__indicator")
+                button(class="carousel__indicator")
+                button(class="carousel__indicator")
      
      
       
