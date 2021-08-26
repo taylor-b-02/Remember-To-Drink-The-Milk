@@ -146,15 +146,16 @@ router.post(
 	handleValidationErrors,
 	asyncHandler(async (req, res, next) => {
 		const { loginIdentifier, password } = req.body;
+        const errors = [];
 		let user;
             if (loginIdentifier.includes("@")) {
-                user = await User.findOne({
+                user = await db.User.findOne({
                     where: {
                         email: loginIdentifier,
                     },
                 });
             } else {
-                user = await user.findOne({
+                user = await db.User.findOne({
                     where: {
                         username: loginIdentifier,
                     },
@@ -162,20 +163,26 @@ router.post(
             }
 
 		// const match = await bcrypt.compare(password, user.hashedPassword);
-		const passwordMatch = await bcrypt.compare(
-			password,
-			user.hashedPassword.toString()
-		);
+		if (!user) {
+            errors.push('Username or email invalid');
 
-		if (passwordMatch) {
-			loginUser(req, res, user);
-			return res.redirect(`/users/${user.id}`); //:id(\\d+
+        }else{
+
+            const passwordMatch = await bcrypt.compare(
+                password,
+                user.hashedPassword.toString()
+            );
+
+            if (passwordMatch) {
+                loginUser(req, res, user);
+                return res.redirect(`/users/${user.id}`); //:id(\\d+
+            }
         }
 		// errors(
 		// 	"Login failed for the provided email address/username and password"
 		// );
 		// next()
-
+        errors.push('Password is invalid')
 		res.render("user-login", {
 			title: "Login",
 			loginIdentifier,
