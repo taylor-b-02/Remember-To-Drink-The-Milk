@@ -6,9 +6,49 @@ append head
   link(rel='stylesheet' href='/stylesheets/reset.css')
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
+  script(src="carousel.js") 
 
   body
 block content
+<<<<<<< HEAD
+    div(class="main")
+        div(class="whole-page" id="body-background" style="overflow-y: scroll")
+            nav.navbar
+                a(href="/" id="top-nav-logo")
+                div(id="nav-button")
+                ul
+                    li: a(href="/users/demouser") Demo User
+                    li: a(href="/users/register") Register
+                    li
+                        form(action="/users/login" method= "post"): button(type="submit" class="btn") Sign Up For Free
+        div(class="container" id="quote")
+            h1 The smart to-do app for busy people.
+            a(href="/users/register" class="btn" id="signup-main-page") Sign Up Free
+
+        div(class="carousel")
+            button(class="carousel__button carousel__button--left")
+                img(src="img/left.svg", alt="")
+            div(class="carousel__track-container")
+                ul(class="carousel__track")
+                    li(class="carousel__slide")
+                        img(class="carousel__image" src="../images/bobTmonkey.png", alt="Image1")
+                    li(class="carousel__slide")
+                        img(class="carousel__image" src="../images/homeCow.png", alt="Image2")
+                    li(class="carousel__slide")
+                        img(class="carousel__image" src="../images/sign-up-img.png", alt="Image3")
+            button(class="carousel__button" carousel__button--left)
+                img(src="img/left.svg", alt="")
+            
+            div(class="carousel__nav")
+                button(class="carousel__indicator")
+                button(class="carousel__indicator")
+                button(class="carousel__indicator")
+     
+     
+      
+          
+
+=======
     nav.navbar
         a(href="/" id="home-btn")
             img(src='images/homeCow.png' width='250')
@@ -21,3 +61,4 @@ block content
       //- p Welcome to your Project Skeleton
     h1= title
     p Welcome to your Project Skeleton
+>>>>>>> main

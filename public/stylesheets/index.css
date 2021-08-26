@@ -1,53 +1,81 @@
 * {
-	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
+	box-sizing: border-box;
+	background-color: #0060bf;
 }
 
-h1 {
-	color: #555555;
+.whole-page {
+	display:flex;
+	flex-direction:column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+
+}
+
+#top-nav-logo {
+	background-image: url(../images/homeCow.png);
+	background-repeat: no-repeat;
+	background-size: 179px auto;
+	width: 179px;
+	height: 200px;
+	display: inline-block;
+	margin: 12px 0 0 2px;
+	position: relative;
+	z-index: 2;
 }
 
 .navbar {
-	background-color: #3292f2;
+	position: fixed;
+	top: 0;
+	background-color:#0060bf;
 	height: 114px;
 	width: 100%;
 	display: flex;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: space-evenly;
+	border-bottom: 1px solid #333;
+	z-index: 1;
 }
 
 ul {
 	display: flex;
 	flex-direction: row;
-	justify-content: flex-end;
+	justify-content: space-around;
 	align-items: center;
 	list-style-type: none;
 	height: 114px;
+	width: 2fr;
 }
 
 a {
-	/* display: inline-flex; */
+	display: inline-flex;
+	background-color: transparent;
 	margin: 10px;
 	margin-left: 0px;
-	font-size: 20px;
+	font-size: 15px;
+	font-weight: 700;
 	text-decoration: none;
 	border-radius: 3px;
 	padding: 4px;
+	color: #ffff;
 }
 
-#home-btn {
+/* #home-btn {
 	color: white;
-	width: 1fr;
-	/* border-style: solid; */
-}
+	/* width: 1fr;  */
+	 /* border-style: solid; */
+*/
 
-#nav-spacer {
+
+#nav-button {
 	width: 70%;
 }
 
 button {
-	font-size: 20px;
+	font-size: 15px;
 	background-color: #3292f2;
-	border: white solid;
 	border-radius: 3px;
 	padding: 4px;
 	color: white;
@@ -68,4 +96,88 @@ button {
 }
 li {
     width: fit-content;
+}
+.main {
+    background-color: transparent;
+    text-align: center;
+}
+
+ h1 {
+    font-size: 44px;
+    font-weight: 700;
+    margin: 0;
+    color: #fff;
+}
+
+#quote {
+	padding-top: 114px;
+}
+
+#signup-main-page{
+	font-family: Arial, Helvetica, sans-serif;
+	color: #fff;
+    background-color: #d24b03;
+    border-color: transparent;
+	font-size: 23px;
+	border-radius: 4px;
+	padding: 11px 32px 12px;
+    line-height: 1.2;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+.btn{
+	display: inline-block;
+    margin-bottom: 0;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+}
+
+.carousel {
+	position:relative;
+	height: 600px;
+	width: 80%;
+	margin: 0 auto
+}
+
+.carousel__image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.carousel__track-container {
+	background-color: lightgreen;
+	padding: 10px;
+	height:100%;
+	position: relative;
+}
+
+.carousel__track {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.carousel__slide {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+}
+
+.carousel__button {
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%);
+	background: transparent;
+}
+
+.carousel__button img {
+	width: 12px;
 }
