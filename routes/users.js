@@ -240,7 +240,7 @@ router.post('/:id(\\d+)/profile/edit', requireAuth, csrfProtection, asyncHandler
     }
 
     await userToUpdate.update(user);
-    res.redirect(`/${userId}/profile`);
+    res.redirect(`/users/${userId}/profile`);
 
 }));
 
@@ -265,7 +265,7 @@ router.post('/:id(\\d+)/edit-password', requireAuth, passwordValidator, csrfProt
     }
 
     await userToUpdate.update(user);
-	return res.redirect(`/users/${user.id}`);
+	return res.redirect(`/users/${userId}/profile`);
 
 }));
 
