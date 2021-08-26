@@ -148,7 +148,6 @@ router.post(
 	"/login",
 	csrfProtection,
 	loginValidator,
-	handleValidationErrors,
 	asyncHandler(async (req, res, next) => {
 		const { loginIdentifier, password } = req.body;
 		const errors = [];
@@ -162,7 +161,7 @@ router.post(
 		} else {
 			user = await db.User.findOne({
 				where: {
-					username: loginIdentifier,
+					userName: loginIdentifier,
 				},
 			});
 		}
