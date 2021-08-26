@@ -1,32 +1,40 @@
 
-
 #container {
-    background-color: rgb(233, 239, 241);
+    background-color: #d7e7f5;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-#edit-profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 #profile-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 
 }
 
 table, th, td {
     font-size: x-large;
-    border: 3px solid #0060bf;
-    border-collapse: collapse;
 }
 
 table {
     width: 50%;
+    border: 5px outset #0060bf;
+    border-radius: 5px;
+    border-collapse: collapse;
+    box-shadow: 0px 0px 5px lightslategray;
+}
+
+td {
+    text-align: center;
+    border-bottom: solid #0060bf;
+}
+
+th {
+    text-align: left;
+    border-bottom: solid #0060bf;
 }
 
 .icon {
@@ -117,17 +125,44 @@ table {
 #edit-btn-container {
     display: flex;
     justify-content: center;
+    justify-content: space-around;
 }
 
-#edit-profile-button {
+.edit-button {
     font-size: x-large;
     font-weight: bold;
-    color: white;
+    color: lightgrey;
     text-decoration: none;
-    background-color: 2678c9;
+    background-color: #2678c9;
+    border: 2px solid lightgrey;
     border-radius: 5px;
+    padding: 2px;
 }
 
-#edit-profile-button:hover {
+.edit-button:hover {
     box-shadow: 0px 0px 5px grey;
 }
+
+#profilePic {
+    width: 50%;
+}
+.edit-head {
+     font-size: xx-large;
+     font-weight: bold;
+
+ }
+
+ .edit-container {
+    background-color: #d7e7f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ }
+
+ .edit-form {
+     display: flex;
+     flex-direction: column;
+     padding: 2px;
+     font-size: larger;
+     align-items: left;
+ }
