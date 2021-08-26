@@ -173,3 +173,24 @@ input:hover{
     max-width: 360px;
     line-height: 1.3333333;
 }
+
+#sign-up {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 96, 191, 0.1);
+    border: 1px solid transparent;
+    font-size: 15px;
+    padding: 5px 11px 4px;
+    font-weight: 700;
+    border-radius: 3px;
+    position: absolute;
+    top: 150px;
+    right: 30px;
+    transition-duration: 0.3s;
+}
+#sign-up:hover {
+    background-color: rgba(0, 96, 191, 0.2);
+}
