@@ -8,26 +8,28 @@ block content
     div(class="grid-wrapper")
         div(class="grid-element" id="left-side")
             div(class="product")
-                p(class="quote-block" style="text-align:center;") “You don't have to be great to start, but you have to start to be great” 
+                p(class="quote-block" style="text-align:center;") “You don't have to be great to start, but you have to start to be great”
                 p(class="footer" style="text") -Zig Zigler
             div(class="login-curator")
                 div(class="login-curator-avatar")
                 div(class="login-curator-text") Quotes curated by Bob T. Monkey, reowned productivity expert
         div(class="log-in-container")
             div(class="errors-container")
+                if errors
+                    div(class='alert alert-danger' role='alert')
+                        p The following error(s) occurred:
+                        ul
+                            each error in errors
+                                li(class="listError")= error
             div(class="login-grid")
                 form(class="log-in-form" action="/users/login" method="post")
                     h3 Been here before? Welcome back!
                         input(type="hidden" name="_csrf" value=csrfToken)
-                        label(for="loginIdentifier") 
-                        input(class="username" type="text" name="loginIdentifier" placeholder="Email or Username") 
-                        label(for="password") 
+                        label(for="loginIdentifier")
+                        input(class="username" type="text" name="loginIdentifier" placeholder="Email or Username")
+                        label(for="password")
                         input(type="password" name="password" placeholder="Password" class="password")
                         button(type="submit" name="loginButton" id="login-button") Log in
                         label(for="agreement" class="stayloggedin") Stay Logged In
-                        input(type="checkbox" name="agreement" checked="checked" class="checkbox") 
+                        input(type="checkbox" name="agreement" checked="checked" class="checkbox")
             div(class="quote")
-            
-
-                    
-        
