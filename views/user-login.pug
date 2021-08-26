@@ -15,19 +15,14 @@ block content
                 div(class="login-curator-text") Quotes curated by Bob T. Monkey, reowned productivity expert
         div(class="log-in-container")
             div(class="errors-container")
-<<<<<<< HEAD
             div(class="sign-up-btn")
-                form(action="/users/register" method= "post")
-                    input(type="hidden" name="_csrf" value=csrfToken)
-                    button(type="submit" name="submit" id="sign-up") Sign up for free
-=======
+                link(rel="stylesheet", href="/users/register")
                 if errors
                     div(class='alert alert-danger' role='alert')
                         p The following error(s) occurred:
                         ul
                             each error in errors
                                 li(class="listError")= error
->>>>>>> main
             div(class="login-grid")
                 form(class="log-in-form" action="/users/login" method="post")
                     h3 Been here before? Welcome back!
@@ -38,14 +33,10 @@ block content
                         input(type="password" name="password" placeholder="Password" class="password")
                         button(type="submit" name="loginButton" id="login-button") Log in
                         label(for="agreement" class="stayloggedin") Stay Logged In
-<<<<<<< HEAD
                         input(type="checkbox" name="agreement" checked="checked" class="checkbox") 
             
             
 
                     
         
-=======
-                        input(type="checkbox" name="agreement" checked="checked" class="checkbox")
-            div(class="quote")
->>>>>>> main
+                       

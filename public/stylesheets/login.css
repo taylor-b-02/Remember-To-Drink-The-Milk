@@ -174,7 +174,6 @@ input:hover{
     line-height: 1.3333333;
 }
 
-<<<<<<< HEAD
 #sign-up {
     display: inline-block;
     text-align: center;
@@ -195,9 +194,7 @@ input:hover{
 #sign-up:hover {
     background-color: rgba(0, 96, 191, 0.2);
 }
-=======
 .listError {
     color: darkred;
     font-weight: bolder;
 }
->>>>>>> main
