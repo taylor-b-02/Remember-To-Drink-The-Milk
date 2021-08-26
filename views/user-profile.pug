@@ -8,6 +8,7 @@ div(id="container")
             input(type="text" id="nav-search-input")
         a(href="" id="settings-img"): img(src="/icons/settings.png", alt="Settings" class="icon")
     div(id= "profile-container")
+        img(id="profilePic" src='../images/cowMilk.png')
         table(class='table table-striped table-hover')
             thead(class='thead-dark')
                 tr
@@ -21,4 +22,5 @@ div(id="container")
                     td= user.dateOfBirth
                 tbody
     div(id= "edit-btn-container")
-        a(id="edit-profile-button" class="btn-edit" href=`/users/${user.id}/profile/edit` role="button") Edit Profile
+        a(class="edit-button" class="btn-edit" href=`/users/${user.id}/profile/edit` role="button") Edit Profile
+        a(class='edit-button' href=`/users/${user.id}/edit-password` role='button') Change Password
