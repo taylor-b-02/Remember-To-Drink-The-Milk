@@ -159,3 +159,11 @@ body {
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
+
+#task-list-ul {
+	list-style-type: none;
+}
+
+.task-box {
+	border: 1px dotted black;
+}
