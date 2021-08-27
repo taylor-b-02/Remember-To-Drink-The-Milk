@@ -1,5 +1,5 @@
 const db = require("../db/models");
-const { User, Task } = db;
+const { User, Task, List } = db;
 
 async function searchFunction() {
     const input = document.getElementById("nav-search-input");
@@ -8,8 +8,18 @@ async function searchFunction() {
     const tasks = await db.Task.findAll({
         where: {
             userId: userId,
-            description: { $like: inputValue}
         },
     });
+    const lists = await db.List.findAll({
+        where: {
+            userId: userId,
+        },
+    });
+    const ultimate = [...tasks, ...lists]
+    const result = ultimate.filter(function(el) {
+        if(el.name.includes(inputValue) || el.description.includes(inputValue)) {
+            return el;
+        }
+    })
 }
 document.getElementById("nav-search-input").addEventListener('search', searchFunction);
