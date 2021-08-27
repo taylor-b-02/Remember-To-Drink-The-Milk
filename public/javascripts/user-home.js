@@ -1,12 +1,21 @@
 window.addEventListener("DOMContentLoaded", async (event) => {
 	const lists = await getLists();
 	const nestedList = document.querySelector("#nested-list");
-	let listHTML = "<ul>";
+
 	lists.forEach((element) => {
-		listHTML += `<li data-list-id=${element.id}>${element.name}</li>`;
+		const listElement = document.createElement("li");
+		listElement.setAttribute("data-list-id", element.id);
+		listElement.innerHTML = `<div class="list-list-div">${element.name}</div`;
+
+		listElement.addEventListener("click", (event) => {
+			event.stopPropagation();
+			const taskContainer = document.getElementById("task-container");
+			taskContainer.innerHTML = "";
+			console.log("taskContainer:", taskContainer);
+			console.log("Clicked on a list");
+			nestedList.appendChild(listElement);
+		});
 	});
-	listHTML += "</ul>";
-	nestedList.innerHTML = listHTML;
 
 	const tasks = document.querySelectorAll(".task-box");
 	tasks.forEach((taskElement) => {
@@ -69,7 +78,6 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 			});
 		});
 	});
-
 	// LIST ID IS HARD-CODED MAKE SURE TO UPDATE IN FUTURE
 	// ADD IN EVENT LISTENER FOR DISPLAYING/HIDING BUTTONS, ABSTRACT LISTENERS FROM ABOVE
 	const addTaskBtn = document.getElementById("add-task-btn");
@@ -147,9 +155,6 @@ const getLists = async () => {
 
 	const taskLists = await fetch(listReq);
 	const resJSON = await taskLists.json();
-	console.log("resJSON", resJSON);
-	console.log("resJSON", Array.isArray(resJSON));
 	const resArray = [...resJSON];
-	console.log(resArray);
 	return resArray;
 };
