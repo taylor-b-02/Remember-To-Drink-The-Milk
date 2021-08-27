@@ -8,8 +8,16 @@ const Op = Sequelize.Op;
 const router = express.Router();
 
 router.get(
-	"/all",
-	asyncHandler(async (req, res) => {})
+	"/",
+	asyncHandler(async (req, res) => {
+		const { userId } = req.session.auth;
+		const lists = await Lists.findAll({
+			where: {
+				ownerId: userId,
+			},
+		});
+		res.json(lists);
+	})
 );
 
 // Create a list
