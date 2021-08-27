@@ -99,7 +99,7 @@ router.get(
 	asyncHandler(async (req, res, next) => {
 		const userId = parseInt(req.params.id, 10);
 		const user = await db.User.findByPk(userId);
-        const formattedBirthday = user.dateOfBirth.toDateString();
+        const formattedBirthday = user.dateOfBirth.toDateString().slice(4);
 		res.render("user-profile", { title: "User", user, formattedBirthday });
 	})
 );
