@@ -3,7 +3,7 @@ script(src="/javascripts/user-home.js" type="module" defer)
 
 ul(id="task-list-ul")
     each task in tasks
-        li
+        li(id="task-container")
             div(class="task-box" data-task-id=task.id)
                 input(type="checkbox", name="isComplete", id="completion-checkbox" value=task.isComplete required)
                 span(id="description-span")= task.description
