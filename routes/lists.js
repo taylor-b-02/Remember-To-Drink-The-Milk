@@ -4,11 +4,11 @@ const db = require("../db/models");
 const { Lists, Task } = db;
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
-
+const { requireAuth } = require("../auth");
 const router = express.Router();
 
 router.get(
-	"/",
+	"/", requireAuth,
 	asyncHandler(async (req, res) => {
 		const { userId } = req.session.auth;
 		const lists = await Lists.findAll({
@@ -20,9 +20,38 @@ router.get(
 	})
 );
 
+//SEARCH
+router.get(
+	"/search", requireAuth,
+	asyncHandler(async (req, res) => {
+		const { userId } = req.session.auth;
+		const tasks = await db.Task.findAll({
+            where: {
+                userId: userId,
+            },
+        });
+        const lists = await db.List.findAll({
+            where: {
+                userId: userId,
+            },
+        });
+        const ultimate = [...tasks, ...lists]
+        const result = ultimate.filter(function(el) {
+            if(el.name.includes(inputValue) || el.description.includes(inputValue)) {
+                return el;
+            }
+        });
+        if(!result) {
+            res.json(`Nothing found`);
+        }else{
+            res.json(result);
+        }
+	})
+);
+
 // Create a list
 router.post(
-	"/",
+	"/", requireAuth,
 	asyncHandler(async (req, res) => {
 		const { name } = req.body;
 		const { userId } = req.session.auth;
@@ -33,7 +62,7 @@ router.post(
 
 // Get a list
 router.get(
-	"/:id/",
+	"/:id/", requireAuth,
 	asyncHandler(async (req, res) => {
 		const id = parseInt(req.params.id, 10);
 		const list = await Lists.findOne({
@@ -45,7 +74,7 @@ router.get(
 
 // Create a new task and at it to the current list
 router.post(
-	"/:id/",
+	"/:id/", requireAuth,
 	asyncHandler(async (req, res) => {
 		const listId = parseInt(req.params.id, 10);
 		const { description } = req.body;
@@ -64,7 +93,7 @@ router.post(
 
 // Get all the tasks from a list
 router.get(
-	"/:id/tasks",
+	"/:id/tasks", requireAuth,
 	asyncHandler(async (req, res) => {
 		const id = parseInt(req.params.id, 10);
 		const tasks = await Task.findAll({
@@ -80,7 +109,7 @@ router.get(
 
 // Delete a list
 router.delete(
-	"/:id",
+	"/:id", requireAuth,
 	asyncHandler(async (req, res) => {
 		const listId = req.params.id;
 		await Task.destroy({
@@ -96,7 +125,7 @@ router.delete(
 
 // Edit a list (name)
 router.patch(
-	"/:id",
+	"/:id", requireAuth,
 	asyncHandler(async (req, res) => {
 		const listId = req.params.id;
 		const { name } = req.body;
