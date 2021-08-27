@@ -1,12 +1,16 @@
 window.addEventListener("DOMContentLoaded", async (event) => {
 	const lists = await getLists();
 	const nestedList = document.querySelector("#nested-list");
-	let listHTML = "<ul>";
 	lists.forEach((element) => {
-		listHTML += `<li data-list-id=${element.id}>${element.name}</li>`;
+		const listElement = document.createElement("li");
+		listElement.setAttribute("data-list-id", element.id);
+		listElement.innerText = element.name;
+		listElement.addEventListener("click", (event) => {
+			const taskContainer = document.getElementById("task-container");
+			taskContainer.innerHTML = '';
+
+		nestedList.appendChild(listElement);
 	});
-	listHTML += "</ul>";
-	nestedList.innerHTML = listHTML;
 
 	const tasks = document.querySelectorAll(".task-box");
 	tasks.forEach((taskElement) => {
