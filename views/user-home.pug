@@ -1,6 +1,7 @@
 
 link(rel='stylesheet' href='/stylesheets/user-home.css')
 script(src="/javascripts/user-home.js" type="module" defer)
+script(src="/javascripts/task-summary.js" type="module" defer)
 
 include navbar.pug
 
@@ -14,11 +15,11 @@ div(id="container")
         include task-form
         include task-list
     div(id="summary" class="main-body-div")
-        div(id="list-title") $LIST_NAME_HERE
+        div(id="list-title") All Tasks
         div(id="task-summary-container")
             div(class="inner-summary-container")
-                p(class="task-num") 0
+                p(class="task-num" id="tasks-sum") 0
                 p tasks
             div(class="inner-summary-container")
-                p(class="task-num") 0
+                p(class="task-num" id="completed-sum") 0
                 p completed
