@@ -1,5 +1,13 @@
-window.addEventListener("DOMContentLoaded", (event) => {
-	// const tasks = getAllTasks();
+window.addEventListener("DOMContentLoaded", async (event) => {
+	const lists = await getLists();
+	const nestedList = document.querySelector("#nested-list");
+	let listHTML = "<ul>";
+	lists.forEach((element) => {
+		listHTML += `<li data-list-id=${element.id}>${element.name}</li>`;
+	});
+	listHTML += "</ul>";
+	nestedList.innerHTML = listHTML;
+
 	const tasks = document.querySelectorAll(".task-box");
 	tasks.forEach((taskElement) => {
 		taskElement.addEventListener("click", (event) => {
@@ -130,4 +138,18 @@ const editTask = async (description, taskId) => {
 
 	await fetch(request);
 	return;
+};
+
+const getLists = async () => {
+	const listReq = new Request("http://localhost:8080/lists", {
+		method: "GET",
+	});
+
+	const taskLists = await fetch(listReq);
+	const resJSON = await taskLists.json();
+	console.log("resJSON", resJSON);
+	console.log("resJSON", Array.isArray(resJSON));
+	const resArray = [...resJSON];
+	console.log(resArray);
+	return resArray;
 };
