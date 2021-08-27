@@ -27,7 +27,7 @@ router.post(
 		const { name } = req.body;
 		const { userId } = req.session.auth;
 		const newList = await Lists.create({ name: name, ownerId: userId });
-		res.json(newList);
+		res.json(newList.id);
 	})
 );
 
