@@ -49,21 +49,20 @@ router.patch(
 	})
 );
 
-// Is Complete toggle route
-// router.patch(
-// 	"/:id",
-// 	asyncHandler(async (req, res, next) => {
-// 		const taskId = req.params.id;
-// 		const task = await Task.findByPk(taskId);
-// 		if (task.isComplete) {
-// 			task.isComplete = false;
-// 		} else {
-// 			task.isComplete = true;
-// 		}
-// 		await task.save();
-// 		res.send(200);
-// 	})
-// );
+router.patch(
+	"/:id/check",
+	asyncHandler(async (req, res, next) => {
+		const taskId = req.params.id;
+		const task = await Task.findByPk(taskId);
+		if (task.isComplete) {
+			task.isComplete = false;
+		} else {
+			task.isComplete = true;
+		}
+		await task.save();
+		res.send(200);
+	})
+);
 
 // Get all of a users tasks
 router.get(
