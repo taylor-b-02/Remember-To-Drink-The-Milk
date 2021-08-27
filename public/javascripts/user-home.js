@@ -53,6 +53,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
 					const description =
 						taskElement.querySelector("#task-edit-input").value;
 					editTask(description, taskId);
+					saveBtn.remove();
+					taskSpan.innerText = taskEditInput.value;
+					taskSpan.removeAttribute("hidden");
+					taskEditInput.remove();
 				});
 			});
 		});
