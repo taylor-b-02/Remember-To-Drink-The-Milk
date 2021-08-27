@@ -1,6 +1,8 @@
 ul(id="task-list-ul")
     each task in tasks
         li
-            div(class="task-box")
-                input(type="checkbox", name="isComplete" value=task.isComplete)
-                label(for="isComplete")= task.description
+            div(class="task-box" data-task-id=task.id)
+                input(type="checkbox", name="isComplete" value=task.isComplete required)
+                span(id="description-span")= task.description
+                button(hidden class="task-btn blue-btn") Edit
+                button(hidden class="task-btn red-btn") Delete

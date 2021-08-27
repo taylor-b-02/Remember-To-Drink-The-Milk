@@ -2,13 +2,9 @@
 link(rel='stylesheet' href='/stylesheets/user-home.css')
 script(src="/javascripts/user-home.js" type="module" defer)
 
+include navbar.pug
+
 div(id="container")
-    div(id="nav")
-        a(href="" id="menu-img"): img(src="/icons/menu.png", alt="Menu" class="icon")
-        div(id="nav-search")
-            img(src="/icons/search.png", alt="Search" id="nav-search-img" class="icon")
-            input(type="text" id="nav-search-input")
-        a(href="" id="settings-img"): img(src="/icons/settings.png", alt="Settings" class="icon")
     div(id="lists" class="main-body-div")
         a(href="" id="home-img"): img(src="/images/homeCow.png", alt="Home" id="cow-img")
         ul

@@ -13,7 +13,6 @@ router.post(
 	"/",
 	asyncHandler(async (req, res, next) => {
 		const { description, listId } = req.body;
-		console.log("DESCRIPTION:", description);
 		const { userId } = req.session.auth;
 		const newTask = await Task.create({
 			isComplete: false,
@@ -21,7 +20,7 @@ router.post(
 			userId: userId,
 			listId: 1,
 		});
-		res.redirect(`/users/${userId}`);
+		res.json(newTask);
 	})
 );
 
@@ -51,20 +50,20 @@ router.patch(
 );
 
 // Is Complete toggle route
-router.patch(
-	"/:id",
-	asyncHandler(async (req, res, next) => {
-		const taskId = req.params.id;
-		const task = await Task.findByPk(taskId);
-		if (task.isComplete) {
-			task.isComplete = false;
-		} else {
-			task.isComplete = true;
-		}
-		await task.save();
-		res.send(200);
-	})
-);
+// router.patch(
+// 	"/:id",
+// 	asyncHandler(async (req, res, next) => {
+// 		const taskId = req.params.id;
+// 		const task = await Task.findByPk(taskId);
+// 		if (task.isComplete) {
+// 			task.isComplete = false;
+// 		} else {
+// 			task.isComplete = true;
+// 		}
+// 		await task.save();
+// 		res.send(200);
+// 	})
+// );
 
 // Get all of a users tasks
 router.get(

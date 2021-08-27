@@ -2,9 +2,12 @@ extends layout
 
 block content
     link(rel="stylesheet" href="/stylesheets/profile.css")
+    link(rel='stylesheet' href='/stylesheets/user-home.css')
+
+    include navbar.pug
     a(href=`/users/${user.id}` id="home-img"): img(src="/images/homeCow.png" id="cow-image")
-    div(class="edit-container")
-        div(class="errors-container")
+    div(class="errors-container")
+    div(id="edit-profile-container")
         h3(class="edit-head")  Edit Profile
         form(class="edit-form" action=`/users/${user.id}/profile/edit` method="post")
             input(type="hidden" name="_csrf" value=csrfToken)
@@ -13,4 +16,4 @@ block content
             label(for="username") Username
             input(type="text" name="username" value=user.userName)
             button(class="edit-button" type="submit" name="editProfileButton" formmethod="post") Submit
-            a(class='edit-button' href=`/users/${user.id}/profile` role='button') Cancel
+            a(class='cancel-button' href=`/users/${user.id}/profile` role='button') Cancel
