@@ -18,7 +18,7 @@ router.post(
 			isComplete: false,
 			description: description,
 			userId: userId,
-			listId: 1,
+			listId: listId,
 		});
 		res.json(newTask);
 	})
