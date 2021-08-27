@@ -99,6 +99,7 @@ router.get(
 	asyncHandler(async (req, res, next) => {
 		const userId = parseInt(req.params.id, 10);
 		const user = await db.User.findByPk(userId);
+        console.log(user.dateOfBirth)
 		res.render("user-profile", { title: "User", user });
 	})
 );
@@ -263,6 +264,7 @@ router.post(
 	})
 );
 
+//GET edit-password page
 router.get(
 	"/:id(\\d+)/edit-password",
 	requireAuth,
