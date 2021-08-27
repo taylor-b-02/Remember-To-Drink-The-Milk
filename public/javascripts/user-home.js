@@ -1,21 +1,54 @@
 window.addEventListener("DOMContentLoaded", async (event) => {
+	// Load lists on left side bar
 	const lists = await getLists();
 	const nestedList = document.querySelector("#nested-list");
-
 	lists.forEach((element) => {
 		const listElement = document.createElement("li");
 		listElement.setAttribute("data-list-id", element.id);
 		listElement.innerHTML = `<div class="list-list-div">${element.name}</div`;
 
-		listElement.addEventListener("click", (event) => {
+		listElement.addEventListener("click", async (event) => {
 			event.stopPropagation();
 			const taskContainer = document.getElementById("task-list-ul");
 			taskContainer.innerHTML = "";
 			const listId = listElement.getAttribute("data-list-id");
+			const tasks = await getListById(listId);
+			tasks.forEach((task) => {
+				const taskHTML = `<div class='task-box' data-task-id='${task.id}'><input type="checkbox" name="isComplete" value="${task.isComplete}" required><span id="desciption-span">${task.description}<button hidden class="task-btn bule-btn">Edit</button><button hidden class="task-btn red-btn">Delete</button></span></input></div>`;
+				taskContainer.innerHTML = taskContainer.innerHTML += taskHTML;
+			});
+			const taskInput = document.getElementById("add-task-input");
+			taskInput.setAttribute("data-list-id", listId);
+			//
 		});
 		nestedList.appendChild(listElement);
 	});
 
+	const listUL = document.getElementById("list-ul");
+	const createList = document.createElement("li");
+	createList.setAttribute("id", "create-list-element");
+	createList.innerText = "Create a List";
+	createList.addEventListener("click", (event) => {
+		event.stopPropagation();
+		createList.setAttribute("hidden", "hidden");
+		const inputLI = document.createElement("li");
+		const listInputField = document.createElement("input");
+		listInputField.setAttribute("type", "text");
+		const listInputSubmit = document.createElement("button");
+		listInputSubmit.innerText = "Create List";
+		listInputSubmit.addEventListener("click", async (event) => {
+			const listName = listInputField.value;
+			const id = await postList(listName);
+			inputLI.remove();
+			createList.removeAttribute("hidden");
+		});
+		inputLI.appendChild(listInputField);
+		inputLI.appendChild(listInputSubmit);
+		listUL.appendChild(inputLI);
+	});
+	listUL.appendChild(createList);
+
+	// Load all tasks to start
 	const tasks = document.querySelectorAll(".task-box");
 	tasks.forEach((taskElement) => {
 		taskElement.addEventListener("click", (event) => {
@@ -83,7 +116,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 	addTaskBtn.addEventListener("click", (event) => {
 		const addTaskInput = document.getElementById("add-task-input");
 		const description = addTaskInput.value;
-		const listId = 1;
+		const listId = addTaskInput.getAttribute("data-list-id");
 
 		const createdTaskObj = addTask(description, listId);
 
@@ -128,9 +161,10 @@ const addTask = async (description, listId) => {
 	});
 
 	const createdTask = await fetch(request);
-	const jsonTask = await createdTask.json();
-	console.log(jsonTask);
-	return JSON.parse(jsonTask);
+	const jsonObject = await createdTask.json();
+	// console.log(jsonObject);
+	// return JSON.parse(jsonObject);
+	return jsonObject;
 };
 
 const editTask = async (description, taskId) => {
@@ -158,4 +192,29 @@ const getLists = async () => {
 	return resArray;
 };
 
-const getListById = async (listId) => {};
+const getListById = async (listId) => {
+	const listReq = new Request(`http://localhost:8080/lists/${listId}/tasks`, {
+		method: "GET",
+	});
+
+	const tasks = await fetch(listReq);
+	const tasksJSON = await tasks.json();
+	return tasksJSON;
+};
+
+const postList = async (listName) => {
+	const data = JSON.stringify({ name: listName });
+	const req = new Request("http://localhost:8080/lists/", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: data,
+	});
+
+	const id = await fetch(req);
+	const idNum = await id.json();
+	// console.log("ID:", idNum);
+	// console.log(typeof idNum);
+	return idNum;
+};
