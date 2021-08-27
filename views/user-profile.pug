@@ -15,7 +15,7 @@ div(id= "profile-container")
                 td= user.email
             tr
                 th(scope='row') Birthday
-                td= user.dateOfBirth
+                td= formattedBirthday
             tbody
 div(id= "edit-btn-container")
     a(class="edit-button" class="btn-edit" href=`/users/${user.id}/profile/edit` role="button") Edit Profile
