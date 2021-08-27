@@ -1,1 +1,188 @@
 npx sequelize-cli model:generate --name Fee --attributes description:string,amount:numeric,invoiceId:integer
+---------------index.pug
+div(class="carousel")
+            button(class="carousel__button carousel__button--left")
+                img(src="img/left.svg", alt="")
+            div(class="carousel__track-container")
+                ul(class="carousel__track")
+                    li(class="carousel__slide")
+                        img(class="carousel__image" src="../images/bobTmonkey.png", alt="Image1")
+                    li(class="carousel__slide")
+                        img(class="carousel__image" src="../images/homeCow.png", alt="Image2")
+                    li(class="carousel__slide")
+                        img(class="carousel__image" src="../images/sign-up-img.png", alt="Image3")
+            button(class="carousel__button" carousel__button--left)
+                img(src="img/left.svg", alt="")
+
+           
+-----------------------------
+
+index.css 
+* {
+	font-family: Arial, Helvetica, sans-serif;
+	box-sizing: border-box;
+	background-color: #0060bf;
+}
+
+.whole-page {
+	display:flex;
+	flex-direction:column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+
+}
+
+#top-nav-logo {
+	background-image: url(../images/homeCow.png);
+	background-repeat: no-repeat;
+	background-size: 179px auto;
+	width: 179px;
+	height: 200px;
+	display: inline-block;
+	margin: 12px 0 0 2px;
+	position: relative;
+	z-index: 2;
+}
+
+.navbar {
+	position: fixed;
+	top: 0;
+	background-color:#0060bf;
+	height: 114px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	border-bottom: 1px solid #333;
+	z-index: 1;
+}
+
+ul {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	list-style-type: none;
+	height: 114px;
+	width: 2fr;
+}
+
+a {
+	display: inline-flex;
+	background-color: transparent;
+	margin: 10px;
+	margin-left: 0px;
+	font-size: 15px;
+	font-weight: 700;
+	text-decoration: none;
+	border-radius: 3px;
+	padding: 4px;
+	color: #ffff;
+}
+
+/* #home-btn {
+	color: white;
+	/* width: 1fr;  */
+	 /* border-style: solid; */
+*/
+
+
+#nav-button {
+	width: 70%;
+}
+
+button {
+	font-size: 15px;
+	background-color: #3292f2;
+	border-radius: 3px;
+	padding: 4px;
+	color: white;
+	margin-right: 20px;
+	margin-left: 0px;
+}
+
+
+#login-link, #register-link {
+    padding: 5px;
+    font-weight: bold;
+    color: #d7e7f5;
+}
+
+#register-link{
+    border: 2px solid #d7e7f5;
+    border-radius: 5px;
+}
+li {
+    width: fit-content;
+}
+.main {
+    background-color: transparent;
+    text-align: center;
+}
+
+ h1 {
+    font-size: 44px;
+    font-weight: 700;
+    margin: 0;
+    color: #fff;
+}
+
+#quote {
+	padding-top: 114px;
+}
+
+#signup-main-page{
+	font-family: Arial, Helvetica, sans-serif;
+	color: #fff;
+    background-color: #d24b03;
+    border-color: transparent;
+	font-size: 23px;
+	border-radius: 4px;
+	padding: 11px 32px 12px;
+    line-height: 1.2;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+.btn{
+	display: inline-block;
+    margin-bottom: 0;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+}
+/* .nav-bar {
+    z-index: 10;
+    opacity: 1;
+    color: white;
+    border-bottom: rgba(65, 65, 65, 0.3) solid 1px;
+    display: flex;
+    justify-content: center;
+    /* background-color: white; */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    animation: .5s linear;
+    background-color: #0060bf;
+} */
+
+--------index.js
+ div(class="main")
+            div(class="whole-page" id="body-background" style="overflow-y: scroll")
+                nav.navbar
+                    a(href="/" id="top-nav-logo")
+                    div(id="nav-button")
+                    ul
+                        li: a(href="/users/demouser") Demo User
+                        li: a(href="/users/register") Register
+                        li
+                            form(action="/users/login" method= "post"): button(type="submit" class="btn") Sign Up For Free
+            div(class="container" id="quote")
+                h1 The smart to-do app for busy people.
+                a(href="/users/register" class="btn" id="signup-main-page") Sign Up Free
