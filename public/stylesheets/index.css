@@ -1,4 +1,7 @@
-@import url();
+@import "splash.css";
+@import "main-body.css";
+@import "main-navbar.css";
+
 
 div.main-page {
 	height: 65rem;
@@ -10,7 +13,13 @@ div.main-page {
 }
 
 @media screen and (max-width: 700px) {
-	
+	body {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		overflow: auto;
+	}
+	div.main-navbar {flex-grow: 3;}
 }
 	
 

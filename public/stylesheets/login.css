@@ -152,7 +152,7 @@ input:hover{
     padding-left: 4px;
 }
 .login-curator-avatar{
-    background-image: url(../images/bob-t-monkey);
+    background-image: url(../images/bobTmonkey.png);
     background-repeat: no-repeat;
     background-size: 60px auto;
     float: left;

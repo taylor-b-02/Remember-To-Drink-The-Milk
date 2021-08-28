@@ -1,0 +1,59 @@
+@keyframes blue-lightblue {
+    from {
+        background-color: #0060bf;
+    }
+
+    to {
+        background-color: #3292f2;
+    }
+}
+
+@keyframes lightblue-violet {
+    from {
+        background-color: #3292f2;
+    }
+
+    to {
+        background-color: #6a4ca6;
+    }
+}
+
+@keyframes violet-green {
+    from {
+        background-color: #6a4ca6;
+    }
+
+    to {
+        background-color: green;
+    }
+}
+
+@keyframes green-blue {
+    from {
+        background-color: green;
+    }
+
+    to {
+        background-color: #0060bf;
+    }
+}
+
+@keyframes out-of-frame {
+    from {
+        left: 0%;
+    }
+
+    to {
+        left: -250%;
+    }
+}
+
+@keyframes out-of-frame {
+    from {
+        left: 250%;
+    }
+
+    to {
+        left: 0%;
+    }
+}
