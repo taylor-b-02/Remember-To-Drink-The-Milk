@@ -60,6 +60,27 @@ window.addEventListener("DOMContentLoaded", event => {
     }
 
     			//animated sidenav
+    // const tasksBarArr = document.querySelectorAll("#task-container");
 
+    // tasksBarArr.forEach(task => {
+    //     task.addEventListener("click", e => {
+    //         taskEdit.
+    //     })
+    // })
+    const taskEdit = document.querySelector(".task-detail-container");
+    const testBtn = document.querySelector("#testBtn")
+    testBtn.addEventListener("click", e => {
+        taskEdit.style.animationName="slideout";
+        setTimeout(() => {
+            taskEdit.style.left= 10;
+        }, 300)
+    })
 
+    const closeBtn = document.querySelector(".btn-close");
+    closeBtn.addEventListener("click", e => {
+        taskEdit.style.animationName="slidein";
+        setTimeout(() => {
+            taskEdit.style.left=400
+        }, 300)
+    })
 });
