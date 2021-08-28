@@ -6,16 +6,19 @@ script(src="/javascripts/task-summary.js" type="module" defer)
 include navbar.pug
 
 div(id="container")
+
     div(id="lists" class="main-body-div")
         a(href="" id="home-img"): img(src="/images/homeCow.png", alt="Home" id="cow-img")
-        ul(id="list-ul")
-            li All Tasks
-            li(id="nested-list") Lists
+        div(id="list-display-div")
+            div(id="all-tasks-div") All Tasks
+            div(id="lists-label-div") Lists:
+
     div(id="current-list" class="main-body-div")
         include task-form
         //- include task-list
         div(id="incomplete-task-div")
         div(id="complete-task-div")
+
     div(id="summary" class="main-body-div")
         div(id="list-title") All Tasks
         div(id="task-summary-container")

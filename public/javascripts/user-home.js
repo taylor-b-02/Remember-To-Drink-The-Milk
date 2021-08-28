@@ -1,3 +1,4 @@
+import { bulkListBuilder } from "./dynamic/create-lists.js";
 import { taskBuilder, bulkTaskBuilder } from "./dynamic/create-tasks.js";
 import { showTaskButtons, taskBtnPOST } from "./dynamic/event-callbacks.js";
 
@@ -13,7 +14,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 	// Fetch all of a users tasks as objects
 	const allTasks = await getAllTasks();
 
-	// Convert the task objects to HTML elements with event listeners
+	// Convert the task objects into HTML elements with event listeners
 	const taskElementArray = bulkTaskBuilder(
 		allTasks,
 		clickRevealEventListener
@@ -28,15 +29,38 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 	const addTaskBtn = document.getElementById("add-task-btn");
 	addTaskBtn.addEventListener("click", taskBtnPOST);
 
+	// Load lists on left sidebar
+	const listDisplayDiv = document.querySelector("#list-display-div");
+
+	// Fetch all of a users lists as objects
+	const allLists = await getLists();
+
+	// Convert the list objecst into HTML elements with event listeners
+	// TODO: Add metadata to listDivs on the sidebar (listId in the tag) using the clickShowList callback
+	const clickShowList = {
+		eventType: "click",
+		callback: (event) => {
+			// 1. stopPropogation()
+			// 2. Clear taskDivs so that the list specifc tasks can be displayed
+			// 3. GET the list specific tasks
+			// 4. Display the list specific tasks in their respective taskDivs
+		},
+	};
+	const listElementArray = bulkListBuilder(allLists, clickShowList);
+
+	listElementArray.forEach((element) => {
+		listDisplayDiv.appendChild(element);
+	});
+
 	/* ++++++++++++++++++CODE ABOVE THIS LINE HAS BEEN REFACTORED+++++++++++++++++++++++++++++++++++++++++ */
 
 	// Load lists on left side bar
-	const lists = await getLists();
-	const nestedList = document.querySelector("#nested-list");
-	lists.forEach((element) => {
-		const listElement = document.createElement("li");
-		listElement.setAttribute("data-list-id", element.id);
-		listElement.innerHTML = `<div class="list-list-div">${element.name}</div`;
+
+	// const nestedList = document.querySelector("#nested-list");
+	listElementArray.forEach((element) => {
+		// const listElement = document.createElement("li");
+		// listElement.setAttribute("data-list-id", element.id);
+		// listElement.innerHTML = `<div class="list-list-div">${element.name}</div`;
 
 		listElement.addEventListener("click", async (event) => {
 			event.stopPropagation();
@@ -54,7 +78,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 			taskInput.setAttribute("data-list-id", listId);
 			//
 		});
-		nestedList.appendChild(listElement);
+		// nestedList.appendChild(listElement);
 	});
 
 	const listUL = document.getElementById("list-ul");
@@ -79,7 +103,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 		inputLI.appendChild(listInputSubmit);
 		listUL.appendChild(inputLI);
 	});
-	listUL.appendChild(createList);
+	// listUL.appendChild(createList);
 });
 
 const getAllTasks = async () => {

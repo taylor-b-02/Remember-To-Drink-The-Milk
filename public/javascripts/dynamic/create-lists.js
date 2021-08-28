@@ -3,10 +3,16 @@ function listBuilder(list, eventListener) {
 	const listContainerDiv = document.createElement("div");
 	listContainerDiv.setAttribute("class", "list-container-div");
 	listContainerDiv.setAttribute("data-list-id", list.id);
-	list.innerText = list.name;
+	listContainerDiv.innerText = list.name;
 
 	// Add the click event listener to the list div
-	list.addEventListner(eventListener.eventType, eventListener.callback);
+	listContainerDiv.addEventListener(
+		eventListener.eventType,
+		eventListener.callback
+	);
+
+	// Return the newly created list Div
+	return listContainerDiv;
 }
 
 function bulkListBuilder(listArr, eventListener) {
