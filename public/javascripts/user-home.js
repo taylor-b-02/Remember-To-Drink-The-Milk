@@ -1,16 +1,73 @@
+import { bulkListBuilder } from "./dynamic/create-lists.js";
+import { taskBuilder, bulkTaskBuilder } from "./dynamic/create-tasks.js";
+import { showTaskButtons, taskBtnPOST } from "./dynamic/event-callbacks.js";
+
 window.addEventListener("DOMContentLoaded", async (event) => {
+	const clickRevealEventListener = {
+		eventType: "click",
+		callback: showTaskButtons,
+	};
+
+	// Get the div container for incomplete tasks
+	const incompleteDiv = document.querySelector("#incomplete-task-div");
+
+	// Fetch all of a users tasks as objects
+	const allTasks = await getAllTasks();
+
+	// Convert the task objects into HTML elements with event listeners
+	const taskElementArray = bulkTaskBuilder(
+		allTasks,
+		clickRevealEventListener
+	);
+
+	// Add the HTML elements to the div
+	taskElementArray.forEach((element) => {
+		incompleteDiv.appendChild(element);
+	});
+
+	// Add tasks to the current list
+	const addTaskBtn = document.getElementById("add-task-btn");
+	addTaskBtn.addEventListener("click", taskBtnPOST);
+
+	// Load lists on left sidebar
+	const listDisplayDiv = document.querySelector("#list-display-div");
+
+	// Fetch all of a users lists as objects
+	const allLists = await getLists();
+
+	// Convert the list objecst into HTML elements with event listeners
+	// TODO: Add metadata to listDivs on the sidebar (listId in the tag) using the clickShowList callback
+	const clickShowList = {
+		eventType: "click",
+		callback: (event) => {
+			// 1. stopPropogation()
+			// 2. Clear taskDivs so that the list specifc tasks can be displayed
+			// 3. GET the list specific tasks
+			// 4. Display the list specific tasks in their respective taskDivs
+		},
+	};
+	const listElementArray = bulkListBuilder(allLists, clickShowList);
+
+	listElementArray.forEach((element) => {
+		listDisplayDiv.appendChild(element);
+	});
+
+	/* ++++++++++++++++++CODE ABOVE THIS LINE HAS BEEN REFACTORED+++++++++++++++++++++++++++++++++++++++++ */
+
 	// Load lists on left side bar
-	const lists = await getLists();
-	const nestedList = document.querySelector("#nested-list");
-	lists.forEach((element) => {
-		const listElement = document.createElement("li");
-		listElement.setAttribute("data-list-id", element.id);
-		listElement.innerHTML = `<div class="list-list-div">${element.name}</div`;
+
+	// const nestedList = document.querySelector("#nested-list");
+	listElementArray.forEach((element) => {
+		// const listElement = document.createElement("li");
+		// listElement.setAttribute("data-list-id", element.id);
+		// listElement.innerHTML = `<div class="list-list-div">${element.name}</div`;
 
 		listElement.addEventListener("click", async (event) => {
 			event.stopPropagation();
-			const taskContainer = document.getElementById("task-list-ul");
-			taskContainer.innerHTML = "";
+			const taskContainer = document.getElementById(
+				"incomplete-task-div"
+			);
+			taskContainer.innerHTML = ""; //TODO: Switch from deleting with .innerHTML, to .remove() for efficiency purposes
 			const listId = listElement.getAttribute("data-list-id");
 			const tasks = await getListById(listId);
 			tasks.forEach((task) => {
@@ -21,7 +78,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 			taskInput.setAttribute("data-list-id", listId);
 			//
 		});
-		nestedList.appendChild(listElement);
+		// nestedList.appendChild(listElement);
 	});
 
 	const listUL = document.getElementById("list-ul");
@@ -46,87 +103,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 		inputLI.appendChild(listInputSubmit);
 		listUL.appendChild(inputLI);
 	});
-	listUL.appendChild(createList);
-
-	// Load all tasks to start
-	const tasks = document.querySelectorAll(".task-box");
-	tasks.forEach((taskElement) => {
-		taskElement.addEventListener("click", (event) => {
-			event.stopPropagation();
-			event.preventDefault();
-
-			const taskId = taskElement.getAttribute("data-task-id");
-
-			const buttons = taskElement.querySelectorAll(".task-btn");
-			buttons.forEach((button) => {
-				if (button.getAttribute("hidden")) {
-					button.removeAttribute("hidden");
-				} else {
-					button.setAttribute("hidden", "hidden");
-				}
-			});
-
-			const deleteBtn = buttons[1];
-			deleteBtn.addEventListener("click", (event) => {
-				// Calls a helper function to remove the task from the database
-				deleteTask(taskId);
-				// 'Physically' removes the element from the HTML (Webpage)
-				taskElement.remove();
-			});
-
-			const editBtn = buttons[0];
-			editBtn.addEventListener("click", (event) => {
-				event.stopPropagation();
-				const taskSpan = taskElement.querySelector("#description-span");
-				console.log(taskSpan);
-				taskSpan.setAttribute("hidden", "hidden");
-				const taskEditInput = document.createElement("input");
-				taskEditInput.setAttribute("type", "text");
-				taskEditInput.setAttribute("id", "task-edit-input");
-				taskEditInput.value = taskSpan.innerText;
-				taskElement.appendChild(taskEditInput);
-				taskEditInput.addEventListener("click", (event) => {
-					event.stopPropagation();
-				});
-
-				deleteBtn.setAttribute("hidden", "hidden");
-				editBtn.setAttribute("hidden", "hidden");
-
-				const saveBtn = document.createElement("button");
-				saveBtn.setAttribute("class", "task-btn green-btn");
-				saveBtn.innerText = "Save";
-				taskElement.appendChild(saveBtn);
-
-				saveBtn.addEventListener("click", (event) => {
-					event.stopPropagation();
-					const description =
-						taskElement.querySelector("#task-edit-input").value;
-					editTask(description, taskId);
-					saveBtn.remove();
-					taskSpan.innerText = taskEditInput.value;
-					taskSpan.removeAttribute("hidden");
-					taskEditInput.remove();
-				});
-			});
-		});
-	});
-	// LIST ID IS HARD-CODED MAKE SURE TO UPDATE IN FUTURE
-	// ADD IN EVENT LISTENER FOR DISPLAYING/HIDING BUTTONS, ABSTRACT LISTENERS FROM ABOVE
-	const addTaskBtn = document.getElementById("add-task-btn");
-	addTaskBtn.addEventListener("click", (event) => {
-		const addTaskInput = document.getElementById("add-task-input");
-		const description = addTaskInput.value;
-		const listId = addTaskInput.getAttribute("data-list-id");
-
-		const createdTaskObj = addTask(description, listId);
-
-		const taskId = createdTaskObj.id;
-		const taskListUL = document.getElementById("task-list-ul");
-		const taskListLI = document.createElement("li");
-		const taskHTML = `<div class='task-box' data-task-id='${taskId}'><input type="checkbox" name="isComplete" value="${createdTaskObj.isComplete}" required><span id="desciption-span">${description}<button hidden class="task-btn bule-btn">Edit</button><button hidden class="task-btn red-btn">Delete</button></span></input></div>`;
-		taskListLI.innerHTML = taskHTML;
-		taskListUL.appendChild(taskListLI);
-	});
+	// listUL.appendChild(createList);
 });
 
 const getAllTasks = async () => {
@@ -139,46 +116,6 @@ const getAllTasks = async () => {
 	const responseArray = await response.json();
 
 	return responseArray;
-};
-
-const deleteTask = async (id) => {
-	const request = new Request(`http://localhost:8080/tasks/${id}`, {
-		method: "DELETE",
-	});
-
-	await fetch(request);
-	return;
-};
-
-const addTask = async (description, listId) => {
-	const data = JSON.stringify({ description: description, listId: listId });
-	const request = new Request("http://localhost:8080/tasks/", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: data,
-	});
-
-	const createdTask = await fetch(request);
-	const jsonObject = await createdTask.json();
-	// console.log(jsonObject);
-	// return JSON.parse(jsonObject);
-	return jsonObject;
-};
-
-const editTask = async (description, taskId) => {
-	const data = JSON.stringify({ description: description });
-	const request = new Request(`http://localhost:8080/tasks/${taskId}`, {
-		method: "PATCH",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: data,
-	});
-
-	await fetch(request);
-	return;
 };
 
 const getLists = async () => {
@@ -230,4 +167,6 @@ const getSearchResults = async () => {
 	const resArray = [...resJSON];
 	return resArray;
 };
-document.getElementById("nav-search-input").addEventListener('search', getSearchResults);
+document
+	.getElementById("nav-search-input")
+	.addEventListener("search", getSearchResults);
