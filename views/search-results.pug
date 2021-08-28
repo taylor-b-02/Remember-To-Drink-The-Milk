@@ -5,6 +5,7 @@ link(rel='stylesheet' href='/stylesheets/search.css')
 include navbar.pug
 
 div(id='search-container')
+    a(href="/" id="home-img"): img(src="/images/homeCow.png", alt="Home" id="cow-img")
     h2 Search results for: #{searchInput}
     div(id='results-container')
         ul(id='searchList')
