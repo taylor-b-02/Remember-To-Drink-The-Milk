@@ -130,4 +130,6 @@ const taskBtnPOST = async (event) => {
 	incompleteDiv.appendChild(createdTaskElement);
 };
 
+const displayList = async (event) => {};
+
 export { showTaskButtons, taskBtnPOST };
