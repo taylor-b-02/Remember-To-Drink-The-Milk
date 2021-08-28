@@ -1,5 +1,5 @@
 import { taskBuilder, bulkTaskBuilder } from "./dynamic/create-tasks.js";
-import { showTaskButtons } from "./dynamic/event-callbacks.js";
+import { showTaskButtons, taskBtnPOST } from "./dynamic/event-callbacks.js";
 
 window.addEventListener("DOMContentLoaded", async (event) => {
 	const clickRevealEventListener = {
@@ -23,6 +23,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 	taskElementArray.forEach((element) => {
 		incompleteDiv.appendChild(element);
 	});
+
+	/* ++++++++++++++++++CODE ABOVE THIS LINE HAS BEEN REFACTORED+++++++++++++++++++++++++++++++++++++++++ */
 
 	// Load lists on left side bar
 	const lists = await getLists();
@@ -75,23 +77,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 	});
 	listUL.appendChild(createList);
 
-	// LIST ID IS HARD-CODED MAKE SURE TO UPDATE IN FUTURE
-	// ADD IN EVENT LISTENER FOR DISPLAYING/HIDING BUTTONS, ABSTRACT LISTENERS FROM ABOVE
 	const addTaskBtn = document.getElementById("add-task-btn");
-	addTaskBtn.addEventListener("click", (event) => {
-		const addTaskInput = document.getElementById("add-task-input");
-		const description = addTaskInput.value;
-		const listId = addTaskInput.getAttribute("data-list-id");
-
-		const createdTaskObj = addTask(description, listId);
-
-		const taskId = createdTaskObj.id;
-		const taskListUL = document.getElementById("task-list-ul");
-		const taskListLI = document.createElement("li");
-		const taskHTML = `<div class='task-box' data-task-id='${taskId}'><input type="checkbox" name="isComplete" value="${createdTaskObj.isComplete}" required><span id="desciption-span">${description}<button hidden class="task-btn bule-btn">Edit</button><button hidden class="task-btn red-btn">Delete</button></span></input></div>`;
-		taskListLI.innerHTML = taskHTML;
-		taskListUL.appendChild(taskListLI);
-	});
+	addTaskBtn.addEventListener("click", taskBtnPOST);
 });
 
 const getAllTasks = async () => {
@@ -104,23 +91,6 @@ const getAllTasks = async () => {
 	const responseArray = await response.json();
 
 	return responseArray;
-};
-
-const addTask = async (description, listId) => {
-	const data = JSON.stringify({ description: description, listId: listId });
-	const request = new Request("http://localhost:8080/tasks/", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: data,
-	});
-
-	const createdTask = await fetch(request);
-	const jsonObject = await createdTask.json();
-	// console.log(jsonObject);
-	// return JSON.parse(jsonObject);
-	return jsonObject;
 };
 
 const getLists = async () => {

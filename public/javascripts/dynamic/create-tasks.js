@@ -1,4 +1,5 @@
 function taskBuilder(task, eventListener) {
+	console.log("TASK:", task);
 	// Create and configure the wrapper div for the individual task
 	const taskContainerDiv = document.createElement("div");
 	taskContainerDiv.setAttribute("class", "task-container-div");

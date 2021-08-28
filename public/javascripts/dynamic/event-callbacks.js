@@ -1,4 +1,5 @@
-import { patchTask, deleteTask } from "./fetch-requests.js";
+import { taskBuilder } from "./create-tasks.js";
+import { patchTask, deleteTask, postTask } from "./fetch-requests.js";
 
 function saveCallback(event) {
 	event.stopPropagation();
@@ -75,4 +76,17 @@ const showTaskButtons = (event) => {
 	deleteBtn.addEventListener("click", deleteCallback);
 };
 
-export { showTaskButtons };
+const taskBtnPOST = async (event) => {
+	event.stopPropagation();
+	const addTaskInput = document.querySelector("#add-task-input");
+	const description = addTaskInput.value;
+	const listId = addTaskInput.getAttribute("data-list-id");
+
+	const createdTaskObj = await postTask(description, listId);
+
+	const incompleteDiv = document.querySelector("#incomplete-task-div");
+	const createdTaskElement = taskBuilder(createdTaskObj, showTaskButtons);
+	incompleteDiv.appendChild(createdTaskElement);
+};
+
+export { showTaskButtons, taskBtnPOST };

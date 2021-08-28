@@ -21,4 +21,21 @@ const deleteTask = async (id) => {
 	return;
 };
 
-export { patchTask, deleteTask };
+const postTask = async (description, listId) => {
+	const data = JSON.stringify({ description: description, listId: listId });
+	const request = new Request("http://localhost:8080/tasks/", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: data,
+	});
+
+	const createdTask = await fetch(request);
+	const jsonObject = await createdTask.json();
+	// console.log(jsonObject);
+	// return JSON.parse(jsonObject);
+	return jsonObject;
+};
+
+export { patchTask, deleteTask, postTask };
