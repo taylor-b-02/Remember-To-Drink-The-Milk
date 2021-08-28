@@ -6,6 +6,9 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const { requireAuth } = require("../auth");
 const router = express.Router();
+const app = express();
+
+app.set('view engine', 'pug');
 
 router.get(
 	"/", requireAuth,
@@ -20,34 +23,7 @@ router.get(
 	})
 );
 
-//SEARCH
-// router.get(
-// 	"/search", requireAuth,
-// 	asyncHandler(async (req, res) => {
-// 		const { userId } = req.session.auth;
-// 		const tasks = await db.Task.findAll({
-//             where: {
-//                 userId: userId,
-//             },
-//         });
-//         const lists = await db.List.findAll({
-//             where: {
-//                 ownerId: userId,
-//             },
-//         });
-//         const ultimate = [...tasks, ...lists]
-//         const result = ultimate.filter(function(el) {
-//             if(el.name.includes(inputValue) || el.description.includes(inputValue)) {
-//                 return el;
-//             }
-//         });
-//         if(!result) {
-//             res.json(`Nothing found`);
-//         }else{
-//             res.json(result);
-//         }
-// 	})
-// );
+
 
 // Create a list
 router.post(
@@ -62,21 +38,17 @@ router.post(
 
 // Get a list
 router.get(
-	"/:id/", requireAuth,
+	"/:id(\\d+)/", requireAuth,
 	asyncHandler(async (req, res) => {
 		const id = parseInt(req.params.id, 10);
-		const list = await Lists.findOne({
-			where: {
-                id: id,
-            }
-		});
+		const list = await Lists.findByPk(id);
 		res.json(list);
 	})
 );
 
 // Create a new task and at it to the current list
 router.post(
-	"/:id/", requireAuth,
+	"/:id(\\d+)/", requireAuth,
 	asyncHandler(async (req, res, next) => {
 		const listId = parseInt(req.params.id, 10);
 		const { description } = req.body;
@@ -95,7 +67,7 @@ router.post(
 
 // Get all the tasks from a list
 router.get(
-	"/:id/tasks", requireAuth,
+	"/:id(\\d+)/tasks", requireAuth,
 	asyncHandler(async (req, res) => {
 		const id = parseInt(req.params.id, 10);
 		const tasks = await Task.findAll({
@@ -111,7 +83,7 @@ router.get(
 
 // Delete a list
 router.delete(
-	"/:id", requireAuth,
+	"/:id(\\d+)", requireAuth,
 	asyncHandler(async (req, res) => {
 		const listId = parseInt(req.params.id, 10);
 		await Task.destroy({
@@ -127,7 +99,7 @@ router.delete(
 
 // Edit a list (name)
 router.patch(
-	"/:id", requireAuth,
+	"/:id(\\d+)", requireAuth,
 	asyncHandler(async (req, res) => {
 		const listId = parseInt(req.params.id, 10);
 		const { name } = req.body;
@@ -142,27 +114,42 @@ router.patch(
 //new SEARCH
 router.get('/searchResults', requireAuth, asyncHandler(async(req, res, next) => {
     const { userId } = req.session.auth;
-    const inputValue = document.getElementById('nav-search-input').value;
-    const tasks = Task.findAll({
+    const { searchInput } = req.body
+
+
+    const tasks = await Task.findAll({
         where: {
             userId: userId,
         }
     });
-    const lists = List.findAll({
+
+    const searchTasks = tasks.filter(function(el) {
+        if(el.description.includes(searchInput)) {
+            return el;
+        }
+    });
+
+
+    const lists = await Lists.findAll({
         where: {
             ownerId: userId,
         }
     });
-
-    const allListsTasks = [...tasks, ...lists];
-    console.log(allListsTasks);
-    const result = allListsTasks.filter(function(el) {
-        if(el.name.includes(inputValue) || el.description.includes(inputValue)) {
+    const searchLists = lists.filter(function(el) {
+        if(el.name.includes(searchInput)) {
             return el;
         }
     });
-    res.render('search-results', {title: 'Search', inputValue, result} )
+    const result = [...searchTasks, ...searchLists];
+    console.log(result);
 
-}))
+    res.render('search-results', {title: 'Search', searchInput, result} );
+
+}));
+
+// router.get('/searchResults', requireAuth, asyncHandler(async(req, res) => {
+//     res.render('search-results')
+
+// }))
 
 module.exports = router;
