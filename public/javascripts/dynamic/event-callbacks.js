@@ -1,5 +1,10 @@
 import { taskBuilder } from "./create-tasks.js";
-import { patchTask, deleteTask, postTask } from "./fetch-requests.js";
+import {
+	patchTask,
+	deleteTask,
+	postTask,
+	toggleComplete,
+} from "./fetch-requests.js";
 
 function saveCallback(event) {
 	event.stopPropagation();
@@ -53,9 +58,30 @@ function deleteCallback(event) {
 	event.target.parentElement.remove();
 }
 
+// TODO: Add intermediary stage between checking a task, and updating the DB entry as (un)complete
+// TODO: Transfer 'complete' items from the incomplete div to the complete divs
+function checkCallback(event) {
+	event.stopPropagation();
+	const taskContainer = event.target.parentElement;
+	const taskId = taskContainer.getAttribute("data-task-id");
+
+	let checkedValue;
+
+	if (this.checked) {
+		checkedValue = true;
+	} else {
+		checkedValue = false;
+	}
+
+	toggleComplete(taskId, checkedValue);
+}
+
 const showTaskButtons = (event) => {
 	event.stopPropagation();
 	const taskContainer = event.currentTarget;
+
+	// A boolean that represents whether or not the div was the primary target of the click event
+	const intendedTarget = event.currentTarget === event.target;
 
 	// A boolean that represents whether or not there is an text input field
 	const noInput = !taskContainer.querySelector("#task-edit-input");
@@ -64,7 +90,7 @@ const showTaskButtons = (event) => {
 	const [editBtn, deleteBtn] = taskContainer.querySelectorAll(".task-btn");
 
 	// If the buttons are hidden and there is not a text input field, reveal the buttons, else hide them
-	if (editBtn.getAttribute("hidden") && noInput) {
+	if (editBtn.getAttribute("hidden") && intendedTarget && noInput) {
 		editBtn.removeAttribute("hidden");
 		deleteBtn.removeAttribute("hidden");
 	} else {
@@ -74,6 +100,12 @@ const showTaskButtons = (event) => {
 
 	editBtn.addEventListener("click", editCallback);
 	deleteBtn.addEventListener("click", deleteCallback);
+
+	// Get the checkbox input field from the current task container
+	const checkBox = taskContainer.querySelector(".task-checkbox");
+
+	//  Updates whether a task isChecked in the DB
+	checkBox.addEventListener("change", checkCallback);
 };
 
 const taskBtnPOST = async (event) => {

@@ -38,4 +38,21 @@ const postTask = async (description, listId) => {
 	return jsonObject;
 };
 
-export { patchTask, deleteTask, postTask };
+const toggleComplete = async (taskId, checkedValue) => {
+	const data = JSON.stringify({ isComplete: checkedValue });
+	const request = new Request(
+		`http://localhost:8080/tasks/${taskId}/toggleComplete`,
+		{
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: data,
+		}
+	);
+
+	await fetch(request);
+	return;
+};
+
+export { patchTask, deleteTask, postTask, toggleComplete };
