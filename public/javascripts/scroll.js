@@ -19,13 +19,13 @@ export default class Scroll {
 
             },
             {
-                colorChange: 'lightblue-violet',
+                colorChange: 'lightblue-purple',
                 frameOut: this.pic2,
                 frameIn: this.pic3,
                 color: '#6a4ca6'
             },
             {
-                colorChange: 'violet-green',
+                colorChange: 'purple-green',
                 frameOut: this.pic3,
                 frameIn: this.pic4,
                 color: '#5bb84d'
@@ -41,23 +41,33 @@ export default class Scroll {
         
     }
         play = async () => {
-
+            console.log("enter")
             while(this.playNext) {
                 await this.timer(5000) // waits 5 secs before switching
+                console.log("it works1")
 
-                let transition = this.colorChange.shift()
+                let transition = this.carousel.shift()
+
+                console.log("it works")
                 this.main.style.colorchange = transition.colorChange
                 this.header.style.colorChange = transition.colorChange
+                console.log(this.header.style.colorChange)
 
-                transition.frameOut.style.colorChange = 'out-of-frame';
-                transition.frameIn.style.colorChange = 'in-to-frame';
+                transition.frameOut.style.colorChange = 'out-frame';
+                console.log(transition.frameOut)
+                console.log(this.pic1)
+                console.log(this.pic2)
+                console.log(this.pic3)
+                console.log(this.pic4)
+                
+                transition.frameIn.style.colorChange = 'in-frame';
 
                 this.main.style.backgroundColor = transition.color
                 this.header.style.backgroundColor = transition.color
 
                 transition.frameOut.style.left = '-250%'
                 transition.frameIn.style.left = '0%'
-                this.colorChange.push(transition)
+                this.carousel.push(transition)
             }
         }
 

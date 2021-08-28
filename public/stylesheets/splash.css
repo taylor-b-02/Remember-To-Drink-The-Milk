@@ -8,19 +8,19 @@
     }
 }
 
-@keyframes lightblue-violet {
+@keyframes lightblue-purple {
     from {
         background-color: #3292f2;
     }
 
     to {
-        background-color: #6a4ca6;
+        background-color: purple;
     }
 }
 
-@keyframes violet-green {
+@keyframes purple-green {
     from {
-        background-color: #6a4ca6;
+        background-color: purple;
     }
 
     to {
@@ -38,7 +38,7 @@
     }
 }
 
-@keyframes out-of-frame {
+@keyframes out-frame {
     from {
         left: 0%;
     }
@@ -48,7 +48,7 @@
     }
 }
 
-@keyframes out-of-frame {
+@keyframes in-frame {
     from {
         left: 250%;
     }

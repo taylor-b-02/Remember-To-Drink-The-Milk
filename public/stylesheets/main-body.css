@@ -131,4 +131,17 @@ p.quote {
     }
 
     /* FRAME 2 */
-    
+    div.pic2 {
+        position: absolute;
+        width:30em;
+        height: 50em;
+        left:10%;
+    }
+
+    div.pic3 {
+        position: absolute;
+    }
+
+    div.pic4 {
+        position: absolute;
+    }
