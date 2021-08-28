@@ -50,17 +50,15 @@ router.patch(
 );
 
 router.patch(
-	"/:id/check",
+	"/:id/toggleComplete",
 	asyncHandler(async (req, res, next) => {
 		const taskId = req.params.id;
+		const { isComplete } = req.body;
 		const task = await Task.findByPk(taskId);
-		if (task.isComplete) {
-			task.isComplete = false;
-		} else {
-			task.isComplete = true;
-		}
-		await task.save();
-		res.send(200);
+		await task.update({
+			isComplete: isComplete,
+		});
+		res.json(task);
 	})
 );
 
