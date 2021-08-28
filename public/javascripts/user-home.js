@@ -7,6 +7,7 @@ import {
 } from "./dynamic/event-callbacks.js";
 
 window.addEventListener("DOMContentLoaded", async (event) => {
+	/*------------------------------Load all tasks on the main page------------------------------*/
 	const clickRevealEventListener = {
 		eventType: "click",
 		callback: showTaskButtons,
@@ -33,7 +34,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 	const addTaskBtn = document.getElementById("add-task-btn");
 	addTaskBtn.addEventListener("click", taskBtnPOST);
 
-	// Load lists on left sidebar
+	/*------------------------------Load lists on left sidebar------------------------------*/
 	const listDisplayDiv = document.querySelector("#list-display-div");
 
 	// Fetch all of a users lists as objects
@@ -46,42 +47,15 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 		callback: displayList,
 	};
 	const listElementArray = bulkListBuilder(allLists, clickShowList);
-
+	// Add individual lists to the sidebar
 	listElementArray.forEach((element) => {
 		listDisplayDiv.appendChild(element);
 	});
 
-	/* ++++++++++++++++++CODE ABOVE THIS LINE HAS BEEN REFACTORED+++++++++++++++++++++++++++++++++++++++++ */
+	/* +++++++++++++++++++++++++++++CODE ABOVE THIS LINE HAS BEEN REFACTORED++++++++++++++++++++++++++++++++ */
 
-	// Load lists on left side bar
-
-	// const nestedList = document.querySelector("#nested-list");
-	// listElementArray.forEach((element) => {
-	// 	// const listElement = document.createElement("li");
-	// 	// listElement.setAttribute("data-list-id", element.id);
-	// 	// listElement.innerHTML = `<div class="list-list-div">${element.name}</div`;
-
-	// 	listElement.addEventListener("click", async (event) => {
-	// 		event.stopPropagation();
-	// 		const taskContainer = document.getElementById(
-	// 			"incomplete-task-div"
-	// 		);
-	// 		taskContainer.innerHTML = ""; //TODO: Switch from deleting with .innerHTML, to .remove() for efficiency purposes
-	// 		const listId = listElement.getAttribute("data-list-id");
-	// 		const tasks = await getListById(listId);
-	// 		tasks.forEach((task) => {
-	// 			const taskHTML = `<div class='task-box' data-task-id='${task.id}'><input type="checkbox" name="isComplete" value="${task.isComplete}" required><span id="desciption-span">${task.description}<button hidden class="task-btn bule-btn">Edit</button><button hidden class="task-btn red-btn">Delete</button></span></input></div>`;
-	// 			taskContainer.innerHTML = taskContainer.innerHTML += taskHTML;
-	// 		});
-	// 		const taskInput = document.getElementById("add-task-input");
-	// 		taskInput.setAttribute("data-list-id", listId);
-	// 		//
-	// 	});
-	// 	// nestedList.appendChild(listElement);
-	// });
-
-	const listUL = document.getElementById("list-ul");
-	const createList = document.createElement("li");
+	const listUL = document.getElementById("list-display-div");
+	const createList = document.createElement("div");
 	createList.setAttribute("id", "create-list-element");
 	createList.innerText = "Create a List";
 	createList.addEventListener("click", (event) => {

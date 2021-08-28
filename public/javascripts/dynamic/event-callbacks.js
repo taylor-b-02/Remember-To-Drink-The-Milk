@@ -123,7 +123,7 @@ const taskBtnPOST = async (event) => {
 	const addTaskInput = document.querySelector("#add-task-input");
 	const description = addTaskInput.value;
 	const listId = addTaskInput.getAttribute("data-list-id");
-
+	console.log("DESC:", description, "listID:", listId);
 	const createdTaskObj = await postTask(description, listId);
 
 	const incompleteDiv = document.querySelector("#incomplete-task-div");
@@ -144,13 +144,24 @@ const displayList = async (event) => {
 
 	// 3. GET the list specific tasks
 	const listId = event.target.getAttribute("data-list-id");
+
 	const tasks = await getListById(listId);
-	const taskElementArray = bulkTaskBuilder(tasks, showTaskButtons);
+
+	const clickRevealEventListener = {
+		eventType: "click",
+		callback: showTaskButtons,
+	};
+
+	const taskElementArray = bulkTaskBuilder(tasks, clickRevealEventListener);
 
 	// 4. Display the list specific tasks in their respective taskDivs
 	taskElementArray.forEach((element) => {
 		incompleteDiv.appendChild(element);
 	});
+
+	// 5. Set the add-task-input to the id of the current list
+	const taskInput = document.querySelector("#add-task-input");
+	taskInput.setAttribute("data-list-id", listId);
 };
 
 export { showTaskButtons, taskBtnPOST, displayList };
