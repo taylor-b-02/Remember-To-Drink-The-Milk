@@ -81,7 +81,16 @@ const showTaskButtons = (event) => {
 	const taskContainer = event.currentTarget;
 
 	// A boolean that represents whether or not the div was the primary target of the click event
-	const intendedTarget = event.currentTarget === event.target;
+	const spanRegex = /\<span class="task-description-span"\>.*\<\/span\>/g;
+
+	let intendedTarget = false;
+
+	if (
+		event.currentTarget === event.target ||
+		spanRegex.test(event.target.outerHTML)
+	) {
+		intendedTarget = true;
+	}
 
 	// A boolean that represents whether or not there is an text input field
 	const noInput = !taskContainer.querySelector("#task-edit-input");
