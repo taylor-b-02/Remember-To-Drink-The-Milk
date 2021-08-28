@@ -98,13 +98,13 @@ p.quote {
         font-size: 22px;
         font-family: 'Courier New', Courier, monospace;
         font-weight: bold;
-        top: 10em;
+        top: 11em;
         left: 6em;
     }
     div.right-bubble-1 > img {
         position: absolute;
         left: 7em;
-        top:12em;
+        top:14em;
         width: 9em;
     }
 
