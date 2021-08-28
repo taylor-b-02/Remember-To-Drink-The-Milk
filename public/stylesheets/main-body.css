@@ -1,9 +1,16 @@
+*{
+    box-sizing: border-box;
+}
+
+html {
+    overflow-x: hidden;
+}
 .main-body {
     padding-top: 8em;
     display: flex;
     justify-content: center;
     max-width: 100vw;
-    max-height: 100vh;
+    max-height: 100vh; 
 }
 
 div.main-container {
@@ -38,3 +45,90 @@ p.quote {
     color: white;
     border-radius: 5px;
 }
+
+    /* FRAME 1 */
+
+    div.pic1 {
+        /* position: absolute;
+        margin-top: 1em;
+        width: 50em;
+        height: 50em;
+        animation: .5 linear;
+        top: 100%; */
+        /* display: flex;
+        justify-content: center; */
+        position: absolute;
+        width:50em;
+        height: 50em;
+        
+    }
+    #person-image-2 {
+        position: absolute;
+    }
+
+    #cow-image-1 {
+        position: absolute;
+        /* height: 350px; */
+        width: 23em; 
+        left:15em;
+        top: 21em;
+    }
+
+    div.left-bubble-1 > img {
+        position: absolute ;
+        left: 36em;
+        top: 14em;
+    }
+
+    div.left-bubble-1 > div {
+        width: 5em;
+        text-align: center;
+        font-size: 22px;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+        position: absolute;
+        left: 27em;
+        bottom: 21em;
+    }
+
+    div.right-bubble-1 > div {
+        width: 5em;
+        position: absolute;
+        text-align: center;
+        font-size: 22px;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+        top: 10em;
+        left: 6em;
+    }
+    div.right-bubble-1 > img {
+        position: absolute;
+        left: 7em;
+        top:12em;
+        width: 9em;
+    }
+
+    .end1 {
+        font-size: 28px;
+    }
+
+    .end2 {
+        font-size: 20px;
+    }
+
+    div.end1 > p {
+        position: absolute;
+        bottom: 1em;
+        left:9em;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    div.end2 > p {
+        position: absolute; 
+        bottom: 0em;
+        left:13em;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* FRAME 2 */
+    
