@@ -1,0 +1,30 @@
+#search-container {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#results-container {
+    display:flex;
+    flex-direction: row;
+    font-variant: small-caps;
+}
+
+#searchList li {
+    font-size: x-large;
+    font-style: italic;
+    padding: 10px;
+}
+
+#searchList {
+    list-style-type:circle;
+    list-style-image: linear-gradient(to left bottom, #d7e7f5, #0060bf);
+}
+
+.search-link {
+    color: darkblue;
+    text-decoration: none;
+    font-weight: bold;
+    font-variant:normal
+}
