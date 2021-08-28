@@ -108,6 +108,11 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 					taskEditInput.remove();
 				});
 			});
+
+			// const taskDetail = document.querySelector(".task-detail-container");
+			// function openSlideMenu(){
+			// 	taskDetail.style.width = "327px"
+			// };
 		});
 	});
 	// LIST ID IS HARD-CODED MAKE SURE TO UPDATE IN FUTURE

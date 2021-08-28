@@ -23,3 +23,14 @@ div(id="container")
             div(class="inner-summary-container")
                 p(class="task-num" id="completed-sum") 0
                 p completed
+
+        div(class="task-detail-container")
+            div(class="form-container")
+                a(href="#" class="btn-close") &times;
+                form(class="form")
+                    input(type="text" id="editing")
+                    button(type="submit" id="edit-button") Edit
+                div(class="list-info")
+                    span(class="list-label") List:
+                    span(class="list-content")
+                div(class="task-status") Incomplete

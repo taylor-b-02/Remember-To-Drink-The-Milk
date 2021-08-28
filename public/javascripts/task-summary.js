@@ -36,11 +36,7 @@ window.addEventListener("DOMContentLoaded", event => {
         taskSum.innerHTML = tasksRecord;
     }
 
-
-
     // When a user clicks on the checkbox, completed increment by 1.
-    // acquire the checkbox by its id
-    // acquire completed calculator by its id, then key into innerHTML
     const completionCheckbox = document.querySelectorAll("#completion-checkbox");
     let completionSum = document.querySelector("#completed-sum");
     let completionSumInt = parseInt(localStorage.getItem("completed-tasks"));
@@ -62,4 +58,8 @@ window.addEventListener("DOMContentLoaded", event => {
     if(completedTasksRecord) {
         completionSum.innerHTML = completedTasksRecord;
     }
+
+    			//animated sidenav
+
+
 });
