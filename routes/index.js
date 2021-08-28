@@ -3,8 +3,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'a/A Express Skeleton Home' });
+    if(req.session.auth) {
+        const { userId } = req.session.auth
+        res.redirect(`/users/${userId}`);
+    }
+  res.render('index', { title: 'Remember to Drink the Milk' });
 });
 
 module.exports = router;
-

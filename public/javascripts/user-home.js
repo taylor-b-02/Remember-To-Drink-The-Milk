@@ -156,17 +156,3 @@ const postList = async (listName) => {
 	return idNum;
 };
 
-//SEARCH
-const getSearchResults = async () => {
-	const searchReq = new Request("http://localhost:8080/lists/search", {
-		method: "GET",
-	});
-
-	const searchList = await fetch(searchReq);
-	const resJSON = await searchList.json();
-	const resArray = [...resJSON];
-	return resArray;
-};
-document
-	.getElementById("nav-search-input")
-	.addEventListener("search", getSearchResults);
