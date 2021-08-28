@@ -1,10 +1,13 @@
 link(rel="stylesheet" href="/stylesheets/profile.css")
 link(rel='stylesheet' href='/stylesheets/user-home.css')
+link(rel='stylesheet' href='/stylesheets/search.css')
 
 include navbar.pug
 
 div(id='search-container')
     h2 Search results for: #{searchInput}
-    ul(id='searchList')
-        each item in result
-            a(href=`/${item.type}/${item.id}`) #{item.name}
+    div(id='results-container')
+        ul(id='searchList')
+            each item in result
+                li= item.type
+                a(href=`/${item.type}/${item.id}` class='search-link') #{item.name}
