@@ -1,6 +1,10 @@
 import { bulkListBuilder } from "./dynamic/create-lists.js";
 import { taskBuilder, bulkTaskBuilder } from "./dynamic/create-tasks.js";
-import { showTaskButtons, taskBtnPOST } from "./dynamic/event-callbacks.js";
+import {
+	showTaskButtons,
+	taskBtnPOST,
+	displayList,
+} from "./dynamic/event-callbacks.js";
 
 window.addEventListener("DOMContentLoaded", async (event) => {
 	const clickRevealEventListener = {
@@ -39,12 +43,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 	// TODO: Add metadata to listDivs on the sidebar (listId in the tag) using the clickShowList callback
 	const clickShowList = {
 		eventType: "click",
-		callback: (event) => {
-			// 1. stopPropogation()
-			// 2. Clear taskDivs so that the list specifc tasks can be displayed
-			// 3. GET the list specific tasks
-			// 4. Display the list specific tasks in their respective taskDivs
-		},
+		callback: displayList,
 	};
 	const listElementArray = bulkListBuilder(allLists, clickShowList);
 
@@ -57,29 +56,29 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 	// Load lists on left side bar
 
 	// const nestedList = document.querySelector("#nested-list");
-	listElementArray.forEach((element) => {
-		// const listElement = document.createElement("li");
-		// listElement.setAttribute("data-list-id", element.id);
-		// listElement.innerHTML = `<div class="list-list-div">${element.name}</div`;
+	// listElementArray.forEach((element) => {
+	// 	// const listElement = document.createElement("li");
+	// 	// listElement.setAttribute("data-list-id", element.id);
+	// 	// listElement.innerHTML = `<div class="list-list-div">${element.name}</div`;
 
-		listElement.addEventListener("click", async (event) => {
-			event.stopPropagation();
-			const taskContainer = document.getElementById(
-				"incomplete-task-div"
-			);
-			taskContainer.innerHTML = ""; //TODO: Switch from deleting with .innerHTML, to .remove() for efficiency purposes
-			const listId = listElement.getAttribute("data-list-id");
-			const tasks = await getListById(listId);
-			tasks.forEach((task) => {
-				const taskHTML = `<div class='task-box' data-task-id='${task.id}'><input type="checkbox" name="isComplete" value="${task.isComplete}" required><span id="desciption-span">${task.description}<button hidden class="task-btn bule-btn">Edit</button><button hidden class="task-btn red-btn">Delete</button></span></input></div>`;
-				taskContainer.innerHTML = taskContainer.innerHTML += taskHTML;
-			});
-			const taskInput = document.getElementById("add-task-input");
-			taskInput.setAttribute("data-list-id", listId);
-			//
-		});
-		// nestedList.appendChild(listElement);
-	});
+	// 	listElement.addEventListener("click", async (event) => {
+	// 		event.stopPropagation();
+	// 		const taskContainer = document.getElementById(
+	// 			"incomplete-task-div"
+	// 		);
+	// 		taskContainer.innerHTML = ""; //TODO: Switch from deleting with .innerHTML, to .remove() for efficiency purposes
+	// 		const listId = listElement.getAttribute("data-list-id");
+	// 		const tasks = await getListById(listId);
+	// 		tasks.forEach((task) => {
+	// 			const taskHTML = `<div class='task-box' data-task-id='${task.id}'><input type="checkbox" name="isComplete" value="${task.isComplete}" required><span id="desciption-span">${task.description}<button hidden class="task-btn bule-btn">Edit</button><button hidden class="task-btn red-btn">Delete</button></span></input></div>`;
+	// 			taskContainer.innerHTML = taskContainer.innerHTML += taskHTML;
+	// 		});
+	// 		const taskInput = document.getElementById("add-task-input");
+	// 		taskInput.setAttribute("data-list-id", listId);
+	// 		//
+	// 	});
+	// 	// nestedList.appendChild(listElement);
+	// });
 
 	const listUL = document.getElementById("list-ul");
 	const createList = document.createElement("li");
@@ -129,16 +128,6 @@ const getLists = async () => {
 	return resArray;
 };
 
-const getListById = async (listId) => {
-	const listReq = new Request(`http://localhost:8080/lists/${listId}/tasks`, {
-		method: "GET",
-	});
-
-	const tasks = await fetch(listReq);
-	const tasksJSON = await tasks.json();
-	return tasksJSON;
-};
-
 const postList = async (listName) => {
 	const data = JSON.stringify({ name: listName });
 	const req = new Request("http://localhost:8080/lists/", {
@@ -156,10 +145,9 @@ const postList = async (listName) => {
 	return idNum;
 };
 
-
 document
 	.getElementById("nav-search-input")
-	.addEventListener("search", async(event) => {
-        const search = event.target.value;
-        window.location.href=`http://localhost:8080/lists/searchResults/${search}`
-    });
+	.addEventListener("search", async (event) => {
+		const search = event.target.value;
+		window.location.href = `http://localhost:8080/lists/searchResults/${search}`;
+	});

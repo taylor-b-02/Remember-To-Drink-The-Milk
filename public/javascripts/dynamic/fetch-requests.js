@@ -55,5 +55,14 @@ const toggleComplete = async (taskId, checkedValue) => {
 	return;
 };
 
+const getListById = async (listId) => {
+	const listReq = new Request(`http://localhost:8080/lists/${listId}/tasks`, {
+		method: "GET",
+	});
 
-export { patchTask, deleteTask, postTask, toggleComplete };
+	const tasks = await fetch(listReq);
+	const tasksJSON = await tasks.json();
+	return tasksJSON;
+};
+
+export { patchTask, deleteTask, postTask, toggleComplete, getListById };

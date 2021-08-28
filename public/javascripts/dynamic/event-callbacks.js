@@ -1,9 +1,10 @@
-import { taskBuilder } from "./create-tasks.js";
+import { bulkTaskBuilder, taskBuilder } from "./create-tasks.js";
 import {
 	patchTask,
 	deleteTask,
 	postTask,
 	toggleComplete,
+	getListById,
 } from "./fetch-requests.js";
 
 function saveCallback(event) {
@@ -130,6 +131,26 @@ const taskBtnPOST = async (event) => {
 	incompleteDiv.appendChild(createdTaskElement);
 };
 
-const displayList = async (event) => {};
+const displayList = async (event) => {
+	// 1. stopPropogation()
+	event.stopPropagation();
 
-export { showTaskButtons, taskBtnPOST };
+	// 2. Clear taskDivs so that the list specifc tasks can be displayed
+	const incompleteDiv = document.querySelector("#incomplete-task-div");
+	// const incompleteDiv = document.getElementById("incomplete-task-div");
+	while (incompleteDiv.firstChild) {
+		incompleteDiv.firstChild.remove();
+	}
+
+	// 3. GET the list specific tasks
+	const listId = event.target.getAttribute("data-list-id");
+	const tasks = await getListById(listId);
+	const taskElementArray = bulkTaskBuilder(tasks, showTaskButtons);
+
+	// 4. Display the list specific tasks in their respective taskDivs
+	taskElementArray.forEach((element) => {
+		incompleteDiv.appendChild(element);
+	});
+};
+
+export { showTaskButtons, taskBtnPOST, displayList };
