@@ -112,9 +112,9 @@ router.patch(
 );
 
 //new SEARCH
-router.get('/searchResults', requireAuth, asyncHandler(async(req, res, next) => {
+router.get('/searchResults/:searchInput', requireAuth, asyncHandler(async(req, res, next) => {
     const { userId } = req.session.auth;
-    const { searchInput } = req.body
+    const searchInput  = req.params.searchInput;
 
 
     const tasks = await Task.findAll({
@@ -129,6 +129,14 @@ router.get('/searchResults', requireAuth, asyncHandler(async(req, res, next) => 
         }
     });
 
+    const readSearchTasks = searchTasks.map(function (task) {
+        readTask = {
+            type: 'tasks',
+            id: task.id,
+            name: task.description
+        }
+        return readTask;
+    });
 
     const lists = await Lists.findAll({
         where: {
@@ -140,7 +148,17 @@ router.get('/searchResults', requireAuth, asyncHandler(async(req, res, next) => 
             return el;
         }
     });
-    const result = [...searchTasks, ...searchLists];
+
+    const readSearchLists = searchLists.map(function (list) {
+        readList = {
+            type: 'lists',
+            id: list.id,
+            name: list.name
+        }
+        return readList;
+    });
+
+    const result = [...readSearchTasks, ...readSearchLists];
     console.log(result);
 
     res.render('search-results', {title: 'Search', searchInput, result} );

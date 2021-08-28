@@ -1,7 +1,6 @@
 import { bulkListBuilder } from "./dynamic/create-lists.js";
 import { taskBuilder, bulkTaskBuilder } from "./dynamic/create-tasks.js";
 import { showTaskButtons, taskBtnPOST } from "./dynamic/event-callbacks.js";
-import { getSearchResults } from "./dynamic/fetch-requests.js";
 
 window.addEventListener("DOMContentLoaded", async (event) => {
 	const clickRevealEventListener = {
@@ -162,6 +161,5 @@ document
 	.getElementById("nav-search-input")
 	.addEventListener("search", async(event) => {
         const search = event.target.value;
-        await getSearchResults(search);
-        window.location.href='/lists/searchResults';
+        window.location.href=`http://localhost:8080/lists/searchResults/${search}`
     });

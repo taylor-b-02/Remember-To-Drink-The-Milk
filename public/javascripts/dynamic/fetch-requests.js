@@ -55,24 +55,5 @@ const toggleComplete = async (taskId, checkedValue) => {
 	return;
 };
 
-//SEARCH
-const getSearchResults = async (searchInput) => {
-    const data = JSON.stringify({ searchInput:  searchInput})
-	// const searchReq = new Request("http://localhost:8080/lists/searchResults", {
-    //     method: "GET",
-	// 	headers: {
-	// 		"Content-Type": "application/json",
-	// 	},
-	// 	body: data,
-	// });
 
-	const searchList = await fetch("http://localhost:8080/lists/searchResults", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: data,
-    });
-};
-
-export { patchTask, deleteTask, postTask, toggleComplete, getSearchResults };
+export { patchTask, deleteTask, postTask, toggleComplete };
