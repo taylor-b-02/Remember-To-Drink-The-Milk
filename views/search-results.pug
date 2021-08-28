@@ -1,1 +1,10 @@
-h1 I MADE IT
+link(rel="stylesheet" href="/stylesheets/profile.css")
+link(rel='stylesheet' href='/stylesheets/user-home.css')
+
+include navbar.pug
+
+div(id='search-container')
+    h2 Search results for: #{searchInput}
+    ul(id='searchList')
+        each item in result
+            a(href=`/${item.type}/${item.id}`) #{item.name}
