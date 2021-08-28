@@ -24,6 +24,10 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 		incompleteDiv.appendChild(element);
 	});
 
+	// Add tasks to the current list
+	const addTaskBtn = document.getElementById("add-task-btn");
+	addTaskBtn.addEventListener("click", taskBtnPOST);
+
 	/* ++++++++++++++++++CODE ABOVE THIS LINE HAS BEEN REFACTORED+++++++++++++++++++++++++++++++++++++++++ */
 
 	// Load lists on left side bar
@@ -76,9 +80,6 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 		listUL.appendChild(inputLI);
 	});
 	listUL.appendChild(createList);
-
-	const addTaskBtn = document.getElementById("add-task-btn");
-	addTaskBtn.addEventListener("click", taskBtnPOST);
 });
 
 const getAllTasks = async () => {

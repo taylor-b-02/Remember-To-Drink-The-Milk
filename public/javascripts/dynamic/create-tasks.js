@@ -1,5 +1,4 @@
 function taskBuilder(task, eventListener) {
-	console.log("TASK:", task);
 	// Create and configure the wrapper div for the individual task
 	const taskContainerDiv = document.createElement("div");
 	taskContainerDiv.setAttribute("class", "task-container-div");
@@ -45,16 +44,16 @@ function taskBuilder(task, eventListener) {
 }
 
 function bulkTaskBuilder(taskArr, eventListener) {
-	// Create an empty string to hold the elements
+	// Create an empty array to hold the elements
 	let taskElementArr = [];
 
 	// Loop through the array of task objects
 	taskArr.forEach((task) => {
-		// Convert the task into an HTML element and append that to a bulk list of elements
+		// Convert the task object into an HTML element and append that to a bulk list of elements
 		taskElementArr.push(taskBuilder(task, eventListener));
 	});
 
-	// Return the bulk list of HTML elements
+	// Return the bulk array of HTML elements
 	return taskElementArr;
 }
 
