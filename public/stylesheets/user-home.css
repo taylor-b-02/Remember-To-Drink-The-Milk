@@ -238,7 +238,7 @@ body {
 .btn-close {
 	color: #ccc;
 	float: left;
-	font-size: 10px solid #808080;
+	font: 5px solid #808080;
 	text-decoration: none;
 	margin-right: 5px;
 }
