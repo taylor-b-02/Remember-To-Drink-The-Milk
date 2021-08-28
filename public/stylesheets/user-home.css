@@ -234,3 +234,26 @@ body {
 	border: 1px dotted black;
 }
 
+.task-detail-container {
+	/* display: none; */
+	background-color: #f4f4f4;
+	z-index:1;
+	overflow: auto;
+	right: 0;
+	/* margin: -100px 0; */
+	padding: 20px;
+	width: 22%;
+	height: 85vh;
+	position: absolute;
+}
+
+.btn-close {
+	color: #ccc;
+	float: right;
+	font-size: 20px;
+	text-decoration: none;
+}
+
+.btn-close:hover {
+	color: #000;
+}
