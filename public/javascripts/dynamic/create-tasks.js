@@ -1,4 +1,4 @@
-function taskBuilder(task) {
+function taskBuilder(task, eventListener) {
 	// Create and configure the wrapper div for the individual task
 	const taskContainerDiv = document.createElement("div");
 	taskContainerDiv.setAttribute("class", "task-container-div");
@@ -19,10 +19,12 @@ function taskBuilder(task) {
 	const taskEditBtn = document.createElement("button");
 	const taskDeleteBtn = document.createElement("button");
 
-	taskEditBtn.setAttribute("class", "task-btn.blue-btn"); // Set the class of the button and hide it
+	taskEditBtn.setAttribute("class", "task-btn blue-btn"); // Set the class of the button and hide it
+	taskEditBtn.innerText = "Edit";
 	taskEditBtn.setAttribute("hidden", "hidden");
 
-	taskDeleteBtn.setAttribute("class", "task-btn.red-btn"); // Set the class of the button and hide it
+	taskDeleteBtn.setAttribute("class", "task-btn red-btn"); // Set the class of the button and hide it
+	taskDeleteBtn.innerText = "Delete";
 	taskDeleteBtn.setAttribute("hidden", "hidden");
 
 	// Place all newly generated elements into the taskContainerDiv
@@ -31,25 +33,28 @@ function taskBuilder(task) {
 	taskContainerDiv.appendChild(taskEditBtn); // Append the edit and delete buttons
 	taskContainerDiv.appendChild(taskDeleteBtn);
 
+	// Add the provided event listener to the div
+	taskContainerDiv.addEventListener(
+		eventListener.eventType,
+		eventListener.callback
+	);
+
 	// Return the newly created task Div
 	return taskContainerDiv;
 }
 
-function bulkTaskBuilder(taskArr) {
+function bulkTaskBuilder(taskArr, eventListener) {
 	// Create an empty string to hold the elements
-	let taskList = "";
+	let taskElementArr = [];
 
 	// Loop through the array of task objects
 	taskArr.forEach((task) => {
 		// Convert the task into an HTML element and append that to a bulk list of elements
-		taskList += taskBuilder(task).outerHTML;
+		taskElementArr.push(taskBuilder(task, eventListener));
 	});
 
 	// Return the bulk list of HTML elements
-	return taskList;
+	return taskElementArr;
 }
 
-module.exports = {
-	taskBuilder,
-	bulkTaskBuilder,
-};
+export { taskBuilder, bulkTaskBuilder };

@@ -13,7 +13,9 @@ div(id="container")
             li(id="nested-list") Lists
     div(id="current-list" class="main-body-div")
         include task-form
-        include task-list
+        //- include task-list
+        div(id="incomplete-task-div")
+        div(id="complete-task-div")
     div(id="summary" class="main-body-div")
         div(id="list-title") All Tasks
         div(id="task-summary-container")
