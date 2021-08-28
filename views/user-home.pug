@@ -23,13 +23,14 @@ div(id="container")
         div(class="task-detail-container")
             div(class="body-container")
                 a(href="#" class="btn-close") &#8592; All Tasks
-                form(class="form" id="")
-                    input(type="text" id="editing")
-                    button(type="submit" id="edit-button") Edit
-                div(class="list-info")
-                    span(class="list-label") List:
-                    span(class="list-content")
-                div(class="task-status") Incomplete
+                form(class="form" id="task-detail")
+                    div(id="user-edit")
+                        input(type="text" id="editing")
+                        button(type="submit" id="edit-button") Edit
+                    div(class="list-info")
+                        span(class="label-name") List:
+                        span(class="list-content")
+                        div(class="label-name" id="status") Status: Incomplete
 
         div(id="list-title") All Tasks
         div(id="task-summary-container")
