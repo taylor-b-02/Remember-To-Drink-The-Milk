@@ -11,8 +11,9 @@ div.main
             div(class="nav-button")
             ul
                 form(action="/users/login" method= "post" class="inline")
+                        input(type="hidden" name="_csrf" value=csrfToken)
                         input(type="hidden" name="loginIdentifier" value="demoUser")
-                        input(type="hidden" name="password" value="password")
+                        input(type="hidden" name="password" value="Test1!")
                         button(type="submit" class="demoUserButton") Demo User
                 a(href="/users/login") Login
                 a(href="/users/register") Register
