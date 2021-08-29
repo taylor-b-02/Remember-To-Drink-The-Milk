@@ -141,10 +141,27 @@ p.quote {
         animation: .5s linear;
 
     }
+    
     div.left-bubble-2 {
+        position:absolute;
         background-color: red;
+        border-radius: 4px;
         width: 16em;
         height: 2em;
+        top: 5em;
+    }
+
+
+    div.right-bubble-2 {
+        position:absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color:white;
+        border-radius: 4px;
+        width: 16em;
+        height: 2em;
+        left: 15em;
     }
 
      /* FRAME 3 */
