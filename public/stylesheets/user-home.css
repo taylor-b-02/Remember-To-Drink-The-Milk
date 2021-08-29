@@ -236,17 +236,78 @@ body {
 }
 
 .btn-close {
-	color: #ccc;
+	color: gray;
 	float: left;
-	font-size: 10px solid #808080;
+	font-size: 14px;
 	text-decoration: none;
-	margin-right: 5px;
+	margin-top: 10px;
 }
 
 .btn-close:hover {
 	color: #000;
 }
 
+#task-detail {
+	display: inline-block;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: middle;
+	margin-top: 30px;
+}
+
+#user-edit {
+	margin-bottom: 20px;
+}
+
+#editing {
+	border-radius: 5px;
+	border: 1px solid gray;
+	padding: 1px 2px;
+	margin-left: 5px;
+	height: 30px;
+	width: 70%;
+	transition-duration: 0.3s;
+	outline: none;
+}
+
+#editing:focus {
+    border: 1.5px solid rgb(0, 183, 255,.8);
+    box-shadow: 0 0 5px rgb(0,183,255,.3);
+}
+
+#edit-button {
+	margin-left: 5px;
+	border-radius: 3px;
+	width: 50px;
+	height: 25px;
+	background-color: #d7e7f5;
+	border:1px solid #c7def1;
+	transition-duration: 0.3s;
+	outline: none;
+}
+
+#edit-button:hover {
+	font-weight: bold;
+    box-shadow: 0 0 5px rgb(0,183,255,.3);
+}
+
+#edit-button:focus {
+    border: 1.5px solid rgb(0, 183, 255,.8);
+    box-shadow: 0 0 5px rgb(0,183,255,.3);
+}
+
+.list-info {
+	margin-left: 5px;
+}
+
+.label-name {
+	font-weight: bold;
+	color: #444444;
+}
+
+#status {
+	margin-top: 20px;
+}
 
 @keyframes slideout {
 	from {
