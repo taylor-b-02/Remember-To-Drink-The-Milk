@@ -1,13 +1,18 @@
-import { bulkListBuilder } from "./dynamic/create-lists.js";
+import { listBuilder, bulkListBuilder } from "./dynamic/create-lists.js";
 import { taskBuilder, bulkTaskBuilder } from "./dynamic/create-tasks.js";
 import {
 	showTaskButtons,
 	taskBtnPOST,
 	displayList,
+	createListInput,
 } from "./dynamic/event-callbacks.js";
 
+import { getAllTasks, getLists, postList } from "./dynamic/fetch-requests.js";
+
 window.addEventListener("DOMContentLoaded", async (event) => {
+	/*-------------------------------------------------------------------------------------------*/
 	/*------------------------------Load all tasks on the main page------------------------------*/
+	/*-------------------------------------------------------------------------------------------*/
 	const clickRevealEventListener = {
 		eventType: "click",
 		callback: showTaskButtons,
@@ -30,18 +35,21 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 		incompleteDiv.appendChild(element);
 	});
 
-	// Add tasks to the current list
+	/*--------------------------------------------------------------------------------------*/
+	/*------------------------------Enable The Add Task Button------------------------------*/
+	/*--------------------------------------------------------------------------------------*/
 	const addTaskBtn = document.getElementById("add-task-btn");
 	addTaskBtn.addEventListener("click", taskBtnPOST);
 
+	/*--------------------------------------------------------------------------------------*/
 	/*------------------------------Load lists on left sidebar------------------------------*/
+	/*--------------------------------------------------------------------------------------*/
 	const listDisplayDiv = document.querySelector("#list-display-div");
 
 	// Fetch all of a users lists as objects
 	const allLists = await getLists();
 
 	// Convert the list objecst into HTML elements with event listeners
-	// TODO: Add metadata to listDivs on the sidebar (listId in the tag) using the clickShowList callback
 	const clickShowList = {
 		eventType: "click",
 		callback: displayList,
@@ -54,70 +62,40 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
 	/* +++++++++++++++++++++++++++++CODE ABOVE THIS LINE HAS BEEN REFACTORED++++++++++++++++++++++++++++++++ */
 
-	const listUL = document.getElementById("list-display-div");
-	const createList = document.createElement("div");
-	createList.setAttribute("id", "create-list-element");
-	createList.innerText = "Create a List";
-	createList.addEventListener("click", (event) => {
-		event.stopPropagation();
-		createList.setAttribute("hidden", "hidden");
-		const inputLI = document.createElement("li");
-		const listInputField = document.createElement("input");
-		listInputField.setAttribute("type", "text");
-		const listInputSubmit = document.createElement("button");
-		listInputSubmit.innerText = "Create List";
-		listInputSubmit.addEventListener("click", async (event) => {
-			const listName = listInputField.value;
-			const id = await postList(listName);
-			inputLI.remove();
-			createList.removeAttribute("hidden");
-		});
-		inputLI.appendChild(listInputField);
-		inputLI.appendChild(listInputSubmit);
-		listUL.appendChild(inputLI);
-	});
-	// listUL.appendChild(createList);
+	// const listUL = document.getElementById("list-display-div");
+	// const createList = document.createElement("div");
+	// createList.setAttribute("id", "create-list-element");
+	// createList.innerText = "Create a List";
+	// createList.addEventListener("click", (event) => {
+	// event.stopPropagation();
+	// createList.setAttribute("hidden", "hidden");
+	// const inputLI = document.createElement("li");
+	// const listInputField = document.createElement("input");
+	// listInputField.setAttribute("type", "text");
+	// const listInputSubmit = document.createElement("button");
+	// listInputSubmit.innerText = "Create List";
+	// listInputSubmit.addEventListener("click", async (event) => {
+	// 	const listName = listInputField.value;
+	// 	const id = await postList(listName);
+	// 	inputLI.remove();
+	// 	createList.removeAttribute("hidden");
+	// });
+	// inputLI.appendChild(listInputField);
+	// inputLI.appendChild(listInputSubmit);
+	// listUL.appendChild(inputLI);
+	// });
+
+	const createListDiv = document.createElement("div");
+	createListDiv.setAttribute("id", "create-list-div");
+
+	const createListSpan = document.createElement("span");
+	createListSpan.innerText = "Create a List";
+	createListSpan.addEventListener("click", createListInput);
+
+	createListDiv.appendChild(createListSpan);
+
+	listDisplayDiv.appendChild(createListDiv);
 });
-
-const getAllTasks = async () => {
-	// const headers = new Headers();
-	const request = new Request("http://localhost:8080/tasks", {
-		method: "GET",
-	});
-
-	const response = await fetch(request);
-	const responseArray = await response.json();
-
-	return responseArray;
-};
-
-const getLists = async () => {
-	const listReq = new Request("http://localhost:8080/lists", {
-		method: "GET",
-	});
-
-	const taskLists = await fetch(listReq);
-	const resJSON = await taskLists.json();
-	const resArray = [...resJSON];
-	return resArray;
-};
-
-const postList = async (listName) => {
-	const data = JSON.stringify({ name: listName });
-	const req = new Request("http://localhost:8080/lists/", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: data,
-	});
-
-	const id = await fetch(req);
-	const idNum = await id.json();
-	// console.log("ID:", idNum);
-	// console.log(typeof idNum);
-	return idNum;
-};
 
 document
 	.getElementById("nav-search-input")

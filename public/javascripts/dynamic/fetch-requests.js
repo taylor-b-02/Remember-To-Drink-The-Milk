@@ -55,6 +55,23 @@ const toggleComplete = async (taskId, checkedValue) => {
 	return;
 };
 
+const postList = async (listName) => {
+	const data = JSON.stringify({ name: listName });
+	const req = new Request("http://localhost:8080/lists/", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: data,
+	});
+
+	const id = await fetch(req);
+	const idNum = await id.json();
+	// console.log("ID:", idNum);
+	// console.log(typeof idNum);
+	return idNum;
+};
+
 const getListById = async (listId) => {
 	const listReq = new Request(`http://localhost:8080/lists/${listId}/tasks`, {
 		method: "GET",
@@ -65,4 +82,36 @@ const getListById = async (listId) => {
 	return tasksJSON;
 };
 
-export { patchTask, deleteTask, postTask, toggleComplete, getListById };
+const getAllTasks = async () => {
+	// const headers = new Headers();
+	const request = new Request("http://localhost:8080/tasks", {
+		method: "GET",
+	});
+
+	const response = await fetch(request);
+	const responseArray = await response.json();
+
+	return responseArray;
+};
+
+const getLists = async () => {
+	const listReq = new Request("http://localhost:8080/lists", {
+		method: "GET",
+	});
+
+	const taskLists = await fetch(listReq);
+	const resJSON = await taskLists.json();
+	const resArray = [...resJSON];
+	return resArray;
+};
+
+export {
+	patchTask,
+	deleteTask,
+	postTask,
+	toggleComplete,
+	getListById,
+	getAllTasks,
+	getLists,
+	postList,
+};
