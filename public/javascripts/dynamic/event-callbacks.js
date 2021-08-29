@@ -110,7 +110,14 @@ const taskBtnPOST = async (event) => {
 	const createdTaskObj = await postTask(description, listId);
 
 	const incompleteDiv = document.querySelector("#incomplete-task-div");
-	const createdTaskElement = taskBuilder(createdTaskObj, showTaskButtons);
+	const clickRevealEventListener = {
+		eventType: "click",
+		callback: showTaskButtons,
+	};
+	const createdTaskElement = taskBuilder(
+		createdTaskObj,
+		clickRevealEventListener
+	);
 	incompleteDiv.appendChild(createdTaskElement);
 };
 
