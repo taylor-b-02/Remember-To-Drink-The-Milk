@@ -63,6 +63,7 @@ p.quote {
         height: 50em;
         justify-content: center;
         
+        
     }
     #person-image-2 {
         position: absolute;
@@ -140,7 +141,7 @@ p.quote {
         left: 10%;
         animation: .5s linear;
         top: 22em;
-        left: 10%;
+        left: 0%;
     }
     
     div.left-bubble-2 {
@@ -154,9 +155,11 @@ p.quote {
         display: flex;
         align-items: center;
         justify-content: center;
+        font-family: Arial, Helvetica, sans-serif;
     }
     #person-image-2 {
-        width: 15em;
+        width: 13em;
+        top: 3em;
         
     }
 
@@ -171,15 +174,27 @@ p.quote {
         height: 2em;
         left: 15em;
         top: 3em;
+        font-family: Arial, Helvetica, sans-serif;
     }
 
     div.end2-1 {
         position: absolute;
-        top: 35em;
+        top: 29.5em;
+        left: -1em;
     }
     div.end2-2 {
         position: absolute;
-        top: 30em;
+        left: -12em;
+        top: 32.5em;
+    }
+
+    div.end2-1 > p {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 28px;
+    }
+    div.end2-2 > p {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
     }
 
      /* FRAME 3 */

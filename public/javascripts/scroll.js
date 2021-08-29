@@ -39,7 +39,7 @@ export default class Scroll {
 	}
 	play = async () => {
 		console.log("enter");
-		// while(this.playNext) {
+		while(this.playNext) {
 		await this.timer(5000); // waits 5 secs before switching
 		console.log("it works1");
 
@@ -74,4 +74,5 @@ timer = async (time) => {
 			resolve("resolved");
 		}, time);
 	});
+}
 };

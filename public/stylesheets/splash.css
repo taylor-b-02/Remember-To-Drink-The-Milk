@@ -1,4 +1,4 @@
-/* @keyframes blue-lightblue {
+@keyframes blue-lightblue {
     from {
         background-color: #0060bf;
     }
@@ -6,9 +6,9 @@
     to {
         background-color: #3292f2;
     }
-} */
+} 
 
-/* @keyframes lightblue-purple {
+ @keyframes lightblue-purple {
     from {
         background-color: #3292f2;
     }
@@ -56,4 +56,4 @@
     to {
         left: 0%;
     }
-} */
+}
