@@ -18,9 +18,10 @@ window.addEventListener("DOMContentLoaded", event => {
 
     //Everytime a user clicks on the Delete button, tasks summary will decrement by 1.
     const deleteTaskBtnArr = document.querySelectorAll(".task-btn.red-btn");
-    // console.log(deleteTaskBtn);
+    // console.log(deleteTaskBtnArr);
     // console.log(typeof(taskSumInt));
     deleteTaskBtnArr.forEach(deleteBtn => {
+        console.log(taskSumInt);
         deleteBtn.addEventListener("click", event => {
             if(taskSumInt > 0) {
                 taskSumInt -= 1;
@@ -65,21 +66,21 @@ window.addEventListener("DOMContentLoaded", event => {
     const tasksBarArr = document.querySelectorAll("#task-container");
     console.log(tasksBarArr);
     const taskEdit = document.querySelector(".task-detail-container");
-    // const testBtn = document.querySelector("#testBtn")
-    tasksBarArr.forEach(task => {
-        task.addEventListener("click", e => {
-            taskEdit.style.animationName="slideout";
-            setTimeout(() => {
-                taskEdit.style.left= 10;
-            }, 300)
-        })
-    })
-    // testBtn.addEventListener("click", e => {
-    //     taskEdit.style.animationName="slideout";
-    //     setTimeout(() => {
-    //         taskEdit.style.left= 10;
-    //     }, 300)
+    const testBtn = document.querySelector("#testBtn")
+    // tasksBarArr.forEach(task => {
+    //     task.addEventListener("click", e => {
+    //         taskEdit.style.animationName="slideout";
+    //         setTimeout(() => {
+    //             taskEdit.style.left= 10;
+    //         }, 300)
+    //     })
     // })
+    testBtn.addEventListener("click", e => {
+        taskEdit.style.animationName="slideout";
+        setTimeout(() => {
+            taskEdit.style.left= 10;
+        }, 300)
+    })
 
     const closeBtn = document.querySelector(".btn-close");
     closeBtn.addEventListener("click", e => {
