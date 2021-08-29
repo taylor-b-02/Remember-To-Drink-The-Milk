@@ -18,13 +18,13 @@ module.exports = {
       },
       userId: {
         allowNull: false,
-        references: { model: 'Users' },
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: { model: 'Users' }
       },
       listId: {
         allowNull: false,
-        references: { model: 'Lists' },
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: { model: 'Lists' }
       },
       createdAt: {
         allowNull: false,

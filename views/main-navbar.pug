@@ -10,7 +10,11 @@ div.main
             a(href="/" id="top-nav-logo")
             div(class="nav-button")
             ul
-                a(href="/users/demouser") Demo User
+                form(action="/users/login" method= "post" class="inline")
+                        input(type="hidden" name="_csrf" value=csrfToken)
+                        input(type="hidden" name="loginIdentifier" value="demoUser")
+                        input(type="hidden" name="password" value="Test1!")
+                        button(type="submit" class="demoUserButton") Demo User
                 a(href="/users/login") Login
                 a(href="/users/register") Register
                 li
