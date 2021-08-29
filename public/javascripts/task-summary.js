@@ -36,11 +36,7 @@ window.addEventListener("DOMContentLoaded", event => {
         taskSum.innerHTML = tasksRecord;
     }
 
-
-
     // When a user clicks on the checkbox, completed increment by 1.
-    // acquire the checkbox by its id
-    // acquire completed calculator by its id, then key into innerHTML
     const completionCheckbox = document.querySelectorAll("#completion-checkbox");
     let completionSum = document.querySelector("#completed-sum");
     let completionSumInt = parseInt(localStorage.getItem("completed-tasks"));
@@ -62,4 +58,37 @@ window.addEventListener("DOMContentLoaded", event => {
     if(completedTasksRecord) {
         completionSum.innerHTML = completedTasksRecord;
     }
+
+    			//animated sidenav
+    // const tasksBarArr = document.querySelectorAll("#task-container");
+
+    // tasksBarArr.forEach(task => {
+    //     task.addEventListener("click", e => {
+    //         taskEdit.
+    //     })
+    // })
+    const taskEdit = document.querySelector(".task-detail-container");
+    const testBtn = document.querySelector("#testBtn")
+    testBtn.addEventListener("click", e => {
+        taskEdit.style.animationName="slideout";
+        setTimeout(() => {
+            taskEdit.style.left= 10;
+        }, 300)
+    })
+
+    const closeBtn = document.querySelector(".btn-close");
+    closeBtn.addEventListener("click", e => {
+        taskEdit.style.animationName="slidein";
+        setTimeout(() => {
+            taskEdit.style.left=400
+        }, 300)
+    })
 });
+
+
+document
+	.getElementById("nav-search-input")
+	.addEventListener("search", async(event) => {
+        const search = event.target.value;
+        window.location.href=`http://localhost:8080/lists/searchResults/${search}`
+    });

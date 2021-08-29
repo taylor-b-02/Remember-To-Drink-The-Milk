@@ -97,9 +97,62 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 	listDisplayDiv.appendChild(createListDiv);
 });
 
+<<<<<<< HEAD
 document
 	.getElementById("nav-search-input")
 	.addEventListener("search", async (event) => {
 		const search = event.target.value;
 		window.location.href = `http://localhost:8080/lists/searchResults/${search}`;
 	});
+=======
+const getAllTasks = async () => {
+	// const headers = new Headers();
+	const request = new Request("http://localhost:8080/tasks", {
+		method: "GET",
+	});
+
+	const response = await fetch(request);
+	const responseArray = await response.json();
+
+	return responseArray;
+};
+
+const getLists = async () => {
+	const listReq = new Request("http://localhost:8080/lists", {
+		method: "GET",
+	});
+
+	const taskLists = await fetch(listReq);
+	const resJSON = await taskLists.json();
+	const resArray = [...resJSON];
+	return resArray;
+};
+
+const getListById = async (listId) => {
+	const listReq = new Request(`http://localhost:8080/lists/${listId}/tasks`, {
+		method: "GET",
+	});
+
+	const tasks = await fetch(listReq);
+	const tasksJSON = await tasks.json();
+	return tasksJSON;
+};
+
+const postList = async (listName) => {
+	const data = JSON.stringify({ name: listName });
+	const req = new Request("http://localhost:8080/lists/", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: data,
+	});
+
+	const id = await fetch(req);
+	const idNum = await id.json();
+	// console.log("ID:", idNum);
+	// console.log(typeof idNum);
+	return idNum;
+};
+
+>>>>>>> main
