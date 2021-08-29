@@ -59,7 +59,7 @@ function deleteCallback(event) {
 	deleteTask(taskId);
 
 	event.target.parentElement.remove();
-	// decrement the Tasks summary by 1 everytime user click on the delete btn
+	//when user click on Add Task button, Tasks Sum decrement by 1.
 	const taskSum = document.querySelector("#tasks-sum");
 	if(taskSum.innerHTML > 0) {
 		taskSum.innerHTML -= 1;
@@ -108,7 +108,7 @@ const showTaskButtons = (event) => {
 };
 
 const taskBtnPOST = async (event) => {
-	//increment the Tasks Sum by one when user click on Add Task btn
+	//when user click on Add Task button, Tasks Sum increment by 1.
 	let incrementTask = document.querySelector("#tasks-sum");
 	let sumStr = incrementTask.innerHTML;
 	sumStr = Number(sumStr) + 1;
@@ -153,19 +153,22 @@ const displayList = async (event) => {
 	// 3. GET the list specific tasks
 	const listId = event.target.getAttribute("data-list-id");
 
+	const listSpan = document.querySelector(".list-content");
+	const listName = event.target.innerHTML;
+
 	const tasks = await getListById(listId);
 	const clickRevealEventListener = {
 		eventType: "click",
 		callback: showTaskButtons,
 	};
 
-
-
 	const taskElementArray = bulkTaskBuilder(tasks, clickRevealEventListener);
-	console.log(taskElementArray[0]);
+	// when users click on checkbox, completed tasks sum increment by 1.
+	// console.log(taskElementArray[0]);
 	taskElementArray.forEach(div => {
 		let checkbox = div.firstChild;
 		checkbox.addEventListener("click", event => {
+			// add stopPropagation so if user click on checkbox, the task detail will not slide out.
 			event.stopPropagation();
 			let completedSum = document.querySelector("#completed-sum");
 			let completedVal = Number(completedSum.innerHTML);
@@ -177,7 +180,7 @@ const displayList = async (event) => {
 		})
 	})
 
-	// when user click on each raw of task, sidebar slide out
+	// when users click on each raw of task, task detail page slide out
 	const taskEdit = document.querySelector(".task-detail-container");
 	taskElementArray.forEach(div => {
 		div.addEventListener("click", event => {
@@ -187,6 +190,16 @@ const displayList = async (event) => {
 			}, 300)
 		})
 	})
+
+	// when users click on All Tasks and the left arrow in task detail page, the page slide back in
+	const closeBtn = document.querySelector(".btn-close");
+	closeBtn.addEventListener("click", e => {
+        taskEdit.style.animationName="slidein";
+        setTimeout(() => {
+            taskEdit.style.left=400
+        }, 300)
+    })
+
 	// 4. Display the list specific tasks in their respective taskDivs
 	taskElementArray.forEach((element) => {
 		incompleteDiv.appendChild(element);
@@ -196,7 +209,7 @@ const displayList = async (event) => {
 	const taskInput = document.querySelector("#add-task-input");
 	taskInput.setAttribute("data-list-id", listId);
 
-	// 6. Update the Tasks sum dynamically
+	// when the page load, task sum is updated dynamically
 	const listTasks = document.querySelector("#tasks-sum");
 	listTasks.innerHTML = tasks.length;
 };
