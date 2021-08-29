@@ -116,7 +116,22 @@ router.get(
 				userId: userId,
 			},
 		});
-		res.render("user-home", { title: "Home", user, tasks });
+		// added unfinishedTasks
+		const unfinishedTasks = await Task.findAll({
+			where: {
+				userId: userId,
+				isComplete: false,
+			},
+		});
+		// added finishedTasks
+		const finishedTasks = await Task.findAll({
+			where: {
+				userId: userId,
+				isComplete: true,
+			},
+		});
+
+		res.render("user-home", { title: "Home", user, tasks, unfinishedTasks, finishedTasks });
 	})
 );
 
