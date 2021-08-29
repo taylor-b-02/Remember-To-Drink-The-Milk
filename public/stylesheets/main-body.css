@@ -139,12 +139,47 @@ p.quote {
         height: 50em;
         left: 10%;
         animation: .5s linear;
-
+        top: 22em;
+        left: 10%;
     }
+    
     div.left-bubble-2 {
+        position:absolute;
         background-color: red;
+        border-radius: 4px;
         width: 16em;
         height: 2em;
+        top: 5em;
+        left: -18em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #person-image-2 {
+        width: 15em;
+        
+    }
+
+    div.right-bubble-2 {
+        position:absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color:white;
+        border-radius: 4px;
+        width: 16em;
+        height: 2em;
+        left: 15em;
+        top: 3em;
+    }
+
+    div.end2-1 {
+        position: absolute;
+        top: 35em;
+    }
+    div.end2-2 {
+        position: absolute;
+        top: 30em;
     }
 
      /* FRAME 3 */
