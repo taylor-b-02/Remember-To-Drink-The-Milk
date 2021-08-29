@@ -200,9 +200,67 @@ p.quote {
      /* FRAME 3 */
     div.pic3 {
         position: absolute;
-        background-color: transparent;
+        width:30em;
+        height: 40em;
+        animation: .5s linear;
+        top: 25.5em;
+        left: 8%;
     }
 
+    #person-image-3 {
+        width: 30em;
+    }
+
+    div.left-bubble-3 {
+        background-color: blue;
+        position:absolute;
+        background-color: white;
+        border-radius: 4px;
+        width: 16em;
+        height: 2em;
+        top: 5em;
+        left: -12em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    div.right-bubble-3 {
+        position:absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color:white;
+        border-radius: 4px;
+        width: 16em;
+        height: 2em;
+        left: 23em;
+        top: 3em;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    
+    div.end3-1 {
+        position: absolute;
+        top: 26em;
+        left: 6em;
+    }
+    div.end3-2 {
+        position: absolute;
+        display: flex;
+        left: 4em;
+        top: 29em;
+    }
+
+    div.end3-1 > p {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 28px;
+    }
+    div.end3-2 > p {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+    }
      /* FRAME 4 */
 
     div.pic4 {
