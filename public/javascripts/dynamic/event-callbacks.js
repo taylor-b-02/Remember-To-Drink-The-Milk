@@ -59,7 +59,13 @@ function deleteCallback(event) {
 	deleteTask(taskId);
 
 	event.target.parentElement.remove();
+	// decrement the Tasks summary by 1 everytime user click on the delete btn
+	const taskSum = document.querySelector("#tasks-sum");
+	if(taskSum.innerHTML > 0) {
+		taskSum.innerHTML -= 1;
+	}
 }
+
 const showTaskButtons = (event) => {
 	event.stopPropagation();
 	const taskContainer = event.currentTarget;
@@ -102,13 +108,19 @@ const showTaskButtons = (event) => {
 };
 
 const taskBtnPOST = async (event) => {
+	//increment the Tasks Sum by one when user click on Add Task btn
+	let incrementTask = document.querySelector("#tasks-sum");
+	let sumStr = incrementTask.innerHTML;
+	sumStr = Number(sumStr) + 1;
+	incrementTask.innerHTML = sumStr;
+
 	event.stopPropagation();
 	const addTaskInput = document.querySelector("#add-task-input");
 	const description = addTaskInput.value;
 	const listId = addTaskInput.getAttribute("data-list-id");
 	console.log("DESC:", description, "listID:", listId);
 	const createdTaskObj = await postTask(description, listId);
-
+	console.log("hello");
 	const incompleteDiv = document.querySelector("#incomplete-task-div");
 	const clickRevealEventListener = {
 		eventType: "click",
@@ -119,6 +131,12 @@ const taskBtnPOST = async (event) => {
 		clickRevealEventListener
 	);
 	incompleteDiv.appendChild(createdTaskElement);
+
+	const newTaskSum = createdTaskObj.unfinishedTasks.length;
+	const numTasks = document.querySelector("#tasks-sum");
+	numTasks.innerHTML = newTaskSum;
+
+
 };
 
 const displayList = async (event) => {
@@ -136,14 +154,39 @@ const displayList = async (event) => {
 	const listId = event.target.getAttribute("data-list-id");
 
 	const tasks = await getListById(listId);
-
 	const clickRevealEventListener = {
 		eventType: "click",
 		callback: showTaskButtons,
 	};
 
-	const taskElementArray = bulkTaskBuilder(tasks, clickRevealEventListener);
 
+
+	const taskElementArray = bulkTaskBuilder(tasks, clickRevealEventListener);
+	console.log(taskElementArray[0]);
+	taskElementArray.forEach(div => {
+		let checkbox = div.firstChild;
+		checkbox.addEventListener("click", event => {
+			event.stopPropagation();
+			let completedSum = document.querySelector("#completed-sum");
+			let completedVal = Number(completedSum.innerHTML);
+			// console.log(event.target.checked);
+			if(event.target.checked) {
+				completedVal += 1;
+				completedSum.innerHTML = completedVal;
+			}
+		})
+	})
+
+	// when user click on each raw of task, sidebar slide out
+	const taskEdit = document.querySelector(".task-detail-container");
+	taskElementArray.forEach(div => {
+		div.addEventListener("click", event => {
+			taskEdit.style.animationName="slideout";
+			setTimeout(() => {
+				taskEdit.style.left= 10;
+			}, 300)
+		})
+	})
 	// 4. Display the list specific tasks in their respective taskDivs
 	taskElementArray.forEach((element) => {
 		incompleteDiv.appendChild(element);
@@ -152,6 +195,10 @@ const displayList = async (event) => {
 	// 5. Set the add-task-input to the id of the current list
 	const taskInput = document.querySelector("#add-task-input");
 	taskInput.setAttribute("data-list-id", listId);
+
+	// 6. Update the Tasks sum dynamically
+	const listTasks = document.querySelector("#tasks-sum");
+	listTasks.innerHTML = tasks.length;
 };
 
 // TODO: Add intermediary stage between checking a task, and updating the DB entry as (un)complete

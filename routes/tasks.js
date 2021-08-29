@@ -20,6 +20,7 @@ router.post(
 			userId: userId,
 			listId: listId,
 		});
+
 		res.json(newTask);
 	})
 );

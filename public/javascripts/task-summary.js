@@ -1,70 +1,69 @@
 window.addEventListener("DOMContentLoaded", event => {
 
     // Everytime a user clicks on Add Task button, tasks summary will increment by 1.
-    const addTaskBtn = document.getElementById("add-task-btn");
-    let taskSum = document.getElementById("tasks-sum");
-    let taskSumInt = parseInt(localStorage.getItem("tasksRecord"));
+    // TESTING UNFINISHED TASK
+    // const addTaskBtn = document.getElementById("add-task-btn");
+    // let taskSum = document.getElementById("tasks-sum");
+    // let taskSumInt = parseInt(localStorage.getItem("tasksRecord"));
 
-    if(!taskSumInt) {
-        taskSumInt = 0;
-        localStorage.setItem("tasksRecord", taskSumInt);
-    }
+    // if(!taskSumInt) {
+    //     taskSumInt = 0;
+    //     localStorage.setItem("tasksRecord", taskSumInt);
+    // }
 
-    addTaskBtn.addEventListener("click", event => {
-        taskSumInt += 1;
-        localStorage.setItem("tasksRecord", taskSumInt);
-        taskSum.innerHTML = taskSumInt;
-    });
+    // addTaskBtn.addEventListener("click", event => {
+    //     taskSumInt += 1;
+    //     localStorage.setItem("tasksRecord", taskSumInt);
+    //     taskSum.innerHTML = taskSumInt;
+    // });
 
     //Everytime a user clicks on the Delete button, tasks summary will decrement by 1.
-    const deleteTaskBtnArr = document.querySelectorAll(".task-btn.red-btn");
+    // const deleteTaskBtnArr = document.querySelectorAll(".task-btn.red-btn");
     // console.log(deleteTaskBtnArr);
     // console.log(typeof(taskSumInt));
-    deleteTaskBtnArr.forEach(deleteBtn => {
-        console.log(taskSumInt);
-        deleteBtn.addEventListener("click", event => {
-            if(taskSumInt > 0) {
-                taskSumInt -= 1;
-                // console.log(taskSumInt);
-                localStorage.setItem("tasksRecord", taskSumInt);
-                taskSum.innerHTML = taskSumInt;
-            }
-        })
-    })
+    // deleteTaskBtnArr.forEach(deleteBtn => {
+    //     console.log(taskSumInt);
+    //     deleteBtn.addEventListener("click", event => {
+    //         if(taskSumInt > 0) {
+    //             taskSumInt -= 1;
+    //             // console.log(taskSumInt);
+    //             localStorage.setItem("tasksRecord", taskSumInt);
+    //             taskSum.innerHTML = taskSumInt;
+    //         }
+    //     })
+    // })
 
-    let tasksRecord = localStorage.getItem("tasksRecord");
-    if(tasksRecord) {
-        taskSum.innerHTML = tasksRecord;
-    }
+    // let tasksRecord = localStorage.getItem("tasksRecord");
+    // if(tasksRecord) {
+    //     taskSum.innerHTML = tasksRecord;
+    // }
 
+    // TESTING
     // When a user clicks on the checkbox, completed increment by 1.
     const completionCheckbox = document.querySelectorAll("#completion-checkbox");
-    let completionSum = document.querySelector("#completed-sum");
-    let completionSumInt = parseInt(localStorage.getItem("completed-tasks"));
+    let completionSum = document.querySelector("#description-span");
+    let completionSumInt = parseInt(localStorage.getItem("completed-sum"));
 
     if(!completionSumInt) {
         completionSumInt = 0;
-        localStorage.setItem("completed-tasks", completionSumInt);
+        localStorage.setItem("completed-sum", completionSumInt);
     }
 
     completionCheckbox.forEach(checkbox => {
         checkbox.addEventListener("click", event => {
             completionSumInt += 1;
-            localStorage.setItem("completed-tasks", completionSumInt);
+            localStorage.setItem("completed-sum", completionSumInt);
             completionSum.innerHTML = completionSumInt;
         })
     })
 
-    let completedTasksRecord = localStorage.getItem("completed-tasks");
-    if(completedTasksRecord) {
-        completionSum.innerHTML = completedTasksRecord;
-    }
-
-    			//animated sidenav
-
+    // let completedTasksRecord = localStorage.getItem("completed-sum");
+    // if(completedTasksRecord) {
+    //     completionSum.innerHTML = completedTasksRecord;
+    // }
 
     const tasksBarArr = document.querySelectorAll("#task-container");
-    console.log(tasksBarArr);
+    // console.log(tasksBarArr);
     const taskEdit = document.querySelector(".task-detail-container");
     const testBtn = document.querySelector("#testBtn")
     // tasksBarArr.forEach(task => {

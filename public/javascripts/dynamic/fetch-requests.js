@@ -91,6 +91,9 @@ const getAllTasks = async () => {
 	const response = await fetch(request);
 	const responseArray = await response.json();
 
+	const allTasksSum = document.querySelector("#tasks-sum");
+	allTasksSum.innerHTML = responseArray.length;
+
 	return responseArray;
 };
 
