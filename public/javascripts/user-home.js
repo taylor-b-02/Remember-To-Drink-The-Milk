@@ -60,31 +60,9 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 		listDisplayDiv.appendChild(element);
 	});
 
-	/* +++++++++++++++++++++++++++++CODE ABOVE THIS LINE HAS BEEN REFACTORED++++++++++++++++++++++++++++++++ */
-
-	// const listUL = document.getElementById("list-display-div");
-	// const createList = document.createElement("div");
-	// createList.setAttribute("id", "create-list-element");
-	// createList.innerText = "Create a List";
-	// createList.addEventListener("click", (event) => {
-	// event.stopPropagation();
-	// createList.setAttribute("hidden", "hidden");
-	// const inputLI = document.createElement("li");
-	// const listInputField = document.createElement("input");
-	// listInputField.setAttribute("type", "text");
-	// const listInputSubmit = document.createElement("button");
-	// listInputSubmit.innerText = "Create List";
-	// listInputSubmit.addEventListener("click", async (event) => {
-	// 	const listName = listInputField.value;
-	// 	const id = await postList(listName);
-	// 	inputLI.remove();
-	// 	createList.removeAttribute("hidden");
-	// });
-	// inputLI.appendChild(listInputField);
-	// inputLI.appendChild(listInputSubmit);
-	// listUL.appendChild(inputLI);
-	// });
-
+	/*------------------------------------------------------------------------------*/
+	/*------------------------------Create List Button------------------------------*/
+	/*------------------------------------------------------------------------------*/
 	const createListDiv = document.createElement("div");
 	createListDiv.setAttribute("id", "create-list-div");
 
