@@ -158,11 +158,6 @@ const displayList = async (event) => {
 		callback: showTaskButtons,
 	};
 
-	const listSpan = document.querySelector(".list-content");
-	const listName = event.target.innerHTML;
-	let listLink = document.querySelector("#data-list-id");
-	console.log(listLink);
-
 	const taskElementArray = bulkTaskBuilder(tasks, clickRevealEventListener);
 	// when users click on checkbox, completed tasks sum increment by 1.
 	// console.log(taskElementArray[0]);
