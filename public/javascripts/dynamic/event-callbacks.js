@@ -1,9 +1,12 @@
-import { taskBuilder } from "./create-tasks.js";
+import { listBuilder } from "./create-lists.js";
+import { bulkTaskBuilder, taskBuilder } from "./create-tasks.js";
 import {
 	patchTask,
 	deleteTask,
 	postTask,
 	toggleComplete,
+	getListById,
+	postList,
 } from "./fetch-requests.js";
 
 function saveCallback(event) {
@@ -57,25 +60,6 @@ function deleteCallback(event) {
 
 	event.target.parentElement.remove();
 }
-
-// TODO: Add intermediary stage between checking a task, and updating the DB entry as (un)complete
-// TODO: Transfer 'complete' items from the incomplete div to the complete divs
-function checkCallback(event) {
-	event.stopPropagation();
-	const taskContainer = event.target.parentElement;
-	const taskId = taskContainer.getAttribute("data-task-id");
-
-	let checkedValue;
-
-	if (this.checked) {
-		checkedValue = true;
-	} else {
-		checkedValue = false;
-	}
-
-	toggleComplete(taskId, checkedValue);
-}
-
 const showTaskButtons = (event) => {
 	event.stopPropagation();
 	const taskContainer = event.currentTarget;
@@ -122,7 +106,7 @@ const taskBtnPOST = async (event) => {
 	const addTaskInput = document.querySelector("#add-task-input");
 	const description = addTaskInput.value;
 	const listId = addTaskInput.getAttribute("data-list-id");
-
+	console.log("DESC:", description, "listID:", listId);
 	const createdTaskObj = await postTask(description, listId);
 
 	const incompleteDiv = document.querySelector("#incomplete-task-div");
@@ -130,4 +114,84 @@ const taskBtnPOST = async (event) => {
 	incompleteDiv.appendChild(createdTaskElement);
 };
 
-export { showTaskButtons, taskBtnPOST };
+const displayList = async (event) => {
+	// 1. stopPropogation()
+	event.stopPropagation();
+
+	// 2. Clear taskDivs so that the list specifc tasks can be displayed
+	const incompleteDiv = document.querySelector("#incomplete-task-div");
+	// const incompleteDiv = document.getElementById("incomplete-task-div");
+	while (incompleteDiv.firstChild) {
+		incompleteDiv.firstChild.remove();
+	}
+
+	// 3. GET the list specific tasks
+	const listId = event.target.getAttribute("data-list-id");
+
+	const tasks = await getListById(listId);
+
+	const clickRevealEventListener = {
+		eventType: "click",
+		callback: showTaskButtons,
+	};
+
+	const taskElementArray = bulkTaskBuilder(tasks, clickRevealEventListener);
+
+	// 4. Display the list specific tasks in their respective taskDivs
+	taskElementArray.forEach((element) => {
+		incompleteDiv.appendChild(element);
+	});
+
+	// 5. Set the add-task-input to the id of the current list
+	const taskInput = document.querySelector("#add-task-input");
+	taskInput.setAttribute("data-list-id", listId);
+};
+
+// TODO: Add intermediary stage between checking a task, and updating the DB entry as (un)complete
+// TODO: Transfer 'complete' items from the incomplete div to the complete divs
+function checkCallback(event) {
+	event.stopPropagation();
+	const taskContainer = event.target.parentElement;
+	const taskId = taskContainer.getAttribute("data-task-id");
+
+	let checkedValue;
+
+	if (this.checked) {
+		checkedValue = true;
+	} else {
+		checkedValue = false;
+	}
+
+	toggleComplete(taskId, checkedValue);
+}
+
+const createListInput = (event) => {
+	event.stopPropagation();
+	const createListSpan = event.target;
+	createListSpan.setAttribute("hidden", "hidden");
+	const listInputField = document.createElement("input");
+	listInputField.setAttribute("type", "text");
+	const listInputSubmit = document.createElement("button");
+	listInputSubmit.innerText = "Create List";
+
+	const submitNewList = async (event) => {
+		const listName = listInputField.value;
+
+		const id = await postList(listName);
+		const clickShowList = {
+			eventType: "click",
+			callback: displayList,
+		};
+		const listDiv = listBuilder({ name: listName, id: id }, clickShowList);
+		createListSpan.parentElement.appendChild(listDiv);
+		listInputSubmit.remove();
+		listInputField.remove();
+		createListSpan.removeAttribute("hidden");
+	};
+
+	listInputSubmit.addEventListener("click", submitNewList);
+	event.target.parentElement.appendChild(listInputSubmit);
+	event.target.parentElement.appendChild(listInputField);
+};
+
+export { showTaskButtons, taskBtnPOST, displayList, createListInput };
