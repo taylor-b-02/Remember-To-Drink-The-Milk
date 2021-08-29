@@ -32,7 +32,7 @@
 	display: inline-block;
 	margin: 12px 0 0 2px;
 	position: relative;
-	z-index: 2; 
+	z-index: 2;
 }
 
 
@@ -57,7 +57,7 @@ a {
 	border-radius: 3px;
 	padding: 4px;
 	color: #ffff;
-    
+
 }
 
 
@@ -71,6 +71,11 @@ button {
 	margin-left: 0px;
 }
 
+.demoUserButton {
+    padding: 5px;
+    font-weight: bold;
+    color: #d7e7f5;
+}
 
 #login-link, #register-link {
     padding: 5px;

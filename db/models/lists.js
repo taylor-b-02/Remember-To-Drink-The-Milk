@@ -8,12 +8,11 @@ module.exports = (sequelize, DataTypes) => {
     ownerId: {
       allowNull: false,
       type:DataTypes.INTEGER,
-      references:{model: "Users"}
+      references:{model: "ExtraOwners"}
     }
   }, {});
   Lists.associate = function(models) {
     // associations can be defined here
-    Lists.belongsTo(models.User, {foreignKey:'ownerId'})
     Lists.hasMany(models.Task, {foreignKey:'listId'})
     Lists.hasMany(models.ExtraOwners, {foreignKey:'listId'})
   };
