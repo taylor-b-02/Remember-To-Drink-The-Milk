@@ -111,7 +111,7 @@ body {
 	position: absolute;
 	right: 1px;
 	background-color: #f9f9f9;
-	min-width: 160px;
+	min-width: 100px;
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
 }
@@ -119,9 +119,12 @@ body {
 .dropdown-content a,
 .dropdown-content button {
 	color: black;
-	padding: 12px 16px;
+	padding: 10px 10px;
 	text-decoration: none;
 	display: block;
+	font-size: 10px;
+	font-weight: normal;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .dropdown-content a:hover,
