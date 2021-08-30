@@ -7,6 +7,11 @@
     grid-template-columns: 50% auto;
 }
 
+div.logo-wrapper {
+    position: absolute;
+    left: 1em;
+    top: 1em;
+}
 
 .log-in-container {
     display: flex;
