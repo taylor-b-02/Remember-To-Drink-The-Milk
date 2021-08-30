@@ -55,14 +55,6 @@ p.quote {
     /* FRAME 1 */
 
     div.pic1 {
-        /* position: absolute;
-        margin-top: 1em;
-        width: 50em;
-        height: 50em;
-        animation: .5 linear;
-        top: 100%; */
-        /* display: flex;
-        justify-content: center; */
         position: absolute;
         width:50em;
         height: 50em;

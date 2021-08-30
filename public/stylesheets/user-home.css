@@ -433,3 +433,9 @@ body {
 	color: white;
 	font-weight: bold;
 }
+
+.list-content {
+	margin-left: 5px;
+	font-weight: bold;
+	color: #444444;
+}
