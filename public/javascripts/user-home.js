@@ -15,6 +15,20 @@ import {
 } from "./dynamic/fetch-requests.js";
 
 window.addEventListener("DOMContentLoaded", async (event) => {
+	/*------------------------------------------------------------------------------*/
+	/*------------------------------Create List Button------------------------------*/
+	/*------------------------------------------------------------------------------*/
+	const createListDiv = document.createElement("div");
+	createListDiv.setAttribute("id", "create-list-div");
+
+	const createListSpan = document.createElement("button");
+	createListSpan.innerText = "Create a List";
+	createListSpan.addEventListener("click", createListInput);
+
+	createListDiv.appendChild(createListSpan);
+
+	listDisplayDiv.appendChild(createListDiv);
+
 	/*-------------------------------------------------------------------------------------------*/
 	/*------------------------------Load all tasks on the main page------------------------------*/
 	/*-------------------------------------------------------------------------------------------*/
@@ -64,20 +78,6 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 	listElementArray.forEach((element) => {
 		listDisplayDiv.appendChild(element);
 	});
-
-	/*------------------------------------------------------------------------------*/
-	/*------------------------------Create List Button------------------------------*/
-	/*------------------------------------------------------------------------------*/
-	const createListDiv = document.createElement("div");
-	createListDiv.setAttribute("id", "create-list-div");
-
-	const createListSpan = document.createElement("button");
-	createListSpan.innerText = "Create a List";
-	createListSpan.addEventListener("click", createListInput);
-
-	createListDiv.appendChild(createListSpan);
-
-	listDisplayDiv.appendChild(createListDiv);
 
 	/*-----------------------------------------------------------------------------------------------*/
 	/*------------------------------Edit button for tasks on slide menu------------------------------*/
