@@ -1,21 +1,27 @@
 const patchTask = async (description, taskId) => {
 	const data = JSON.stringify({ description: description });
-	const request = new Request(`http://localhost:8080/tasks/${taskId}`, {
-		method: "PATCH",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: data,
-	});
+	const request = new Request(
+		`https://remeber-to-drink-the-milk.herokuapp.com/tasks/${taskId}`,
+		{
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: data,
+		}
+	);
 
 	await fetch(request);
 	return;
 };
 
 const deleteTask = async (id) => {
-	const request = new Request(`http://localhost:8080/tasks/${id}`, {
-		method: "DELETE",
-	});
+	const request = new Request(
+		`https://remeber-to-drink-the-milk.herokuapp.com/tasks/${id}`,
+		{
+			method: "DELETE",
+		}
+	);
 
 	await fetch(request);
 	return;
@@ -23,13 +29,16 @@ const deleteTask = async (id) => {
 
 const postTask = async (description, listId) => {
 	const data = JSON.stringify({ description: description, listId: listId });
-	const request = new Request("http://localhost:8080/tasks/", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: data,
-	});
+	const request = new Request(
+		"https://remeber-to-drink-the-milk.herokuapp.com/tasks/",
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: data,
+		}
+	);
 
 	const createdTask = await fetch(request);
 	const jsonObject = await createdTask.json();
@@ -41,7 +50,7 @@ const postTask = async (description, listId) => {
 const toggleComplete = async (taskId, checkedValue) => {
 	const data = JSON.stringify({ isComplete: checkedValue });
 	const request = new Request(
-		`http://localhost:8080/tasks/${taskId}/toggleComplete`,
+		`https://remeber-to-drink-the-milk.herokuapp.com/tasks/${taskId}/toggleComplete`,
 		{
 			method: "PATCH",
 			headers: {
@@ -57,13 +66,16 @@ const toggleComplete = async (taskId, checkedValue) => {
 
 const postList = async (listName) => {
 	const data = JSON.stringify({ name: listName });
-	const req = new Request("http://localhost:8080/lists/", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: data,
-	});
+	const req = new Request(
+		"https://remeber-to-drink-the-milk.herokuapp.com/lists/",
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: data,
+		}
+	);
 
 	const id = await fetch(req);
 	const idNum = await id.json();
@@ -73,9 +85,12 @@ const postList = async (listName) => {
 };
 
 const getListById = async (listId) => {
-	const listReq = new Request(`http://localhost:8080/lists/${listId}/tasks`, {
-		method: "GET",
-	});
+	const listReq = new Request(
+		`https://remeber-to-drink-the-milk.herokuapp.com/lists/${listId}/tasks`,
+		{
+			method: "GET",
+		}
+	);
 
 	const tasks = await fetch(listReq);
 	const tasksJSON = await tasks.json();
@@ -84,9 +99,12 @@ const getListById = async (listId) => {
 
 const getAllTasks = async () => {
 	// const headers = new Headers();
-	const request = new Request("http://localhost:8080/tasks", {
-		method: "GET",
-	});
+	const request = new Request(
+		"https://remeber-to-drink-the-milk.herokuapp.com/tasks",
+		{
+			method: "GET",
+		}
+	);
 
 	const response = await fetch(request);
 	const responseArray = await response.json();
@@ -103,9 +121,12 @@ const getAllTasks = async () => {
 };
 
 const getLists = async () => {
-	const listReq = new Request("http://localhost:8080/lists", {
-		method: "GET",
-	});
+	const listReq = new Request(
+		"https://remeber-to-drink-the-milk.herokuapp.com/lists",
+		{
+			method: "GET",
+		}
+	);
 
 	const taskLists = await fetch(listReq);
 	const resJSON = await taskLists.json();
