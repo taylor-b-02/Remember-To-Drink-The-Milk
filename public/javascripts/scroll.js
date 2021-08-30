@@ -9,7 +9,7 @@ export default class Scroll {
 		this.pic4 = document.querySelector(".pic4");
 
 		this.playNext = true;
-        // this.pause= 0;
+		// this.pause= 0;
 
 		this.carousel = [
 			{
@@ -39,41 +39,39 @@ export default class Scroll {
 		];
 	}
 	play = async () => {
-		while(this.playNext /*|| this.pause !== 3*/) {
-		await this.timer(5000); // waits 5 secs before switching
-		
+		while (this.playNext /*|| this.pause !== 3*/) {
+			await this.timer(5000); // waits 5 secs before switching
 
-		let transition = this.carousel.shift();
+			let transition = this.carousel.shift();
 
-		
-		this.main.style.colorchange = transition.colorChange;
-		this.header.style.colorChange = transition.colorChange;
-		// console.log(this.header.style.colorChange);
+			this.main.style.colorchange = transition.colorChange;
+			this.header.style.colorChange = transition.colorChange;
+			// console.log(this.header.style.colorChange);
 
-		transition.frameOut.style.animationName = "out-frame";
-		// console.log(transition.frameOut);
-		// console.log(this.pic1);
-		// console.log(this.pic2);
-		// console.log(this.pic3);
-		// console.log(this.pic4);
+			transition.frameOut.style.animationName = "out-frame";
+			// console.log(transition.frameOut);
+			// console.log(this.pic1);
+			// console.log(this.pic2);
+			// console.log(this.pic3);
+			// console.log(this.pic4);
 
-		transition.frameIn.style.animationName = "in-frame";
+			transition.frameIn.style.animationName = "in-frame";
 
-		this.main.style.backgroundColor = transition.color;
-		this.header.style.backgroundColor = transition.color;
+			this.main.style.backgroundColor = transition.color;
+			this.header.style.backgroundColor = transition.color;
 
-		transition.frameOut.style.left = "-250%";
-		transition.frameIn.style.left = "50%";
-		this.carousel.push(transition);
-        // pause ++
+			transition.frameOut.style.left = "-250%";
+			transition.frameIn.style.left = "50%";
+			this.carousel.push(transition);
+			// pause ++
+		}
+	};
+
+	timer = async (time) => {
+		return new Promise((resolve) => {
+			setTimeout(() => {
+				resolve("resolved");
+			}, time);
+		});
 	};
 }
-
-timer = async (time) => {
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			resolve("resolved");
-		}, time);
-	});
-}
-};

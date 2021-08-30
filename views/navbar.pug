@@ -1,19 +1,18 @@
 extends layout.pug
 
 block scripts
-    script(src="/javascripts/index.js")
+    script(src="/javascripts/index.js" type="module" defer)
 
 block content
-    div(id="container")
-        div(id="nav")
-            a(href="" id="menu-img"): img(src="/icons/menu.png", alt="Menu" class="icon")
-            div(id="nav-search")
-                img(src="/icons/search.png" alt="Search" id="nav-search-img" class="icon")
-                input(type="search" id="nav-search-input")
-            div(class="dropdown" img src="/icons/settings.png" alt="Settings" class="icon")
-                img(src="/icons/settings.png" alt="Settings" id="nav-settings-img" class="icon" role="button")
-                div(class="dropdown-content")
-                    a(href=`/users/${user.id}/profile` id="profile-link") Profile
-                    form(action="/users/logout" method= "post" class="inline")
-                        input(type="hidden" name="extra_param")
-                        button(type="submit" class="link-button") Logout
+    div(id="nav")
+        a(href="" id="menu-img"): img(src="/icons/menu.png", alt="Menu" class="icon")
+        div(id="nav-search")
+            img(src="/icons/search.png" alt="Search" id="nav-search-img" class="icon")
+            input(type="search" id="nav-search-input")
+        div(class="dropdown" img src="/icons/settings.png" alt="Settings" class="icon")
+            img(src="/icons/settings.png" alt="Settings" id="nav-settings-img" class="icon" role="button")
+            div(class="dropdown-content")
+                a(href=`/users/${user.id}/profile` id="profile-link") Profile
+                form(action="/users/logout" method= "post" class="inline")
+                    input(type="hidden" name="extra_param")
+                    button(type="submit" class="link-button") Logout
