@@ -9,6 +9,7 @@ export default class Scroll {
 		this.pic4 = document.querySelector(".pic4");
 
 		this.playNext = true;
+        // this.pause= 0;
 
 		this.carousel = [
 			{
@@ -39,7 +40,7 @@ export default class Scroll {
 	}
 	play = async () => {
 		console.log("enter");
-		// while(this.playNext) {
+		while(this.playNext /*|| this.pause !== 3*/) {
 		await this.timer(5000); // waits 5 secs before switching
 		console.log("it works1");
 
@@ -50,21 +51,22 @@ export default class Scroll {
 		this.header.style.colorChange = transition.colorChange;
 		console.log(this.header.style.colorChange);
 
-		transition.frameOut.style.colorChange = "out-frame";
+		transition.frameOut.style.animationName = "out-frame";
 		console.log(transition.frameOut);
 		console.log(this.pic1);
 		console.log(this.pic2);
 		console.log(this.pic3);
 		console.log(this.pic4);
 
-		transition.frameIn.style.colorChange = "in-frame";
+		transition.frameIn.style.animationName = "in-frame";
 
 		this.main.style.backgroundColor = transition.color;
 		this.header.style.backgroundColor = transition.color;
 
 		transition.frameOut.style.left = "-250%";
-		transition.frameIn.style.left = "0%";
+		transition.frameIn.style.left = "50%";
 		this.carousel.push(transition);
+        // pause ++
 	};
 }
 

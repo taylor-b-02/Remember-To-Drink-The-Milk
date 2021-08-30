@@ -1,9 +1,13 @@
 *{
     box-sizing: border-box;
+    display: block;
 }
 
 html {
     overflow-x: hidden;
+}
+.main-page {
+    position: relative;
 }
 .main-body {
     padding-top: 8em;
@@ -47,6 +51,7 @@ p.quote {
     border-radius: 5px;
 }
 
+
     /* FRAME 1 */
 
     div.pic1 {
@@ -61,13 +66,14 @@ p.quote {
         position: absolute;
         width:50em;
         height: 50em;
-        justify-content: center;
+        animation: 2s linear;
+        left:50%;
         
-        
+        transform: translateX(-50%);
     }
-    #person-image-2 {
+    /* #person-image-2 {
         position: absolute;
-    }
+    } */
 
     #cow-image-1 {
         position: absolute;
@@ -138,28 +144,30 @@ p.quote {
         position: absolute;
         width:30em;
         height: 50em;
-        left: 10%;
-        animation: .5s linear;
         top: 22em;
-        left: 0%;
+        animation: 2s linear;
+        left: 250%;
+        transform: translateX(-50%);
     }
     
     div.left-bubble-2 {
         position:absolute;
-        background-color: red;
+        background-color:white;
         border-radius: 4px;
         width: 16em;
         height: 2em;
         top: 5em;
-        left: -18em;
+        left: -12em;
         display: flex;
         align-items: center;
         justify-content: center;
         font-family: Arial, Helvetica, sans-serif;
     }
     #person-image-2 {
+        position: absolute;
         width: 13em;
         top: 3em;
+        left: 9em;
         
     }
 
@@ -172,7 +180,7 @@ p.quote {
         border-radius: 4px;
         width: 16em;
         height: 2em;
-        left: 15em;
+        left: 20em;
         top: 3em;
         font-family: Arial, Helvetica, sans-serif;
     }
@@ -180,11 +188,11 @@ p.quote {
     div.end2-1 {
         position: absolute;
         top: 29.5em;
-        left: -1em;
+        left: 8em;
     }
     div.end2-2 {
         position: absolute;
-        left: -12em;
+        left: 3em;
         top: 32.5em;
     }
 
@@ -202,9 +210,10 @@ p.quote {
         position: absolute;
         width:30em;
         height: 40em;
-        animation: .5s linear;
+        animation: 2s linear;
         top: 25.5em;
-        left: 8%;
+        left: 250%;
+        transform: translateX(-50%);
     }
 
     #person-image-3 {
@@ -265,4 +274,68 @@ p.quote {
 
     div.pic4 {
         position: absolute;
+        width:50em;
+        height: 50em;
+        animation: 2s linear;
+        left: 250%;
+        transform: translateX(-50%);
+        top: 30em;
+    }
+
+    #person-image-4 {
+        position: absolute;
+        width: 18em;
+        left: 20em;
+        top: -2em;
+    }
+    div.end4-1 {
+        position: absolute;
+        top: 20.7em;
+        left: 15.5em;
+    }
+
+    div.end4-2 {
+        position: absolute;
+        display: flex;
+        left: 9em;
+        top: 24em;
+    }
+
+    div.end4-1 > p {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 28px;
+    
+    }
+    div.end4-2 > p {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        
+    }
+
+    div.left-bubble-4 {
+        position:absolute;
+        background-color: white;
+        border-radius: 4px;
+        width: 16em;
+        height: 2em;
+        top: 0em;
+        left: 3em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    div.right-bubble-4 {
+        position:absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color:white;
+        border-radius: 4px;
+        width: 16em;
+        height: 2em;
+        left: 36em;
+        top: 3em;
+        font-family: Arial, Helvetica, sans-serif;
     }

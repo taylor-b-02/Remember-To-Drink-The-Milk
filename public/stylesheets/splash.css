@@ -40,7 +40,7 @@
 
 @keyframes out-frame {
     from {
-        left: 0%;
+        left: 50%;
     }
 
     to {
@@ -54,6 +54,6 @@
     }
 
     to {
-        left: 0%;
+        left: 50%;
     }
 }
