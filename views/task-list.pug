@@ -4,7 +4,7 @@ script(src="/javascripts/user-home.js" type="module" defer)
 ul(id="task-list-ul")
     each task in tasks
         li(id="task-container")
-            div(class="task-box" data-task-id=task.id)
+            div(class="task-box" id=task.id)
                 input(type="checkbox", name="isComplete", id="completion-checkbox" value=task.isComplete required)
                 span(id="description-span")= task.description
                 button(hidden class="task-btn blue-btn") Edit

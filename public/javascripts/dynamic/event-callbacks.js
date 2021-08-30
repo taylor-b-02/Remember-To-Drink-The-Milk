@@ -13,7 +13,7 @@ function saveCallback(event) {
 	event.stopPropagation();
 	const taskContainer = event.target.parentElement;
 	const taskEditInput = taskContainer.querySelector("#task-edit-input");
-	const taskId = taskContainer.getAttribute("data-task-id");
+	const taskId = taskContainer.getAttribute("id");
 
 	patchTask(taskEditInput.value, taskId);
 
@@ -54,7 +54,7 @@ function editCallback(event) {
 function deleteCallback(event) {
 	event.stopPropagation();
 	const taskContainer = event.target.parentElement;
-	const taskId = taskContainer.getAttribute("data-task-id");
+	const taskId = taskContainer.getAttribute("id");
 
 	deleteTask(taskId);
 
@@ -159,12 +159,17 @@ const displayList = async (event) => {
 	};
 
 	const taskElementArray = bulkTaskBuilder(tasks, clickRevealEventListener);
+	// console.log(tasks);
+	// console.log(taskElementArray[0]);
+	// console.log(taskElementArray[0].id);
 	// when users click on checkbox, completed tasks sum increment by 1.
 	// console.log(taskElementArray[0]);
 	taskElementArray.forEach(div => {
 		let checkbox = div.firstChild;
-		checkbox.addEventListener("click", event => {
+		// checkbox.checked = true;
+		checkbox.addEventListener("click", async event => {
 			// add stopPropagation so if user click on checkbox, the task detail will not slide out.
+			console.log(event.target.parentNode.id);
 			event.stopPropagation();
 			let completedSum = document.querySelector("#completed-sum");
 			let completedVal = Number(completedSum.innerHTML);
@@ -173,6 +178,17 @@ const displayList = async (event) => {
 				completedVal += 1;
 				completedSum.innerHTML = completedVal;
 			}
+
+			//updating the database
+			const response = await fetch(`/tasks/${event.target.parentNode.id}/toggleComplete/`, {
+				method: 'PATCH',
+				headers: {
+				  'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					isComplete: true,
+				})
+			});
 		})
 	})
 
@@ -196,6 +212,11 @@ const displayList = async (event) => {
         }, 300)
     })
 
+	// when user click on each list, update list name dynamically in task detail page.
+	const listName = event.target.innerHTML;
+	let listSpan = document.querySelector(".list-content");
+	listSpan.innerHTML = listName;
+
 	// 4. Display the list specific tasks in their respective taskDivs
 	taskElementArray.forEach((element) => {
 		incompleteDiv.appendChild(element);
@@ -205,9 +226,15 @@ const displayList = async (event) => {
 	const taskInput = document.querySelector("#add-task-input");
 	taskInput.setAttribute("data-list-id", listId);
 
-	// when the page load, task sum is updated dynamically
+	// when a user click on a particular list name, task sum is updated to the total tasks of that list
 	const listTasks = document.querySelector("#tasks-sum");
 	listTasks.innerHTML = tasks.length;
+
+	// when a user click on a particular list name, completed sum is updated dynamically
+	const completedTasks = document.querySelector("#completed-sum");
+	const completedTaskArr = tasks.filter(taskObj => taskObj.isComplete)
+	completedTasks.innerHTML = completedTaskArr.length;
+
 };
 
 // TODO: Add intermediary stage between checking a task, and updating the DB entry as (un)complete
@@ -215,7 +242,7 @@ const displayList = async (event) => {
 function checkCallback(event) {
 	event.stopPropagation();
 	const taskContainer = event.target.parentElement;
-	const taskId = taskContainer.getAttribute("data-task-id");
+	const taskId = taskContainer.getAttribute("id");
 
 	let checkedValue;
 
