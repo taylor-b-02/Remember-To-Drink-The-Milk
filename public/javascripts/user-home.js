@@ -7,7 +7,12 @@ import {
 	createListInput,
 } from "./dynamic/event-callbacks.js";
 
-import { getAllTasks, getLists, postList } from "./dynamic/fetch-requests.js";
+import {
+	getAllTasks,
+	getLists,
+	postList,
+	patchTask,
+} from "./dynamic/fetch-requests.js";
 
 window.addEventListener("DOMContentLoaded", async (event) => {
 	/*-------------------------------------------------------------------------------------------*/
@@ -66,13 +71,30 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 	const createListDiv = document.createElement("div");
 	createListDiv.setAttribute("id", "create-list-div");
 
-	const createListSpan = document.createElement("span");
+	const createListSpan = document.createElement("button");
 	createListSpan.innerText = "Create a List";
 	createListSpan.addEventListener("click", createListInput);
 
 	createListDiv.appendChild(createListSpan);
 
 	listDisplayDiv.appendChild(createListDiv);
+
+	/*-----------------------------------------------------------------------------------------------*/
+	/*------------------------------Edit button for tasks on slide menu------------------------------*/
+	/*-----------------------------------------------------------------------------------------------*/
+	const editBtn = document.querySelector("#edit-button");
+	editBtn.addEventListener("click", async (event) => {
+		event.stopPropagation();
+		const editField = document.querySelector("#editing");
+		const newDescription = editField.value;
+		const id = editField.getAttribute("data-task-id");
+		console.log("ID", id);
+		await patchTask(newDescription, id);
+		const ogTask = document.querySelector(`[id='${id}']`);
+		console.log("OGTASK", ogTask);
+		ogTask.querySelector(".task-description-span").innerText =
+			newDescription;
+	});
 });
 
 document

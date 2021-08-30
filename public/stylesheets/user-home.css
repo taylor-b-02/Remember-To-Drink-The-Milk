@@ -342,7 +342,8 @@ body {
 	left: 100%;
 	animation: 0.3s linear;
 	border-top-left-radius: 6px;
-	margin-left: -9px;
+	/* margin-left: -9px; */
+	margin-left: 1px;
 	padding: 0px;
 }
 
@@ -438,4 +439,31 @@ body {
 	margin-left: 5px;
 	font-weight: bold;
 	color: #444444;
+}
+
+.list-display-div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.list-container-div {
+	padding-left: 10px;
+	padding-right: 10px;
+	border-top: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+
+#lists-label-div {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#all-tasks-div {
+	margin-top: 10px;
+}
+
+.list-info {
+	margin-bottom: 10px;
 }
