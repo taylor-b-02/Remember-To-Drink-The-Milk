@@ -35,7 +35,7 @@ div.nav-container {
 p.quote {
     font-size: 44px;
     font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Varela Round;
     color: white;
     align-self: center;
     margin-bottom: 30px;
@@ -58,7 +58,7 @@ p.quote {
         position: absolute;
         width:50em;
         height: 50em;
-        animation: 1s linear;
+        animation: 1.5s linear;
         left:50%;
         
         transform: translateX(-50%);
@@ -137,7 +137,7 @@ p.quote {
         width:30em;
         height: 50em;
         top: 22em;
-        animation: 1s linear;
+        animation: 1.5s linear;
         left: 250%;
         transform: translateX(-50%);
     }
@@ -204,7 +204,7 @@ p.quote {
         position: absolute;
         width:30em;
         height: 40em;
-        animation: 1s linear;
+        animation: 1.5s linear;
         top: 25.5em;
         left: 250%;
         transform: translateX(-50%);
@@ -272,7 +272,7 @@ p.quote {
         position: absolute;
         width:50em;
         height: 50em;
-        animation: 1s linear;
+        animation: 1.5s linear;
         left: 250%;
         transform: translateX(-50%);
         top: 30em;
