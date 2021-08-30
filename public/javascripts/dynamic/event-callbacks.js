@@ -61,7 +61,7 @@ function deleteCallback(event) {
 	event.target.parentElement.remove();
 	//when user click on Add Task button, Tasks Sum decrement by 1.
 	const taskSum = document.querySelector("#tasks-sum");
-	if(taskSum.innerHTML > 0) {
+	if (taskSum.innerHTML > 0) {
 		taskSum.innerHTML -= 1;
 	}
 }
@@ -89,15 +89,15 @@ const showTaskButtons = (event) => {
 	const [editBtn, deleteBtn] = taskContainer.querySelectorAll(".task-btn");
 
 	// If the buttons are hidden and there is not a text input field, reveal the buttons, else hide them
-	if (editBtn.getAttribute("hidden") && intendedTarget && noInput) {
-		editBtn.removeAttribute("hidden");
+	if (deleteBtn.getAttribute("hidden") && intendedTarget && noInput) {
+		// editBtn.removeAttribute("hidden");
 		deleteBtn.removeAttribute("hidden");
 	} else {
-		editBtn.setAttribute("hidden", "hidden");
+		// editBtn.setAttribute("hidden", "hidden");
 		deleteBtn.setAttribute("hidden", "hidden");
 	}
 
-	editBtn.addEventListener("click", editCallback);
+	// editBtn.addEventListener("click", editCallback);
 	deleteBtn.addEventListener("click", deleteCallback);
 
 	// Get the checkbox input field from the current task container
@@ -105,6 +105,23 @@ const showTaskButtons = (event) => {
 
 	//  Updates whether a task isChecked in the DB
 	checkBox.addEventListener("change", checkCallback);
+
+	const editField = document.querySelector("#editing");
+	editField.setAttribute(
+		"data-task-id",
+		event.currentTarget.getAttribute("id")
+	);
+	let currentDescription;
+	if (event.currentTarget.innerHTML) {
+		currentDescription = event.currentTarget.innerHTML;
+		currentDescription = currentDescription.split(
+			'<span class="task-description-span">'
+		)[1];
+		currentDescription = currentDescription.split("</span>")[0];
+	} else {
+		currentDescription = event.currentTarget.innerText;
+	}
+	editField.value = currentDescription;
 };
 
 const taskBtnPOST = async (event) => {
@@ -118,9 +135,7 @@ const taskBtnPOST = async (event) => {
 	const addTaskInput = document.querySelector("#add-task-input");
 	const description = addTaskInput.value;
 	const listId = addTaskInput.getAttribute("data-list-id");
-	console.log("DESC:", description, "listID:", listId);
 	const createdTaskObj = await postTask(description, listId);
-	console.log("hello");
 	const incompleteDiv = document.querySelector("#incomplete-task-div");
 	const clickRevealEventListener = {
 		eventType: "click",
@@ -135,13 +150,14 @@ const taskBtnPOST = async (event) => {
 	const newTaskSum = createdTaskObj.unfinishedTasks.length;
 	const numTasks = document.querySelector("#tasks-sum");
 	numTasks.innerHTML = newTaskSum;
-
-
 };
 
 const displayList = async (event) => {
 	// 1. stopPropogation()
 	event.stopPropagation();
+
+	const listTitle = document.querySelector("#list-title");
+	listTitle.innerText = event.target.innerText;
 
 	// 2. Clear taskDivs so that the list specifc tasks can be displayed
 	const incompleteDiv = document.querySelector("#incomplete-task-div");
@@ -159,58 +175,58 @@ const displayList = async (event) => {
 	};
 
 	const taskElementArray = bulkTaskBuilder(tasks, clickRevealEventListener);
-	// console.log(tasks);
-	// console.log(taskElementArray[0]);
-	// console.log(taskElementArray[0].id);
-	// when users click on checkbox, completed tasks sum increment by 1.
-	// console.log(taskElementArray[0]);
-	taskElementArray.forEach(div => {
+
+	taskElementArray.forEach((div) => {
 		let checkbox = div.firstChild;
 		// checkbox.checked = true;
-		checkbox.addEventListener("click", async event => {
+		checkbox.addEventListener("click", async (event) => {
 			// add stopPropagation so if user click on checkbox, the task detail will not slide out.
-			console.log(event.target.parentNode.id);
 			event.stopPropagation();
 			let completedSum = document.querySelector("#completed-sum");
 			let completedVal = Number(completedSum.innerHTML);
-			// console.log(event.target.checked);
-			if(event.target.checked) {
+			if (event.target.checked) {
 				completedVal += 1;
+				completedSum.innerHTML = completedVal;
+			} else {
+				completedVal -= 1;
 				completedSum.innerHTML = completedVal;
 			}
 
 			//updating the database
-			const response = await fetch(`/tasks/${event.target.parentNode.id}/toggleComplete/`, {
-				method: 'PATCH',
-				headers: {
-				  'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					isComplete: true,
-				})
-			});
-		})
-	})
+			const response = await fetch(
+				`/tasks/${event.target.parentNode.id}/toggleComplete/`,
+				{
+					method: "PATCH",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						isComplete: true,
+					}),
+				}
+			);
+		});
+	});
 
 	// when users click on each raw of task, task detail page slide out
 	const taskEdit = document.querySelector(".task-detail-container");
-	taskElementArray.forEach(div => {
-		div.addEventListener("click", event => {
-			taskEdit.style.animationName="slideout";
+	taskElementArray.forEach((div) => {
+		div.addEventListener("click", (event) => {
+			taskEdit.style.animationName = "slideout";
 			setTimeout(() => {
-				taskEdit.style.left= 10;
-			}, 300)
-		})
-	})
+				taskEdit.style.left = 0;
+			}, 300);
+		});
+	});
 
 	// when users click on All Tasks and the left arrow in task detail page, the page slide back in
 	const closeBtn = document.querySelector(".btn-close");
-	closeBtn.addEventListener("click", e => {
-        taskEdit.style.animationName="slidein";
-        setTimeout(() => {
-            taskEdit.style.left=400
-        }, 300)
-    })
+	closeBtn.addEventListener("click", (e) => {
+		taskEdit.style.animationName = "slidein";
+		setTimeout(() => {
+			taskEdit.style.left = "100%";
+		}, 300);
+	});
 
 	// when user click on each list, update list name dynamically in task detail page.
 	const listName = event.target.innerHTML;
@@ -232,9 +248,8 @@ const displayList = async (event) => {
 
 	// when a user click on a particular list name, completed sum is updated dynamically
 	const completedTasks = document.querySelector("#completed-sum");
-	const completedTaskArr = tasks.filter(taskObj => taskObj.isComplete)
+	const completedTaskArr = tasks.filter((taskObj) => taskObj.isComplete);
 	completedTasks.innerHTML = completedTaskArr.length;
-
 };
 
 // TODO: Add intermediary stage between checking a task, and updating the DB entry as (un)complete

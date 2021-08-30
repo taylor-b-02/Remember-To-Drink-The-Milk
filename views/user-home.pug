@@ -1,11 +1,10 @@
 
 link(rel='stylesheet' href='/stylesheets/user-home.css')
 script(src="/javascripts/user-home.js" type="module" defer)
-script(src="/javascripts/task-summary.js" type="module" defer)
 
-include navbar.pug
 
 div(id="container")
+    include navbar.pug
 
     div(id="lists" class="main-body-div")
         a(href="/" id="home-img"): img(src="/images/homeCow.png", alt="Home" id="cow-img")
@@ -24,20 +23,18 @@ div(id="container")
             div(class="body-container")
                 a(href="#" class="btn-close") &#8592; All Tasks
 
-                form(class="form" id="task-detail")
-                    div(id="user-edit")
-                        input(type="text" id="editing")
-                        button(type="submit" id="edit-button") Edit
-                    div(class="list-info")
-                        span(class="label-name") List:
-                        span(class="list-content")
-                        div(class="label-name" id="status") Status: Incomplete
+                div(class="list-info")
+                    span(class="label-name")
+                    span(class="list-content")
+                div(id="user-edit")
+                    input(type="text" id="editing")
+                    button(type="submit" id="edit-button") Edit
 
         div(id="list-title") All Tasks
         div(id="task-summary-container")
             div(class="inner-summary-container")
                 p(class="task-num" id="tasks-sum") 0
-                p Tasks
+                p tasks
             div(class="inner-summary-container")
                 p(class="task-num" id="completed-sum") 0
-                p Completed
+                p completed
