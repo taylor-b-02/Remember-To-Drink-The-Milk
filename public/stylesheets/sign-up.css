@@ -77,8 +77,15 @@ input,
 }
 
 #signUpButton {
-    margin-top: 20px;
-    transition-duration: 0.2s;
+    font-size: 20px;
+    background-color: #3292f2;
+    border: white solid;
+    border-radius: 3px;
+    padding: 4px;
+    color: white;
+    margin-right: 20px;
+    margin-left: 0px;
+    transition-duration: .3s;
 }
 
 #signUpButton:hover {

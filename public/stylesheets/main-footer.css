@@ -1,0 +1,10 @@
+div.link {
+    display: flex;
+    justify-content: center;
+}
+
+a.button {
+    color: black;
+    font-size: small;
+}
+
