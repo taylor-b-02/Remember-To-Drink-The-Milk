@@ -20,4 +20,7 @@
 ### Code snippets to highlight the best code
 * window.location.href=`http://localhost:8080/lists/searchResults/${search}` Figuring out how to use a GET method but still have access to the search input was interesting.  String interpolation for the win!
 
-* 
+* window.addEventListener("load", (event) => {
+	new Scroll().play();
+}); 
+creating a scroll class so that the carousel on the landing page will move
