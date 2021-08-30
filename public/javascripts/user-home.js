@@ -90,9 +90,9 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 		const id = editField.getAttribute("data-task-id");
 		console.log("ID", id);
 		await patchTask(newDescription, id);
-		const ogTask = document.querySelector(`[id='${id}']`);
-		console.log("OGTASK", ogTask);
-		ogTask.querySelector(".task-description-span").innerText =
+		const originalTask = document.querySelector(`[id='${id}']`);
+		// console.log("originalTask", originalTask);
+		originalTask.querySelector(".task-description-span").innerText =
 			newDescription;
 	});
 });
