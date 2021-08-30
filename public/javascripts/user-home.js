@@ -1,21 +1,22 @@
 import { listBuilder, bulkListBuilder } from "./dynamic/create-lists.js";
 import { taskBuilder, bulkTaskBuilder } from "./dynamic/create-tasks.js";
 import {
-	showTaskButtons,
+    showTaskButtons,
 	taskBtnPOST,
 	displayList,
 	createListInput,
 } from "./dynamic/event-callbacks.js";
 
 import {
-	getAllTasks,
+    getAllTasks,
 	getLists,
 	postList,
 	patchTask,
 } from "./dynamic/fetch-requests.js";
 
+const listDisplayDiv = document.querySelector("#list-display-div");
 window.addEventListener("DOMContentLoaded", async (event) => {
-	/*------------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------------*/
 	/*------------------------------Create List Button------------------------------*/
 	/*------------------------------------------------------------------------------*/
 	const createListDiv = document.createElement("div");
@@ -63,7 +64,6 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 	/*--------------------------------------------------------------------------------------*/
 	/*------------------------------Load lists on left sidebar------------------------------*/
 	/*--------------------------------------------------------------------------------------*/
-	const listDisplayDiv = document.querySelector("#list-display-div");
 
 	// Fetch all of a users lists as objects
 	const allLists = await getLists();
@@ -84,7 +84,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 	/*-----------------------------------------------------------------------------------------------*/
 	const editBtn = document.querySelector("#edit-button");
 	editBtn.addEventListener("click", async (event) => {
-		event.stopPropagation();
+        event.stopPropagation();
 		const editField = document.querySelector("#editing");
 		const newDescription = editField.value;
 		const id = editField.getAttribute("data-task-id");
@@ -93,13 +93,13 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 		const originalTask = document.querySelector(`[id='${id}']`);
 		// console.log("originalTask", originalTask);
 		originalTask.querySelector(".task-description-span").innerText =
-			newDescription;
+        newDescription;
 	});
 });
 
 document
-	.getElementById("nav-search-input")
-	.addEventListener("search", async (event) => {
-		const search = event.target.value;
-		window.location.href = `http://localhost:8080/lists/searchResults/${search}`;
-	});
+.getElementById("nav-search-input")
+.addEventListener("search", async (event) => {
+    const search = event.target.value;
+    window.location.href = `http://localhost:8080/lists/searchResults/${search}`;
+});
