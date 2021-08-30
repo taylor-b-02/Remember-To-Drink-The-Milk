@@ -5,6 +5,11 @@ function listBuilder(list, eventListener) {
 	listContainerDiv.setAttribute("data-list-id", list.id);
 	listContainerDiv.innerText = list.name;
 
+	// const listSpan = document.querySelector(".list-content");
+	// const listName = event.target.innerHTML;
+	// let listLink = document.querySelector("#data-list-id");
+
+
 	// Add the click event listener to the list div
 	listContainerDiv.addEventListener(
 		eventListener.eventType,

@@ -1,4 +1,4 @@
-import Scroll from "./scroll.js"
+// import Scroll from "./scroll.js"
 
 
 // window.addEventListener("load", (event)=>{
@@ -8,6 +8,7 @@ import Scroll from "./scroll.js"
 
 window.addEventListener("load", (event) => {
     new Scroll().play();
+})
 
 window.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById("nav-search-input")
@@ -16,4 +17,3 @@ window.addEventListener("DOMContentLoaded", (event) => {
         window.location.href=`http://localhost:8080/lists/searchResults/${search}`
     });
 })
-});

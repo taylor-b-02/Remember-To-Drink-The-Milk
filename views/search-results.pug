@@ -10,5 +10,9 @@ div(id='search-container')
     div(id='results-container')
         ul(id='searchList')
             each item in result
-                li= item.type
-                a(href=`/${item.type}/${item.id}` class='search-link') #{item.name}
+                if item.type === 'lists'
+                    li= item.type
+                    a(href=`/${item.type}/${item.id}` class='search-link') #{item.name}
+                if item.type === 'tasks'
+                    li= item.type
+                    a(href=`/users/${userId}` class='search-link') List: #{item.listName} #{item.name}

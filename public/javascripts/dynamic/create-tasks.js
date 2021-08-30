@@ -2,13 +2,13 @@ function taskBuilder(task, eventListener) {
 	// Create and configure the wrapper div for the individual task
 	const taskContainerDiv = document.createElement("div");
 	taskContainerDiv.setAttribute("class", "task-container-div");
-	taskContainerDiv.setAttribute("data-task-id", task.id);
-
+	// replaced the data-task-id to id to access taskId, renamed all data-task-id to id
+	taskContainerDiv.setAttribute("id", task.id);
 	// Create the checkbox for the task
 	const taskCheckbox = document.createElement("input");
 	taskCheckbox.setAttribute("type", "checkbox");
 	taskCheckbox.setAttribute("class", "task-checkbox");
-	taskCheckbox.value = task.isComplete;
+	taskCheckbox.checked = task.isComplete;
 
 	// Create the span (for the description) of the task
 	const taskDescriptionSpan = document.createElement("span");
