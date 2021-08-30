@@ -39,24 +39,23 @@ export default class Scroll {
 		];
 	}
 	play = async () => {
-		console.log("enter");
 		while(this.playNext /*|| this.pause !== 3*/) {
 		await this.timer(5000); // waits 5 secs before switching
-		console.log("it works1");
+		
 
 		let transition = this.carousel.shift();
 
-		console.log("it works");
+		
 		this.main.style.colorchange = transition.colorChange;
 		this.header.style.colorChange = transition.colorChange;
-		console.log(this.header.style.colorChange);
+		// console.log(this.header.style.colorChange);
 
 		transition.frameOut.style.animationName = "out-frame";
-		console.log(transition.frameOut);
-		console.log(this.pic1);
-		console.log(this.pic2);
-		console.log(this.pic3);
-		console.log(this.pic4);
+		// console.log(transition.frameOut);
+		// console.log(this.pic1);
+		// console.log(this.pic2);
+		// console.log(this.pic3);
+		// console.log(this.pic4);
 
 		transition.frameIn.style.animationName = "in-frame";
 

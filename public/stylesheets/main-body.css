@@ -66,7 +66,7 @@ p.quote {
         position: absolute;
         width:50em;
         height: 50em;
-        animation: 2s linear;
+        animation: 1s linear;
         left:50%;
         
         transform: translateX(-50%);
@@ -145,7 +145,7 @@ p.quote {
         width:30em;
         height: 50em;
         top: 22em;
-        animation: 2s linear;
+        animation: 1s linear;
         left: 250%;
         transform: translateX(-50%);
     }
@@ -210,7 +210,7 @@ p.quote {
         position: absolute;
         width:30em;
         height: 40em;
-        animation: 2s linear;
+        animation: 1s linear;
         top: 25.5em;
         left: 250%;
         transform: translateX(-50%);
@@ -276,7 +276,7 @@ p.quote {
         position: absolute;
         width:50em;
         height: 50em;
-        animation: 2s linear;
+        animation: 1s linear;
         left: 250%;
         transform: translateX(-50%);
         top: 30em;
