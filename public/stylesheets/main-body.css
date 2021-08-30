@@ -153,7 +153,8 @@ p.quote {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-family: 'Courier New', Courier, monospace;
     }
     #person-image-2 {
         position: absolute;
@@ -174,7 +175,8 @@ p.quote {
         height: 2em;
         left: 20em;
         top: 3em;
-        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-family: 'Courier New', Courier, monospace;
     }
 
     div.end2-1 {
@@ -224,7 +226,8 @@ p.quote {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-family: 'Courier New', Courier, monospace;
     }
 
     div.right-bubble-3 {
@@ -238,7 +241,8 @@ p.quote {
         height: 2em;
         left: 23em;
         top: 3em;
-        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-family: 'Courier New', Courier, monospace;
     }
 
     
@@ -315,7 +319,8 @@ p.quote {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-family: 'Courier New', Courier, monospace;
     }
 
     div.right-bubble-4 {
@@ -329,5 +334,6 @@ p.quote {
         height: 2em;
         left: 36em;
         top: 3em;
-        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-family: 'Courier New', Courier, monospace;
     }
