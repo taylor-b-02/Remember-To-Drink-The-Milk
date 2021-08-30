@@ -130,10 +130,11 @@ router.get('/searchResults/:searchInput', requireAuth, asyncHandler(async(req, r
     });
 
     const readSearchTasks = searchTasks.map(function (task) {
-        readTask = {
+        const list = Lists.findByPk(task.listId)
+        let readTask = {
             type: 'tasks',
             id: task.id,
-            name: task.description
+            name: task.description,
         }
         return readTask;
     });
@@ -161,7 +162,7 @@ router.get('/searchResults/:searchInput', requireAuth, asyncHandler(async(req, r
     const result = [...readSearchTasks, ...readSearchLists];
     console.log(result);
 
-    res.render('search-results', {title: 'Search', searchInput, result} );
+    res.render('search-results', {title: 'Search', searchInput, result, userId} );
 
 }));
 
