@@ -349,3 +349,9 @@ body {
     justify-content: center;
 	flex-direction: column;
 }
+
+.list-content {
+	margin-left: 5px;
+	font-weight: bold;
+	color: #444444;
+}
